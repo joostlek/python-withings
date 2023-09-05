@@ -141,3 +141,136 @@ class Goals:
             sleep=goals["sleep"],
             weight=get_measurement_from_dict(goals["weight"]),
         )
+
+
+class MeasurementGroupAttribution(IntEnum):
+    """Measure group attributions."""
+
+    UNKNOWN = -1
+    DEVICE_ENTRY_FOR_USER = 0
+    DEVICE_ENTRY_FOR_USER_AMBIGUOUS = 1
+    MANUAL_USER_ENTRY = 2
+    MANUAL_USER_DURING_ACCOUNT_CREATION = 4
+    MEASURE_AUTO = 5
+    MEASURE_USER_CONFIRMED = 7
+
+
+class MeasurementGroupCategory(IntEnum):
+    """Measure categories."""
+
+    UNKNOWN = 0
+    REAL = 1
+    USER_OBJECTIVES = 2
+
+
+@dataclass(slots=True)
+class MeasurementGroup:
+    """Model for a measurement group."""
+
+    group_id: int
+    attribution: MeasurementGroupAttribution
+    taken_at: datetime
+    stored_at: datetime
+    updated_at: datetime
+    category: MeasurementGroupCategory
+    device_id: str
+    hashed_device_id: str
+    measurements: list[Measurement]
+
+    @classmethod
+    def from_api(cls, measurement_group: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        if measurement_group["attrib"] == 8:
+            measurement_group["attrib"] = 0
+        return cls(
+            group_id=measurement_group["grpid"],
+            attribution=to_enum(
+                MeasurementGroupAttribution,
+                measurement_group["attrib"],
+                MeasurementGroupAttribution.UNKNOWN,
+            ),
+            taken_at=datetime.fromtimestamp(
+                measurement_group["date"],
+                tz=timezone.utc,
+            ),
+            stored_at=datetime.fromtimestamp(
+                measurement_group["created"],
+                tz=timezone.utc,
+            ),
+            updated_at=datetime.fromtimestamp(
+                measurement_group["modified"],
+                tz=timezone.utc,
+            ),
+            category=to_enum(
+                MeasurementGroupCategory,
+                measurement_group["category"],
+                MeasurementGroupCategory.UNKNOWN,
+            ),
+            device_id=measurement_group["deviceid"],
+            hashed_device_id=measurement_group["hash_deviceid"],
+            measurements=[
+                Measurement.from_api(measurement)
+                for measurement in measurement_group["measures"]
+            ],
+        )
+
+
+class MeasurementType(IntEnum):
+    """Measurement types."""
+
+    UNKNOWN = 0
+    WEIGHT = 1
+    HEIGHT = 4
+    FAT_FREE_MASS = 5
+    FAT_RATIO = 6
+    FAT_MASS_WEIGHT = 8
+    DIASTOLIC_BLOOD_PRESSURE = 9
+    SYSTOLIC_BLOOD_PRESSURE = 10
+    HEART_RATE = 11
+    TEMPERATURE = 12
+    SP02 = 54
+    BODY_TEMPERATURE = 71
+    SKIN_TEMPERATURE = 73
+    MUSCLE_MASS = 76
+    HYDRATION = 77
+    BONE_MASS = 88
+    PULSE_WAVE_VELOCITY = 91
+    VO2 = 123
+    ATRIAL_FIBRILLATION = 130
+    QRS_INTERVAL = 135
+    PR_INTERVAL = 136
+    QT_INTERVAL = 137
+    CORRECTED_QT_INTERVAL = 138
+    ATRIAL_FIBRILLATION_FROM_PPG = 139
+    VASCULAR_AGE = 155
+    NERVE_HEALTH_SCORE_LEFT_FOOT = 158
+    NERVE_HEALTH_SCORE_RIGHT_FOOT = 159
+    NERVE_HEALTH_SCORE_FEET = 167
+    EXTRACELLULAR_WATER = 168
+    INTRACELLULAR_WATER = 169
+    VISCERAL_FAT = 170
+    FAT_MASS_FOR_SEGMENTS = 174
+    MUSCLE_MASS_FOR_SEGMENTS = 175
+    ELECTRODERMAL_ACTIVITY_FEET = 196
+    ELECTRODERMAL_ACTIVITY_LEFT_FOOT = 197
+    ELECTRODERMAL_ACTIVITY_RIGHT_FOOT = 198
+
+
+@dataclass(slots=True)
+class Measurement:
+    """Model for a measurement."""
+
+    measurement_type: MeasurementType
+    value: float
+
+    @classmethod
+    def from_api(cls, measurement: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            measurement_type=to_enum(
+                MeasurementType,
+                measurement["type"],
+                MeasurementType.UNKNOWN,
+            ),
+            value=get_measurement_from_dict(measurement),
+        )

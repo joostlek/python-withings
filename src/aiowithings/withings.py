@@ -15,9 +15,11 @@ from .exceptions import (
     WithingsConnectionError,
     WithingsError,
 )
-from .models import Device, Goals
+from .models import Device, Goals, MeasurementGroup, MeasurementType
 
 if TYPE_CHECKING:
+    from datetime import datetime
+
     from typing_extensions import Self
 
 
@@ -92,6 +94,45 @@ class WithingsClient:
         """Get goals."""
         response = await self._request("v2/user", data={"action": "getgoals"})
         return Goals.from_api(response["body"]["goals"])
+
+    async def _get_measurements(
+        self,
+        measurement_types: list[MeasurementType] | None,
+        base_data: dict[str, Any],
+    ) -> list[MeasurementGroup]:
+        data = {**base_data, "action": "getmeas"}
+        if measurement_types is not None:
+            data["meastypes"] = ",".join(
+                [str(measurement_type) for measurement_type in measurement_types],
+            )
+        response = await self._request("measure", data=data)
+        return [
+            MeasurementGroup.from_api(measurement_group)
+            for measurement_group in response["body"]["measuregrps"]
+        ]
+
+    async def get_measurement_since(
+        self,
+        measurement_since: datetime,
+        measurement_types: list[MeasurementType] | None = None,
+    ) -> list[MeasurementGroup]:
+        """Get all measurements since measurement_since."""
+        return await self._get_measurements(
+            measurement_types,
+            {"lastupdate": measurement_since.timestamp()},
+        )
+
+    async def get_measurement_in_period(
+        self,
+        start_date: datetime,
+        end_date: datetime,
+        measurement_types: list[MeasurementType] | None = None,
+    ) -> list[MeasurementGroup]:
+        """Get all measurements measured since start date and until end date."""
+        return await self._get_measurements(
+            measurement_types,
+            {"startdate": start_date.timestamp(), "enddate": end_date.timestamp()},
+        )
 
     async def close(self) -> None:
         """Close open client session."""

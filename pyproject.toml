@@ -1,14 +1,155 @@
 [tool.poetry]
 name = "aiowithings"
 version = "0.1.0"
-description = ""
-authors = ["Joostlek <joostlek@outlook.com>"]
+description = "Asynchronous Python client for Withings."
+authors = ["Joost Lekkerkerker <joostlek@outlook.com>"]
+maintainers = ["Joost Lekkerkerker <joostlek@outlook.com>"]
+license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/joostlek/python-withings"
+repository = "https://github.com/joostlek/python-withings"
+documentation = "https://github.com/joostlek/python-withings"
+keywords = ["Withings", "api", "async", "client"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [
+    { include = "aiowithings", from = "src" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+aiohttp = ">=3.0.0"
+yarl = ">=1.6.0"
 
+[tool.poetry.group.dev.dependencies]
+aresponses = "2.1.6"
+black = "23.7.0"
+blacken-docs = "1.16.0"
+codespell = "2.2.5"
+covdefaults = "2.3.0"
+coverage = {version = "7.3.0", extras = ["toml"]}
+mypy = "1.5.1"
+pre-commit = "3.3.3"
+pre-commit-hooks = "4.4.0"
+pylint = "2.17.5"
+pytest = "7.4.0"
+pytest-asyncio = "0.21.1"
+pytest-cov = "4.1.0"
+ruff = "0.0.285"
+safety = "2.4.0b1"
+yamllint = "1.32.0"
+syrupy = "4.1.1"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/joostlek/python-withings/issues"
+Changelog = "https://github.com/joostlek/python-withings/releases"
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.run]
+plugins = ["covdefaults"]
+source = ["aiowithings"]
+
+[tool.mypy]
+# Specify the target platform details in config, so your developers are
+# free to run mypy on Windows, Linux, or macOS and get consistent
+# results.
+platform = "linux"
+python_version = "3.11"
+
+# show error messages from unrelated files
+follow_imports = "normal"
+
+# suppress errors about unsatisfied imports
+ignore_missing_imports = true
+
+# be strict
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+strict_optional = true
+warn_incomplete_stub = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.pylint.MASTER]
+ignore = [
+  "tests",
+]
+
+[tool.pylint.BASIC]
+good-names = [
+  "_",
+  "ex",
+  "fp",
+  "i",
+  "id",
+  "j",
+  "k",
+  "on",
+  "Run",
+  "T",
+]
+
+[tool.pylint.DESIGN]
+max-attributes = 8
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = [
+  "duplicate-code",
+  "format",
+  "unsubscriptable-object",
+]
+
+[tool.pylint.SIMILARITIES]
+ignore-imports = true
+
+[tool.pylint.FORMAT]
+max-line-length = 88
+
+[tool.pytest.ini_options]
+addopts = "--cov"
+asyncio_mode = "auto"
+
+[tool.ruff]
+ignore = [
+  "ANN101", # Self... explanatory
+  "ANN102", # cls... just as useless
+  "ANN401", # Opinioated warning on disallowing dynamically typed expressions
+  "D203", # Conflicts with other rules
+  "D213", # Conflicts with other rules
+  "D417", # False positives in some occasions
+  "PLR2004", # Just annoying, not really useful
+  "TCH001",
+]
+select = ["ALL"]
+
+[tool.ruff.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.ruff.isort]
+known-first-party = ["aiowithings"]
+
+[tool.ruff.mccabe]
+max-complexity = 25
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]

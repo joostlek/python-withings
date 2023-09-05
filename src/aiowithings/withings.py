@@ -15,7 +15,7 @@ from .exceptions import (
     WithingsConnectionError,
     WithingsError,
 )
-from .models import Device
+from .models import Device, Goals
 
 if TYPE_CHECKING:
     from typing_extensions import Self
@@ -87,6 +87,11 @@ class WithingsClient:
         """Get devices."""
         response = await self._request("v2/user", data={"action": "getdevice"})
         return [Device.from_api(device) for device in response["body"]["devices"]]
+
+    async def get_goals(self) -> Goals:
+        """Get goals."""
+        response = await self._request("v2/user", data={"action": "getgoals"})
+        return Goals.from_api(response["body"]["goals"])
 
     async def close(self) -> None:
         """Close open client session."""

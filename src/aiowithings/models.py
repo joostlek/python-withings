@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from enum import IntEnum, StrEnum
 from typing import Any, Self
 
-from aiowithings.util import to_enum
+from aiowithings.util import get_measurement_from_dict, to_enum
 
 
 class DeviceModel(IntEnum):
@@ -122,4 +122,22 @@ class Device:
             last_session_date=last_session_date,
             device_id=device["deviceid"],
             hashed_device_id=device["hash_deviceid"],
+        )
+
+
+@dataclass(slots=True)
+class Goals:
+    """Model for Withings goals."""
+
+    steps: int
+    sleep: int
+    weight: float
+
+    @classmethod
+    def from_api(cls, goals: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            steps=goals["steps"],
+            sleep=goals["sleep"],
+            weight=get_measurement_from_dict(goals["weight"]),
         )

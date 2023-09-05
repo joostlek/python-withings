@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from enum import IntEnum, StrEnum
 from typing import Any, Self
 
+from aiowithings.util import to_enum
+
 
 class DeviceModel(IntEnum):
     """Enum with device models."""
@@ -113,9 +115,9 @@ class Device:
                 tz=timezone.utc,
             )
         return cls(
-            device_type=DeviceType(device["type"]),
+            device_type=to_enum(DeviceType, device["type"], DeviceType.UNKNOWN),
             battery=DeviceBattery(device["battery"]),
-            model=DeviceModel(device["model_id"]),
+            model=to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN),
             first_session_date=first_session_date,
             last_session_date=last_session_date,
             device_id=device["deviceid"],

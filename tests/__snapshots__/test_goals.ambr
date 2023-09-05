@@ -1,0 +1,4 @@
+# serializer version: 1
+# name: test_get_goals
+  Goals(steps=10000, sleep=28800, weight=70.5)
+# ---

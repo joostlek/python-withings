@@ -147,6 +147,8 @@ mark-parentheses = false
 
 [tool.ruff.isort]
 known-first-party = ["aiowithings"]
+force-sort-within-sections = true
+split-on-trailing-comma = false
 
 [tool.ruff.mccabe]
 max-complexity = 25

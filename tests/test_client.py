@@ -5,9 +5,9 @@ import asyncio
 import json
 
 import aiohttp
-import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
+import pytest
 
 from aiowithings import (
     WithingsAuthenticationFailedError,

@@ -5,9 +5,7 @@ import aiohttp
 from aresponses import ResponsesMockServer
 from syrupy import SnapshotAssertion
 
-from aiowithings import (
-    WithingsClient,
-)
+from aiowithings import WithingsClient
 from aiowithings.models import MeasurementType
 
 from . import load_fixture

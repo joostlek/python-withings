@@ -6,9 +6,9 @@ from dataclasses import dataclass
 from importlib import metadata
 from typing import TYPE_CHECKING, Any, cast
 
-import async_timeout
 from aiohttp import ClientSession
 from aiohttp.hdrs import METH_POST
+import async_timeout
 from yarl import URL
 
 from .const import (

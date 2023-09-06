@@ -137,7 +137,6 @@ ignore = [
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions
   "PLR2004", # Just annoying, not really useful
-  "TCH001",
 ]
 select = ["ALL"]
 
@@ -147,6 +146,9 @@ mark-parentheses = false
 
 [tool.ruff.isort]
 known-first-party = ["aiowithings"]
+force-sort-within-sections = true
+split-on-trailing-comma = false
+combine-as-imports = true
 
 [tool.ruff.mccabe]
 max-complexity = 25

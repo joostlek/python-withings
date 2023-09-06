@@ -1,13 +1,11 @@
 """Asynchronous Python client for Withings."""
 
 import aiohttp
-import pytest
 from aresponses import ResponsesMockServer
+import pytest
 from syrupy import SnapshotAssertion
 
-from aiowithings import (
-    WithingsClient,
-)
+from aiowithings import WithingsClient
 
 from . import load_fixture
 

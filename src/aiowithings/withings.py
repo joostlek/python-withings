@@ -11,9 +11,26 @@ from aiohttp import ClientSession
 from aiohttp.hdrs import METH_POST
 from yarl import URL
 
+from .const import (
+    STATUS_AUTH_FAILED,
+    STATUS_BAD_STATE,
+    STATUS_ERROR_OCCURRED,
+    STATUS_INVALID_PARAMS,
+    STATUS_SUCCESS,
+    STATUS_TIMEOUT,
+    STATUS_TOO_MANY_REQUESTS,
+    STATUS_UNAUTHORIZED,
+)
 from .exceptions import (
+    WithingsAuthenticationFailedError,
+    WithingsBadStateError,
     WithingsConnectionError,
     WithingsError,
+    WithingsErrorOccurredError,
+    WithingsInvalidParamsError,
+    WithingsTooManyRequestsError,
+    WithingsUnauthorizedError,
+    WithingsUnknownStatusError,
 )
 from .models import Device, Goals, MeasurementGroup, MeasurementType
 
@@ -83,17 +100,35 @@ class WithingsClient:
                 {"Content-Type": content_type, "response": text},
             )
 
-        return cast(dict[str, Any], await response.json())
+        response_data = cast(dict[str, Any], await response.json())
+        response_status = response_data.get("status", -1)
+        if response_status in STATUS_SUCCESS:
+            return cast(dict[str, Any], response_data.get("body"))
+        if response_status in STATUS_AUTH_FAILED:
+            raise WithingsAuthenticationFailedError
+        if response_status in STATUS_INVALID_PARAMS:
+            raise WithingsInvalidParamsError
+        if response_status in STATUS_UNAUTHORIZED:
+            raise WithingsUnauthorizedError
+        if response_status in STATUS_ERROR_OCCURRED:
+            raise WithingsErrorOccurredError
+        if response_status in STATUS_TIMEOUT:
+            raise WithingsConnectionError
+        if response_status in STATUS_BAD_STATE:
+            raise WithingsBadStateError
+        if response_status in STATUS_TOO_MANY_REQUESTS:
+            raise WithingsTooManyRequestsError
+        raise WithingsUnknownStatusError
 
     async def get_devices(self) -> list[Device]:
         """Get devices."""
         response = await self._request("v2/user", data={"action": "getdevice"})
-        return [Device.from_api(device) for device in response["body"]["devices"]]
+        return [Device.from_api(device) for device in response["devices"]]
 
     async def get_goals(self) -> Goals:
         """Get goals."""
         response = await self._request("v2/user", data={"action": "getgoals"})
-        return Goals.from_api(response["body"]["goals"])
+        return Goals.from_api(response["goals"])
 
     async def _get_measurements(
         self,
@@ -108,7 +143,7 @@ class WithingsClient:
         response = await self._request("measure", data=data)
         return [
             MeasurementGroup.from_api(measurement_group)
-            for measurement_group in response["body"]["measuregrps"]
+            for measurement_group in response["measuregrps"]
         ]
 
     async def get_measurement_since(

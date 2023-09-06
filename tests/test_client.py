@@ -1,12 +1,26 @@
 """Asynchronous Python client for Withings."""
+from __future__ import annotations
+
 import asyncio
+import json
 
 import aiohttp
 import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from aiowithings import WithingsClient, WithingsConnectionError, WithingsError
+from aiowithings import (
+    WithingsAuthenticationFailedError,
+    WithingsBadStateError,
+    WithingsClient,
+    WithingsConnectionError,
+    WithingsError,
+    WithingsErrorOccurredError,
+    WithingsInvalidParamsError,
+    WithingsTooManyRequestsError,
+    WithingsUnauthorizedError,
+    WithingsUnknownStatusError,
+)
 
 from . import load_fixture
 
@@ -73,5 +87,46 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
         withings = WithingsClient(session=session, request_timeout=1)
         withings.authenticate("test")
         with pytest.raises(WithingsConnectionError):
+            assert await withings.get_devices()
+        await withings.close()
+
+
+@pytest.mark.parametrize(
+    ("status", "error"),
+    [
+        (100, WithingsAuthenticationFailedError),
+        (201, WithingsInvalidParamsError),
+        (214, WithingsUnauthorizedError),
+        (215, WithingsErrorOccurredError),
+        (522, WithingsConnectionError),
+        (524, WithingsBadStateError),
+        (601, WithingsTooManyRequestsError),
+        (-1, WithingsUnknownStatusError),
+        (None, WithingsUnknownStatusError),
+    ],
+)
+async def test_error_codes(
+    aresponses: ResponsesMockServer,
+    status: int | None,
+    error: type[Exception],
+) -> None:
+    """Test error codes from withings."""
+    response_data = json.loads(load_fixture("device.json"))
+    response_data["status"] = status
+
+    aresponses.add(
+        WITHINGS_URL,
+        "/v2/user",
+        "POST",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=json.dumps(response_data),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        withings = WithingsClient(session=session)
+        withings.authenticate("test")
+        with pytest.raises(error):
             assert await withings.get_devices()
         await withings.close()

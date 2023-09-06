@@ -1,11 +1,28 @@
 """Asynchronous Python client for Withings."""
 
 from .exceptions import (
-    WithingsAuthenticationError,
+    WithingsAuthenticationFailedError,
+    WithingsBadStateError,
     WithingsConnectionError,
     WithingsError,
+    WithingsErrorOccurredError,
+    WithingsInvalidParamsError,
+    WithingsTooManyRequestsError,
+    WithingsUnauthorizedError,
+    WithingsUnknownStatusError,
 )
-from .models import Device, DeviceBattery, DeviceModel, DeviceType
+from .models import (
+    Device,
+    DeviceBattery,
+    DeviceModel,
+    DeviceType,
+    Goals,
+    Measurement,
+    MeasurementGroup,
+    MeasurementGroupAttribution,
+    MeasurementGroupCategory,
+    MeasurementType,
+)
 from .withings import WithingsClient
 
 __all__ = [
@@ -15,6 +32,18 @@ __all__ = [
     "DeviceModel",
     "WithingsError",
     "WithingsConnectionError",
-    "WithingsAuthenticationError",
+    "WithingsAuthenticationFailedError",
+    "WithingsInvalidParamsError",
+    "WithingsUnauthorizedError",
+    "WithingsErrorOccurredError",
+    "WithingsBadStateError",
+    "WithingsTooManyRequestsError",
+    "WithingsUnknownStatusError",
     "WithingsClient",
+    "Goals",
+    "MeasurementGroupAttribution",
+    "MeasurementGroupCategory",
+    "MeasurementGroup",
+    "MeasurementType",
+    "Measurement",
 ]

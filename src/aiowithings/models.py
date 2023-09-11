@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from enum import IntEnum, StrEnum
+from enum import IntEnum, IntFlag, StrEnum
 from typing import Any, Self
 
 from aiowithings.util import get_measurement_from_dict, to_enum
@@ -273,4 +273,128 @@ class Measurement:
                 MeasurementType.UNKNOWN,
             ),
             value=get_measurement_from_dict(measurement),
+        )
+
+
+class NotificationCategory(IntEnum):
+    """Enum representing the notification category (Appli)."""
+
+    UNKNOWN = 0
+    WEIGHT = 1
+    TEMPERATURE = 2
+    PRESSURE = 4
+    ACTIVITY = 16
+    SLEEP = 44
+    USER_DATA = 46
+    IN_BED = 50
+    OUT_BED = 51
+    INITIAL_INFLATION_DONE = 52
+    NO_ACCOUNT_ASSOCIATED = 53
+    ECG = 54
+    ECG_FAILED = 55
+    GLUCOSE = 58
+
+
+class Services(IntFlag):
+    """Enum representing the possible services."""
+
+    MEASURE_GET_MEAS = 1
+    MEASURE_V2_GET_ACTIVITY = 2
+    MEASURE_V2_GET_INTRA_DAY_ACTIVITY = 4
+    MEASURE_V2_GET_WORKOUTS = 8
+    SLEEP_V2_GET_SLEEP = 16
+    SLEEP_V2_GET_SUMMARY = 32
+    USER_V2_ACTIVATE = 64
+    USER_V2_LINK = 128
+    HEART_V2_LIST = 256
+
+
+def get_measurement_type_from_notification_category(
+    category: NotificationCategory,
+) -> list[MeasurementType]:
+    """Get measurement types from notification category."""
+    match category:
+        case NotificationCategory.WEIGHT:
+            return [
+                MeasurementType.WEIGHT,
+                MeasurementType.FAT_FREE_MASS,
+                MeasurementType.FAT_RATIO,
+                MeasurementType.FAT_MASS_WEIGHT,
+                MeasurementType.BODY_TEMPERATURE,
+                MeasurementType.SKIN_TEMPERATURE,
+                MeasurementType.MUSCLE_MASS,
+                MeasurementType.HYDRATION,
+                MeasurementType.BONE_MASS,
+                MeasurementType.PULSE_WAVE_VELOCITY,
+            ]
+        case NotificationCategory.TEMPERATURE:
+            return [
+                MeasurementType.TEMPERATURE,
+                MeasurementType.BODY_TEMPERATURE,
+                MeasurementType.SKIN_TEMPERATURE,
+            ]
+        case NotificationCategory.PRESSURE:
+            return [
+                MeasurementType.DIASTOLIC_BLOOD_PRESSURE,
+                MeasurementType.SYSTOLIC_BLOOD_PRESSURE,
+                MeasurementType.HEART_RATE,
+                MeasurementType.SP02,
+            ]
+    return []
+
+
+@dataclass(slots=True)
+class NotificationConfiguration:
+    """Class representing the webhook config from Withings."""
+
+    notification_category: NotificationCategory
+    callback_url: str
+    expires: datetime
+    comment: str
+
+    @classmethod
+    def from_api(cls, configuration: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            notification_category=to_enum(
+                NotificationCategory,
+                configuration["appli"],
+                NotificationCategory.UNKNOWN,
+            ),
+            callback_url=configuration["callbackurl"],
+            expires=datetime.fromtimestamp(
+                configuration["expires"],
+                tz=timezone.utc,
+            ),
+            comment=configuration["comment"],
+        )
+
+
+@dataclass(slots=True)
+class WebhookCall:
+    """Class representing the webhook call from Withings."""
+
+    user_id: int
+    notification_category: NotificationCategory
+    start_date: datetime
+    end_date: datetime
+
+    @classmethod
+    def from_api(cls, data: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            user_id=data["userid"],
+            notification_category=to_enum(
+                NotificationCategory,
+                data["appli"],
+                NotificationCategory.UNKNOWN,
+            ),
+            start_date=datetime.fromtimestamp(
+                data["startdate"],
+                tz=timezone.utc,
+            ),
+            end_date=datetime.fromtimestamp(
+                data["enddate"],
+                tz=timezone.utc,
+            ),
         )

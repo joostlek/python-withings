@@ -22,6 +22,10 @@ from .models import (
     MeasurementGroupAttribution,
     MeasurementGroupCategory,
     MeasurementType,
+    NotificationCategory,
+    Services,
+    WebhookCall,
+    get_measurement_type_from_notification_category,
 )
 from .withings import WithingsClient
 
@@ -46,4 +50,8 @@ __all__ = [
     "MeasurementGroup",
     "MeasurementType",
     "Measurement",
+    "get_measurement_type_from_notification_category",
+    "NotificationCategory",
+    "Services",
+    "WebhookCall",
 ]

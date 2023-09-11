@@ -32,7 +32,14 @@ from .exceptions import (
     WithingsUnauthorizedError,
     WithingsUnknownStatusError,
 )
-from .models import Device, Goals, MeasurementGroup, MeasurementType
+from .models import (
+    Device,
+    Goals,
+    MeasurementGroup,
+    MeasurementType,
+    NotificationCategory,
+    NotificationConfiguration,
+)
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -168,6 +175,38 @@ class WithingsClient:
             measurement_types,
             {"startdate": start_date.timestamp(), "enddate": end_date.timestamp()},
         )
+
+    async def subscribe_notification(
+        self,
+        callback_url: str,
+        notification_category: NotificationCategory,
+    ) -> None:
+        """Subscribe the callback_url for webhook updates."""
+        await self._request(
+            "notify",
+            data={
+                "action": "subscribe",
+                "callbackurl": callback_url,
+                "appli": notification_category,
+            },
+        )
+
+    async def list_notification_configurations(
+        self,
+        notification_category: NotificationCategory,
+    ) -> list[NotificationConfiguration]:
+        """Subscribe the callback_url for webhook updates."""
+        response = await self._request(
+            "notify",
+            data={
+                "action": "list",
+                "appli": notification_category,
+            },
+        )
+        return [
+            NotificationConfiguration.from_api(config)
+            for config in response["profiles"]
+        ]
 
     async def close(self) -> None:
         """Close open client session."""

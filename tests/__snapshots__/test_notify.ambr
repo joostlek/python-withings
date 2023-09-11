@@ -1,0 +1,82 @@
+# serializer version: 1
+# name: test_list_subscriptions
+  list([
+    NotificationConfiguration(notification_category=<NotificationCategory.WEIGHT: 1>, callback_url='https://www.withings.com', expires=datetime.datetime(2038, 1, 19, 3, 14, 7, tzinfo=datetime.timezone.utc), comment='My notification subscription'),
+  ])
+# ---
+# name: test_measurement_points_to_get[ACTIVITY]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[ECG]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[ECG_FAILED]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[GLUCOSE]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[INITIAL_INFLATION_DONE]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[IN_BED]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[NO_ACCOUNT_ASSOCIATED]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[OUT_BED]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[PRESSURE]
+  list([
+    <MeasurementType.DIASTOLIC_BLOOD_PRESSURE: 9>,
+    <MeasurementType.SYSTOLIC_BLOOD_PRESSURE: 10>,
+    <MeasurementType.HEART_RATE: 11>,
+    <MeasurementType.SP02: 54>,
+  ])
+# ---
+# name: test_measurement_points_to_get[SLEEP]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[TEMPERATURE]
+  list([
+    <MeasurementType.TEMPERATURE: 12>,
+    <MeasurementType.BODY_TEMPERATURE: 71>,
+    <MeasurementType.SKIN_TEMPERATURE: 73>,
+  ])
+# ---
+# name: test_measurement_points_to_get[UNKNOWN]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[USER_DATA]
+  list([
+  ])
+# ---
+# name: test_measurement_points_to_get[WEIGHT]
+  list([
+    <MeasurementType.WEIGHT: 1>,
+    <MeasurementType.FAT_FREE_MASS: 5>,
+    <MeasurementType.FAT_RATIO: 6>,
+    <MeasurementType.FAT_MASS_WEIGHT: 8>,
+    <MeasurementType.BODY_TEMPERATURE: 71>,
+    <MeasurementType.SKIN_TEMPERATURE: 73>,
+    <MeasurementType.MUSCLE_MASS: 76>,
+    <MeasurementType.HYDRATION: 77>,
+    <MeasurementType.BONE_MASS: 88>,
+    <MeasurementType.PULSE_WAVE_VELOCITY: 91>,
+  ])
+# ---
+# name: test_webhook_object
+  WebhookCall(user_id=12345, notification_category=<NotificationCategory.WEIGHT: 1>, start_date=datetime.datetime(2018, 7, 3, 0, 0, tzinfo=datetime.timezone.utc), end_date=datetime.datetime(2018, 7, 4, 10, 5, 53, tzinfo=datetime.timezone.utc))
+# ---

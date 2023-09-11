@@ -42,6 +42,31 @@ async def test_subscribing(
         await withings.close()
 
 
+async def test_revoking(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test subscribing to webhook updates."""
+    aresponses.add(
+        WITHINGS_URL,
+        "/notify",
+        "POST",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=load_fixture("notify_revoke.json"),
+        ),
+        body_pattern="action=revoke&callbackurl=https%3A%2F%2Ftest.com%2Fcallback&appli=4",
+    )
+    async with aiohttp.ClientSession() as session:
+        withings = WithingsClient(session=session)
+        withings.authenticate("test")
+        await withings.revoke_notification_configurations(
+            "https://test.com/callback",
+            NotificationCategory.PRESSURE,
+        )
+        await withings.close()
+
+
 async def test_list_subscriptions(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,

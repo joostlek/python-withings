@@ -208,6 +208,21 @@ class WithingsClient:
             for config in response["profiles"]
         ]
 
+    async def revoke_notification_configurations(
+        self,
+        callback_url: str,
+        notification_category: NotificationCategory,
+    ) -> None:
+        """Revoke the configuration for webhook updates."""
+        await self._request(
+            "notify",
+            data={
+                "action": "revoke",
+                "callbackurl": callback_url,
+                "appli": notification_category,
+            },
+        )
+
     async def close(self) -> None:
         """Close open client session."""
         if self.session and self._close_session:

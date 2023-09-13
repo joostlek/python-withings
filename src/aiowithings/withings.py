@@ -39,6 +39,8 @@ from .models import (
     MeasurementType,
     NotificationCategory,
     NotificationConfiguration,
+    SleepDataFields,
+    SleepSeries,
 )
 
 if TYPE_CHECKING:
@@ -175,6 +177,28 @@ class WithingsClient:
             measurement_types,
             {"startdate": start_date.timestamp(), "enddate": end_date.timestamp()},
         )
+
+    async def get_sleep(
+        self,
+        start_date: datetime,
+        end_date: datetime,
+        data_fields: list[SleepDataFields] | None = None,
+    ) -> list[SleepSeries]:
+        """Revoke the configuration for webhook updates."""
+        data = {
+            "action": "get",
+            "startdate": start_date.timestamp(),
+            "enddate": end_date.timestamp(),
+        }
+        if data_fields is not None:
+            data["data_fields"] = ",".join(
+                [str(sleep_data_field) for sleep_data_field in data_fields],
+            )
+        response = await self._request(
+            "v2/sleep",
+            data=data,
+        )
+        return [SleepSeries.from_api(sleep) for sleep in response["series"]]
 
     async def subscribe_notification(
         self,

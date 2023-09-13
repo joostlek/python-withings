@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from enum import IntEnum, IntFlag, StrEnum
 from typing import Any, Self
 
@@ -489,4 +489,127 @@ class SleepSeries:
                 sleep_data.get("rmssd"),
             ),
             movement_score=get_sleep_series_time_data_list(sleep_data.get("mvt_score")),
+        )
+
+
+class SleepSummaryDataFields(StrEnum):
+    """Enum representing the sleep summary data fields."""
+
+    # Standard sleep medicine metrics
+    REM_SLEEP_PHASE_COUNT = "nb_rem_episodes"
+    SLEEP_EFFICIENCY = "sleep_efficiency"
+    SLEEP_LATENCY = "sleep_latency"
+    TOTAL_SLEEP_TIME = "total_sleep_time"
+    TOTAL_TIME_IN_BED = "total_timeinbed"
+    WAKE_UP_LATENCY = "wakeup_latency"
+    TIME_AWAKE_DURING_SLEEP = "waso"
+
+    # Sleep apnea and breathing disturbances
+    APNEA_HYPOPNEA_INDEX = "apnea_hypopnea_index"
+    BREATHING_DISTURBANCES_INTENSITY = "breathing_disturbances_intensity"
+
+    # Other sleep datapoints and vitals
+    EXTERNAL_TOTAL_SLEEP_TIME = "asleepduration"
+    DEEP_SLEEP_DURATION = "deepsleepduration"
+    AVERAGE_HEART_RATE = "hr_average"
+    MIN_HEART_RATE = "hr_min"
+    MAX_HEART_RATE = "hr_max"
+    LIGHT_SLEEP_DURATION = "lightsleepduration"
+    ACTIVE_MOVEMENT_DURATION = "mvt_active_duration"
+    AVERAGE_MOVEMENT_SCORE = "mvt_score_avg"
+    NIGHT_EVENTS = "night_events"
+    OUT_OF_BED_COUNT = "out_of_bed_count"
+    REM_SLEEP_DURATION = "remsleepduration"
+    AVERAGE_RESPIRATION_RATE = "rr_average"
+    MIN_RESPIRATION_RATE = "rr_min"
+    MAX_RESPIRATION_RATE = "rr_max"
+    SLEEP_SCORE = "sleep_score"
+    SNORING = "snoring"
+    SNORING_COUNT = "snoringepisodecount"
+    WAKE_UP_COUNT = "wakeupcount"
+    TOTAL_TIME_AWAKE = "wakeupduration"
+    WITHINGS_INDEX = "withings_index"
+
+
+@dataclass(slots=True)
+class SleepSummary:
+    """Class representing sleep summary."""
+
+    start_date: datetime
+    end_date: datetime
+    date: date
+    hashed_device_id: str
+    apnea_hypopnea_index: int | None
+    external_time_asleep: int | None
+    breathing_disturbances_intensity: int | None
+    deep_sleep_duration: int | None
+    average_heart_rate: int | None
+    min_heart_rate: int | None
+    max_heart_rate: int | None
+    light_sleep_duration: int | None
+    active_movement_duration: int | None
+    average_movement_score: int | None
+    rem_sleep_phase_count: int | None
+    out_of_bed_count: int | None
+    rem_sleep_duration: int | None
+    average_respiration_rate: int | None
+    min_respiration_rate: int | None
+    max_respiration_rate: int | None
+    sleep_efficiency: int | None
+    sleep_latency: int | None
+    sleep_score: int | None
+    snoring: int | None
+    snoring_count: int | None
+    total_sleep_time: int | None
+    total_time_in_bed: int | None
+    wake_up_latency: int | None
+    wake_up_count: int | None
+    total_time_awake: int | None
+    time_awake_during_sleep: int | None
+    withings_index: int | None
+
+    @classmethod
+    def from_api(cls, sleep_data: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            start_date=datetime.fromtimestamp(
+                sleep_data["startdate"],
+                tz=timezone.utc,
+            ),
+            end_date=datetime.fromtimestamp(
+                sleep_data["enddate"],
+                tz=timezone.utc,
+            ),
+            date=date.fromisoformat(sleep_data["date"]),
+            hashed_device_id=sleep_data["hash_deviceid"],
+            apnea_hypopnea_index=sleep_data["data"].get("apnea_hypopnea_index"),
+            external_time_asleep=sleep_data["data"].get("asleepduration"),
+            breathing_disturbances_intensity=sleep_data["data"].get(
+                "breathing_disturbances_intensity",
+            ),
+            deep_sleep_duration=sleep_data["data"].get("deepsleepduration"),
+            average_heart_rate=sleep_data["data"].get("hr_average"),
+            min_heart_rate=sleep_data["data"].get("hr_min"),
+            max_heart_rate=sleep_data["data"].get("hr_max"),
+            light_sleep_duration=sleep_data["data"].get("lightsleepduration"),
+            active_movement_duration=sleep_data["data"].get("mvt_active_duration"),
+            average_movement_score=sleep_data["data"].get("mvt_score_avg"),
+            rem_sleep_phase_count=sleep_data["data"].get("nb_rem_episodes"),
+            out_of_bed_count=sleep_data["data"].get("out_of_bed_count"),
+            rem_sleep_duration=sleep_data["data"].get("remsleepduration"),
+            average_respiration_rate=sleep_data["data"].get("rr_average"),
+            min_respiration_rate=sleep_data["data"].get("rr_min"),
+            max_respiration_rate=sleep_data["data"].get("rr_max"),
+            sleep_efficiency=sleep_data["data"].get("sleep_efficiency"),
+            sleep_latency=sleep_data["data"].get("sleep_latency"),
+            sleep_score=sleep_data["data"].get("sleep_score"),
+            snoring=sleep_data["data"].get("snoring"),
+            snoring_count=sleep_data["data"].get("snoringepisodecount"),
+            total_sleep_time=sleep_data["data"].get("total_sleep_time"),
+            total_time_in_bed=sleep_data["data"].get("total_timeinbed"),
+            wake_up_latency=sleep_data["data"].get("wakeup_latency"),
+            wake_up_count=sleep_data["data"].get("wakeupcount"),
+            total_time_awake=sleep_data["data"].get("wakeupduration"),
+            time_awake_during_sleep=sleep_data["data"].get("waso"),
+            withings_index=sleep_data["data"].get("withings_index"),
         )

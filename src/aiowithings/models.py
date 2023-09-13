@@ -398,3 +398,95 @@ class WebhookCall:
                 tz=timezone.utc,
             ),
         )
+
+
+def get_sleep_series_time_data(time: str, value: int) -> SleepSeriesTimeData:
+    """Return sleep series time data."""
+    return SleepSeriesTimeData(
+        time=datetime.fromtimestamp(
+            int(time),
+            tz=timezone.utc,
+        ),
+        value=value,
+    )
+
+
+def get_sleep_series_time_data_list(
+    data: dict[str, int] | None,
+) -> list[SleepSeriesTimeData] | None:
+    """Return sleep series time data."""
+    if data is None:
+        return None
+    return [get_sleep_series_time_data(time, value) for time, value in data.items()]
+
+
+class SleepState(IntEnum):
+    """Enum representing the sleep states."""
+
+    AWAKE = 0
+    LIGHT_SLEEP = 1
+    DEEP_SLEEP = 2
+    REM_SLEEP = 3
+    MANUAL = 4
+    UNSPECIFIED = 5
+
+
+class SleepDataFields(StrEnum):
+    """Enum representing the sleep data fields."""
+
+    HEART_RATE = "hr"
+    RESPIRATION_RATE = "rr"
+    SNORING = "snoring"
+    HEART_RATE_VARIABILITY = "sdnn_1"
+    HEART_RATE_VARIABILITY_2 = "rmssd"
+    MOVEMENT_SCORE = "mvt_score"
+
+
+@dataclass(slots=True)
+class SleepSeriesTimeData:
+    """Represents data point in sleep data."""
+
+    time: datetime
+    value: int
+
+
+@dataclass(slots=True)
+class SleepSeries:
+    """Represents sleep data."""
+
+    start_date: datetime
+    end_date: datetime
+    state: SleepState
+    hashed_device_id: str
+    heart_rate: list[SleepSeriesTimeData] | None
+    respiration_rate: list[SleepSeriesTimeData] | None
+    snoring: list[SleepSeriesTimeData] | None
+    heart_rate_variability: list[SleepSeriesTimeData] | None
+    heart_rate_variability_2: list[SleepSeriesTimeData] | None
+    movement_score: list[SleepSeriesTimeData] | None
+
+    @classmethod
+    def from_api(cls, sleep_data: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        return cls(
+            start_date=datetime.fromtimestamp(
+                sleep_data["startdate"],
+                tz=timezone.utc,
+            ),
+            end_date=datetime.fromtimestamp(
+                sleep_data["enddate"],
+                tz=timezone.utc,
+            ),
+            state=to_enum(SleepState, sleep_data["state"], SleepState.UNSPECIFIED),
+            hashed_device_id=sleep_data["hash_deviceid"],
+            heart_rate=get_sleep_series_time_data_list(sleep_data.get("hr")),
+            respiration_rate=get_sleep_series_time_data_list(sleep_data.get("rr")),
+            snoring=get_sleep_series_time_data_list(sleep_data.get("snoring")),
+            heart_rate_variability=get_sleep_series_time_data_list(
+                sleep_data.get("sdnn_1"),
+            ),
+            heart_rate_variability_2=get_sleep_series_time_data_list(
+                sleep_data.get("rmssd"),
+            ),
+            movement_score=get_sleep_series_time_data_list(sleep_data.get("mvt_score")),
+        )

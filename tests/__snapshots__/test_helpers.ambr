@@ -1,0 +1,18 @@
+# serializer version: 1
+# name: test_aggregate_measurements
+  dict({
+    <MeasurementType.WEIGHT: 1>: 108.4,
+    <MeasurementType.HEIGHT: 4>: 1.6,
+    <MeasurementType.FAT_FREE_MASS: 5>: 96.0,
+    <MeasurementType.FAT_RATIO: 6>: 11.439,
+    <MeasurementType.FAT_MASS_WEIGHT: 8>: 12.4,
+    <MeasurementType.DIASTOLIC_BLOOD_PRESSURE: 9>: 106.0,
+    <MeasurementType.SYSTOLIC_BLOOD_PRESSURE: 10>: 158.0,
+    <MeasurementType.HEART_RATE: 11>: 90.0,
+    <MeasurementType.MUSCLE_MASS: 76>: 92.2,
+    <MeasurementType.HYDRATION: 77>: 70.39,
+    <MeasurementType.BONE_MASS: 88>: 3.8000000000000003,
+    <MeasurementType.PULSE_WAVE_VELOCITY: 91>: 7.4,
+    <MeasurementType.VASCULAR_AGE: 155>: 28.900000000000002,
+  })
+# ---

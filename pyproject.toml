@@ -45,7 +45,7 @@ pytest-cov = "4.1.0"
 ruff = "0.0.289"
 safety = "2.4.0b1"
 yamllint = "1.32.0"
-syrupy = "4.5.0"
+syrupy = "4.0.8"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joostlek/python-withings/issues"
@@ -116,6 +116,7 @@ disable = [
   "format",
   "unsubscriptable-object",
   "too-many-instance-attributes",
+  "wrong-import-order",
 ]
 
 [tool.pylint.SIMILARITIES]

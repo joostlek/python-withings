@@ -2,9 +2,9 @@
 
 import aiohttp
 from aresponses import ResponsesMockServer
-from syrupy import SnapshotAssertion
 
 from aiowithings import WithingsClient
+from syrupy import SnapshotAssertion
 
 from . import load_fixture
 

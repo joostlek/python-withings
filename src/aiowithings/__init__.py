@@ -11,6 +11,7 @@ from .exceptions import (
     WithingsUnauthorizedError,
     WithingsUnknownStatusError,
 )
+from .helpers import aggregate_measurements
 from .models import (
     Device,
     DeviceBattery,
@@ -51,6 +52,7 @@ __all__ = [
     "MeasurementType",
     "Measurement",
     "get_measurement_type_from_notification_category",
+    "aggregate_measurements",
     "NotificationCategory",
     "Services",
     "WebhookCall",

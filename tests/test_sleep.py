@@ -3,10 +3,10 @@ from datetime import datetime, timezone
 
 import aiohttp
 from aresponses import ResponsesMockServer
-from syrupy import SnapshotAssertion
 
 from aiowithings import WithingsClient
 from aiowithings.models import SleepDataFields
+from syrupy import SnapshotAssertion
 
 from . import load_fixture
 

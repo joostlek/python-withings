@@ -1,7 +1,12 @@
 # serializer version: 1
 # name: test_list_subscriptions
   list([
-    NotificationConfiguration(notification_category=<NotificationCategory.WEIGHT: 1>, callback_url='https://www.withings.com', expires=datetime.datetime(2038, 1, 19, 3, 14, 7, tzinfo=datetime.timezone.utc), comment='My notification subscription'),
+    dict({
+      'callback_url': 'https://www.withings.com',
+      'comment': 'My notification subscription',
+      'expires': datetime.datetime(2038, 1, 19, 3, 14, 7, tzinfo=datetime.timezone.utc),
+      'notification_category': <NotificationCategory.WEIGHT: 1>,
+    }),
   ])
 # ---
 # name: test_measurement_points_to_get[ACTIVITY]
@@ -78,5 +83,10 @@
   ])
 # ---
 # name: test_webhook_object
-  WebhookCall(user_id=12345, notification_category=<NotificationCategory.WEIGHT: 1>, start_date=datetime.datetime(2018, 7, 3, 0, 0, tzinfo=datetime.timezone.utc), end_date=datetime.datetime(2018, 7, 4, 10, 5, 53, tzinfo=datetime.timezone.utc))
+  dict({
+    'end_date': datetime.datetime(2018, 7, 4, 10, 5, 53, tzinfo=datetime.timezone.utc),
+    'notification_category': <NotificationCategory.WEIGHT: 1>,
+    'start_date': datetime.datetime(2018, 7, 3, 0, 0, tzinfo=datetime.timezone.utc),
+    'user_id': 12345,
+  })
 # ---

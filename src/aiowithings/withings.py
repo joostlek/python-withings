@@ -41,10 +41,12 @@ from .models import (
     NotificationConfiguration,
     SleepDataFields,
     SleepSeries,
+    SleepSummary,
+    SleepSummaryDataFields,
 )
 
 if TYPE_CHECKING:
-    from datetime import datetime
+    from datetime import date, datetime
 
     from typing_extensions import Self
 
@@ -184,7 +186,7 @@ class WithingsClient:
         end_date: datetime,
         data_fields: list[SleepDataFields] | None = None,
     ) -> list[SleepSeries]:
-        """Revoke the configuration for webhook updates."""
+        """Get sleep."""
         data = {
             "action": "get",
             "startdate": start_date.timestamp(),
@@ -199,6 +201,48 @@ class WithingsClient:
             data=data,
         )
         return [SleepSeries.from_api(sleep) for sleep in response["series"]]
+
+    async def _get_sleep_summary(
+        self,
+        sleep_summary_data_fields: list[SleepSummaryDataFields] | None,
+        base_data: dict[str, Any],
+    ) -> list[SleepSummary]:
+        data = {**base_data, "action": "getsummary"}
+        if sleep_summary_data_fields is not None:
+            data["data_fields"] = ",".join(
+                [
+                    str(sleep_data_field)
+                    for sleep_data_field in sleep_summary_data_fields
+                ],
+            )
+        response = await self._request(
+            "v2/sleep",
+            data=data,
+        )
+        return [SleepSummary.from_api(sleep) for sleep in response["series"]]
+
+    async def get_sleep_summary_since(
+        self,
+        sleep_summary_since: datetime,
+        sleep_summary_data_fields: list[SleepSummaryDataFields] | None = None,
+    ) -> list[SleepSummary]:
+        """Get all sleep summaries since sleep_summary_since."""
+        return await self._get_sleep_summary(
+            sleep_summary_data_fields,
+            {"lastupdate": sleep_summary_since.timestamp()},
+        )
+
+    async def get_sleep_summary_in_period(
+        self,
+        start_date: date,
+        end_date: date,
+        sleep_summary_data_fields: list[SleepSummaryDataFields] | None = None,
+    ) -> list[SleepSummary]:
+        """Get sleep summary during period."""
+        return await self._get_sleep_summary(
+            sleep_summary_data_fields,
+            {"startdateymd": str(start_date), "enddateymd": str(end_date)},
+        )
 
     async def subscribe_notification(
         self,

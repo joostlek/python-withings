@@ -116,6 +116,7 @@ disable = [
   "format",
   "unsubscriptable-object",
   "too-many-instance-attributes",
+  "wrong-import-order",
 ]
 
 [tool.pylint.SIMILARITIES]

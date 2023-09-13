@@ -3,7 +3,6 @@
 import aiohttp
 from aresponses import ResponsesMockServer
 import pytest
-from syrupy import SnapshotAssertion
 
 from aiowithings import (
     NotificationCategory,
@@ -11,6 +10,7 @@ from aiowithings import (
     WithingsClient,
     get_measurement_type_from_notification_category,
 )
+from syrupy import SnapshotAssertion
 
 from . import load_fixture
 

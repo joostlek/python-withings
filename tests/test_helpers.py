@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import json
-from typing import Any
-
-from syrupy import SnapshotAssertion
+from typing import TYPE_CHECKING, Any
 
 from aiowithings import MeasurementGroup, aggregate_measurements
 
 from . import load_fixture
+
+if TYPE_CHECKING:
+    from syrupy import SnapshotAssertion
 
 
 def test_aggregate_measurements(snapshot: SnapshotAssertion) -> None:

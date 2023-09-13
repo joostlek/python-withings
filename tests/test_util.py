@@ -1,5 +1,4 @@
 """Asynchronous Python client for Withings."""
-
 from aiowithings.util import get_measurement, get_measurement_from_dict
 
 

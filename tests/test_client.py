@@ -48,6 +48,23 @@ async def test_own_session(
         assert withings.session is not None
 
 
+async def test_refresh_token() -> None:
+    """Test refreshing token."""
+
+    async def _get_token() -> str:
+        return "token"
+
+    async with WithingsClient() as withings:
+        assert withings._token is None  # pylint: disable=protected-access
+        await withings.refresh_token()
+        assert withings._token is None  # pylint: disable=protected-access
+
+        withings.refresh_token_function = _get_token
+        await withings.refresh_token()
+
+        assert withings._token == "token"  # pylint: disable=protected-access
+
+
 async def test_unexpected_server_response(
     aresponses: ResponsesMockServer,
 ) -> None:

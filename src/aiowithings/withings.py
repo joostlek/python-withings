@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass
 from importlib import metadata
-from typing import TYPE_CHECKING, Any, cast
+from typing import TYPE_CHECKING, Any, Awaitable, Callable, cast
 
 from aiohttp import ClientSession
 from aiohttp.hdrs import METH_POST
@@ -60,6 +60,12 @@ class WithingsClient:
     api_host: str = "wbsapi.withings.net"
     _token: str | None = None
     _close_session: bool = False
+    refresh_token_function: Callable[[], Awaitable[str]] | None = None
+
+    async def refresh_token(self) -> None:
+        """Refresh token with provided function."""
+        if self.refresh_token_function:
+            self._token = await self.refresh_token_function()
 
     def authenticate(self, token: str) -> None:
         """Authenticate the user with a token."""

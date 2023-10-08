@@ -34,7 +34,7 @@ jobs:
       - name: 🏗 Install Python dependencies
         run: poetry install --no-interaction
       - name: 🚀 Check code for common misspellings
-        run: poetry run pre-commit run codespell --all-files --ignore-words-list=activite
+        run: poetry run pre-commit run codespell --all-files
 
   ruff:
     name: Ruff

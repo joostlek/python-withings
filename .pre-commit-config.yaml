@@ -78,7 +78,7 @@ repos:
         exclude: ^poetry\.lock$
         entry: poetry run codespell
         args:
-            - --ignore-words-list=ACTIVITE
+            - --ignore-words-list=activite
       - id: detect-private-key
         name: 🕵️  Detect Private Keys
         language: system

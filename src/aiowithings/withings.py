@@ -267,15 +267,17 @@ class WithingsClient:
 
     async def list_notification_configurations(
         self,
-        notification_category: NotificationCategory,
+        notification_category: NotificationCategory | None = None,
     ) -> list[NotificationConfiguration]:
         """Subscribe the callback_url for webhook updates."""
+        request_data: dict[str, Any] = {
+            "action": "list",
+        }
+        if notification_category:
+            request_data["appli"] = notification_category
         response = await self._request(
             "notify",
-            data={
-                "action": "list",
-                "appli": notification_category,
-            },
+            data=request_data,
         )
         return [
             NotificationConfiguration.from_api(config)

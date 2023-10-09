@@ -93,6 +93,29 @@ async def test_list_subscriptions(
         await withings.close()
 
 
+async def test_list_all_subscriptions(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test retrieving all subscriptions."""
+    aresponses.add(
+        WITHINGS_URL,
+        "/notify",
+        "POST",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=load_fixture("notify_list.json"),
+        ),
+        body_pattern="action=list",
+    )
+    async with aiohttp.ClientSession() as session:
+        withings = WithingsClient(session=session)
+        withings.authenticate("test")
+        response = await withings.list_notification_configurations()
+        assert response
+        await withings.close()
+
+
 @pytest.mark.parametrize(
     "notification_category",
     list(NotificationCategory),

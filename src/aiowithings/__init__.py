@@ -25,6 +25,12 @@ from .models import (
     MeasurementType,
     NotificationCategory,
     Services,
+    SleepDataFields,
+    SleepSeries,
+    SleepSeriesTimeData,
+    SleepState,
+    SleepSummary,
+    SleepSummaryDataFields,
     WebhookCall,
     get_measurement_type_from_notification_category,
 )
@@ -56,4 +62,10 @@ __all__ = [
     "NotificationCategory",
     "Services",
     "WebhookCall",
+    "SleepSummary",
+    "SleepSummaryDataFields",
+    "SleepState",
+    "SleepSeriesTimeData",
+    "SleepSeries",
+    "SleepDataFields",
 ]

@@ -5,6 +5,9 @@ import logging
 
 LOGGER = logging.getLogger(__package__)
 
+AUTHORIZATION_URL = "https://account.withings.com/oauth2_user/authorize2"
+TOKEN_URL = "https://wbsapi.withings.net/v2/oauth2"  # noqa: S105
+
 STATUS_SUCCESS: set[int] = {0}
 
 STATUS_AUTH_FAILED: set[int] = {100, 101, 102, 200, 401}

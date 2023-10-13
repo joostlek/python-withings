@@ -9,6 +9,15 @@ from typing import Any, Self
 from aiowithings.util import get_measurement_from_dict, to_enum
 
 
+class AuthScope(StrEnum):
+    """Enum representing the auth scopes."""
+
+    USER_INFO = "user.info"
+    USER_METRICS = "user.metrics"
+    USER_ACTIVITY = "user.activity"
+    USER_SLEEP_EVENTS = "user.sleepevents"
+
+
 class DeviceModel(IntEnum):
     """Enum with device models."""
 

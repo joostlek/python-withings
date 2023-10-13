@@ -4,7 +4,6 @@
     dict({
       'callback_url': 'https://www.withings.com',
       'comment': 'My notification subscription',
-      'expires': datetime.datetime(2038, 1, 19, 3, 14, 7, tzinfo=datetime.timezone.utc),
       'notification_category': <NotificationCategory.WEIGHT: 1>,
     }),
   ])

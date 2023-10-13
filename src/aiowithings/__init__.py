@@ -13,6 +13,7 @@ from .exceptions import (
 )
 from .helpers import aggregate_measurements
 from .models import (
+    AuthScope,
     Device,
     DeviceBattery,
     DeviceModel,
@@ -37,6 +38,7 @@ from .models import (
 from .withings import WithingsClient
 
 __all__ = [
+    "AuthScope",
     "DeviceBattery",
     "Device",
     "DeviceType",

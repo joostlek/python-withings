@@ -172,7 +172,7 @@ class WithingsClient:
         """Get all measurements since measurement_since."""
         return await self._get_measurements(
             measurement_types,
-            {"lastupdate": measurement_since.timestamp()},
+            {"lastupdate": int(measurement_since.timestamp())},
         )
 
     async def get_measurement_in_period(
@@ -184,7 +184,10 @@ class WithingsClient:
         """Get all measurements measured since start date and until end date."""
         return await self._get_measurements(
             measurement_types,
-            {"startdate": start_date.timestamp(), "enddate": end_date.timestamp()},
+            {
+                "startdate": int(start_date.timestamp()),
+                "enddate": int(end_date.timestamp()),
+            },
         )
 
     async def get_sleep(
@@ -196,8 +199,8 @@ class WithingsClient:
         """Get sleep."""
         data = {
             "action": "get",
-            "startdate": start_date.timestamp(),
-            "enddate": end_date.timestamp(),
+            "startdate": int(start_date.timestamp()),
+            "enddate": int(end_date.timestamp()),
         }
         if data_fields is not None:
             data["data_fields"] = ",".join(
@@ -236,7 +239,7 @@ class WithingsClient:
         """Get all sleep summaries since sleep_summary_since."""
         return await self._get_sleep_summary(
             sleep_summary_data_fields,
-            {"lastupdate": sleep_summary_since.timestamp()},
+            {"lastupdate": int(sleep_summary_since.timestamp())},
         )
 
     async def get_sleep_summary_in_period(

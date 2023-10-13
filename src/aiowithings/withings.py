@@ -85,6 +85,8 @@ class WithingsClient:
             port=443,
         ).joinpath(uri)
 
+        await self.refresh_token()
+
         headers = {
             "User-Agent": f"AioWithings/{version}",
             "Accept": "application/json, text/plain, */*",

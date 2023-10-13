@@ -121,21 +121,22 @@ class WithingsClient:
         response_status = response_data.get("status", -1)
         if response_status in STATUS_SUCCESS:
             return cast(dict[str, Any], response_data.get("body"))
+        error = response_data.get("error")
         if response_status in STATUS_AUTH_FAILED:
-            raise WithingsAuthenticationFailedError
+            raise WithingsAuthenticationFailedError(error)
         if response_status in STATUS_INVALID_PARAMS:
-            raise WithingsInvalidParamsError
+            raise WithingsInvalidParamsError(error)
         if response_status in STATUS_UNAUTHORIZED:
-            raise WithingsUnauthorizedError
+            raise WithingsUnauthorizedError(error)
         if response_status in STATUS_ERROR_OCCURRED:
-            raise WithingsErrorOccurredError
+            raise WithingsErrorOccurredError(error)
         if response_status in STATUS_TIMEOUT:
-            raise WithingsConnectionError
+            raise WithingsConnectionError(error)
         if response_status in STATUS_BAD_STATE:
-            raise WithingsBadStateError
+            raise WithingsBadStateError(error)
         if response_status in STATUS_TOO_MANY_REQUESTS:
-            raise WithingsTooManyRequestsError
-        raise WithingsUnknownStatusError
+            raise WithingsTooManyRequestsError(error)
+        raise WithingsUnknownStatusError(error)
 
     async def get_devices(self) -> list[Device]:
         """Get devices."""

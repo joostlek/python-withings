@@ -358,7 +358,6 @@ class NotificationConfiguration:
 
     notification_category: NotificationCategory
     callback_url: str
-    expires: datetime
     comment: str
 
     @classmethod
@@ -371,10 +370,6 @@ class NotificationConfiguration:
                 NotificationCategory.UNKNOWN,
             ),
             callback_url=configuration["callbackurl"],
-            expires=datetime.fromtimestamp(
-                configuration["expires"],
-                tz=timezone.utc,
-            ),
             comment=configuration["comment"],
         )
 

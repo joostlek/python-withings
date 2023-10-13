@@ -1,5 +1,5 @@
 """Asynchronous Python client for Withings."""
-
+from .const import AUTHORIZATION_URL, TOKEN_URL
 from .exceptions import (
     WithingsAuthenticationFailedError,
     WithingsBadStateError,
@@ -38,6 +38,8 @@ from .models import (
 from .withings import WithingsClient
 
 __all__ = [
+    "AUTHORIZATION_URL",
+    "TOKEN_URL",
     "AuthScope",
     "DeviceBattery",
     "Device",

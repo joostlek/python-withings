@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiowithings"
-version = "0.4.3"
+version = "0.4.4"
 description = "Asynchronous Python client for Withings."
 authors = ["Joost Lekkerkerker <joostlek@outlook.com>"]
 maintainers = ["Joost Lekkerkerker <joostlek@outlook.com>"]

@@ -779,6 +779,7 @@ class WorkoutCategory(IntEnum):
     INDOOR_RUNNING = 307
     INDOOR_CYCLING = 308
 
+
 @dataclass(slots=True)
 class Workout:
     """Class representing a workout."""
@@ -844,10 +845,16 @@ class Workout:
         if "intensity" in workout_inner_data and workout_inner_data["intensity"] != 0:
             intensity = workout_inner_data["intensity"]
         pause_duration = None
-        if "pause_duration" in workout_inner_data and workout_inner_data["pause_duration"] != 0:
+        if (
+            "pause_duration" in workout_inner_data
+            and workout_inner_data["pause_duration"] != 0
+        ):
             pause_duration = workout_inner_data["pause_duration"]
         spo2_average = None
-        if "spo2_average" in workout_inner_data and workout_inner_data["spo2_average"] != 0:
+        if (
+            "spo2_average" in workout_inner_data
+            and workout_inner_data["spo2_average"] != 0
+        ):
             spo2_average = workout_inner_data["spo2_average"]
         steps = None
         if "steps" in workout_inner_data and workout_inner_data["steps"] != 0:
@@ -855,8 +862,14 @@ class Workout:
 
         return cls(
             id=workout_data["id"],
-            category=to_enum(WorkoutCategory, workout_data["category"], WorkoutCategory.OTHER),
-            attribution=to_enum(MeasurementAttribution, workout_data["attrib"], MeasurementAttribution.UNKNOWN),
+            category=to_enum(
+                WorkoutCategory, workout_data["category"], WorkoutCategory.OTHER
+            ),
+            attribution=to_enum(
+                MeasurementAttribution,
+                workout_data["attrib"],
+                MeasurementAttribution.UNKNOWN,
+            ),
             start_date=datetime.fromtimestamp(
                 workout_data["startdate"],
                 tz=timezone.utc,
@@ -881,5 +894,3 @@ class Workout:
             spo2_average=spo2_average,
             steps=steps,
         )
-
-

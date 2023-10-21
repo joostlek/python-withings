@@ -155,8 +155,8 @@ class Goals:
         )
 
 
-class MeasurementGroupAttribution(IntEnum):
-    """Measure group attributions."""
+class MeasurementAttribution(IntEnum):
+    """Measure attributions."""
 
     UNKNOWN = -1
     DEVICE_ENTRY_FOR_USER = 0
@@ -180,7 +180,7 @@ class MeasurementGroup:
     """Model for a measurement group."""
 
     group_id: int
-    attribution: MeasurementGroupAttribution
+    attribution: MeasurementAttribution
     taken_at: datetime
     stored_at: datetime
     updated_at: datetime
@@ -197,9 +197,9 @@ class MeasurementGroup:
         return cls(
             group_id=measurement_group["grpid"],
             attribution=to_enum(
-                MeasurementGroupAttribution,
+                MeasurementAttribution,
                 measurement_group["attrib"],
-                MeasurementGroupAttribution.UNKNOWN,
+                MeasurementAttribution.UNKNOWN,
             ),
             taken_at=datetime.fromtimestamp(
                 measurement_group["date"],
@@ -723,4 +723,201 @@ class Activity:
                 activity_data["brand"],
                 ActivityDataOrigin.UNKNOWN,
             ),
+        )
+
+
+class WorkoutCategory(IntEnum):
+    """Enum representing the workout category."""
+
+    WALK = 1
+    RUN = 2
+    HIKING = 3
+    SKATING = 4
+    BMX = 5
+    BICYCLING = 6
+    SWIMMING = 7
+    SURFING = 8
+    KITESURFING = 9
+    WINDSURFING = 10
+    BODYBOARD = 11
+    TENNIS = 12
+    TABLE_TENNIS = 13
+    SQUASH = 14
+    BADMINTON = 15
+    LIFT_WEIGHTS = 16
+    CALISTHENICS = 17
+    ELLIPTICAL = 18
+    PILATES = 19
+    BASKET_BALL = 20
+    SOCCER = 21
+    FOOTBALL = 22
+    RUGBY = 23
+    VOLLEY_BALL = 24
+    WATERPOLO = 25
+    HORSE_RIDING = 26
+    GOLF = 27
+    YOGA = 28
+    DANCING = 29
+    BOXING = 30
+    FENCING = 31
+    WRESTLING = 32
+    MARTIAL_ARTS = 33
+    SKIING = 34
+    SNOWBOARDING = 35
+    OTHER = 36
+    NO_ACTIVITY = 128
+    ROWING = 187
+    ZUMBA = 188
+    BASEBALL = 191
+    HANDBALL = 192
+    HOCKEY = 193
+    ICE_HOCKEY = 194
+    CLIMBING = 195
+    ICE_SKATING = 196
+    MULTI_SPORT = 272
+    INDOOR_WALK = 306
+    INDOOR_RUNNING = 307
+    INDOOR_CYCLING = 308
+
+
+class WorkoutDataFields(StrEnum):
+    """Enum representing the workout data fields."""
+
+    CALORIES = "calories"
+    INTENSITY = "intensity"
+    MANUAL_DISTANCE = "manual_distance"
+    MANUAL_CALORIES = "manual_calories"
+    AVERAGE_HEART_RATE = "hr_average"
+    MIN_HEART_RATE = "hr_min"
+    MAX_HEART_RATE = "hr_max"
+    DURATION_HEART_RATE_LIGHT_ZONE = "hr_zone_0"
+    DURATION_HEART_RATE_MODERATE_ZONE = "hr_zone_1"
+    DURATION_HEART_RATE_INTENSE_ZONE = "hr_zone_2"
+    DURATION_HEART_RATE_MAXIMAL_ZONE = "hr_zone_3"
+    PAUSE_DURATION = "pause_duration"
+    ALGO_PAUSE_DURATION = "algo_pause_duration"
+    SPO2_AVERAGE = "spo2_average"
+    STEPS = "steps"
+    DISTANCE = "distance"
+    ELEVATION = "elevation"
+    POOL_LAPS = "pool_laps"
+    STROKES = "strokes"
+    POOL_LENGTH = "pool_length"
+
+
+@dataclass(slots=True)
+class Workout:
+    """Class representing a workout."""
+
+    workout_id: int
+    category: WorkoutCategory
+    attribution: MeasurementAttribution
+    start_date: datetime
+    end_date: datetime
+    date: date
+
+    active_calories_burnt: int | None
+    distance: int | None
+    floors_climbed: int | None
+    average_heart_rate: int | None
+    min_heart_rate: int | None
+    max_heart_rate: int | None
+    duration_heart_rate_light_zone: int | None
+    duration_heart_rate_moderate_zone: int | None
+    duration_heart_rate_intense_zone: int | None
+    duration_heart_rate_maximal_zone: int | None
+    intensity: int | None
+    pause_duration: int | None
+    spo2_average: int | None
+    steps: int | None
+
+    @classmethod
+    # pylint: disable-next=too-many-branches,too-many-locals
+    def from_api(cls, workout_data: dict[str, Any]) -> Self:  # noqa: PLR0912
+        """Initialize from the API."""
+        workout_inner_data = workout_data["data"]
+        active_calories_burnt = None
+        if "calories" in workout_inner_data and workout_inner_data["calories"] != 0:
+            active_calories_burnt = workout_inner_data["calories"]
+        distance = None
+        if "distance" in workout_inner_data and workout_inner_data["distance"] != 0:
+            distance = workout_inner_data["distance"]
+        floors_climbed = None
+        if "elevation" in workout_inner_data and workout_inner_data["elevation"] != 0:
+            floors_climbed = workout_inner_data["elevation"]
+        average_heart_rate = None
+        if "hr_average" in workout_inner_data and workout_inner_data["hr_average"] != 0:
+            average_heart_rate = workout_inner_data["hr_average"]
+        min_heart_rate = None
+        if "hr_min" in workout_inner_data and workout_inner_data["hr_min"] != 0:
+            min_heart_rate = workout_inner_data["hr_min"]
+        max_heart_rate = None
+        if "hr_max" in workout_inner_data and workout_inner_data["hr_max"] != 0:
+            max_heart_rate = workout_inner_data["hr_max"]
+        duration_heart_rate_light_zone = None
+        if "hr_zone_0" in workout_inner_data and workout_inner_data["hr_zone_0"] != 0:
+            duration_heart_rate_light_zone = workout_inner_data["hr_zone_0"]
+        duration_heart_rate_moderate_zone = None
+        if "hr_zone_1" in workout_inner_data and workout_inner_data["hr_zone_1"] != 0:
+            duration_heart_rate_moderate_zone = workout_inner_data["hr_zone_1"]
+        duration_heart_rate_intense_zone = None
+        if "hr_zone_2" in workout_inner_data and workout_inner_data["hr_zone_2"] != 0:
+            duration_heart_rate_intense_zone = workout_inner_data["hr_zone_2"]
+        duration_heart_rate_maximal_zone = None
+        if "hr_zone_3" in workout_inner_data and workout_inner_data["hr_zone_3"] != 0:
+            duration_heart_rate_maximal_zone = workout_inner_data["hr_zone_3"]
+        intensity = None
+        if "intensity" in workout_inner_data and workout_inner_data["intensity"] != 0:
+            intensity = workout_inner_data["intensity"]
+        pause_duration = None
+        if (
+            "pause_duration" in workout_inner_data
+            and workout_inner_data["pause_duration"] != 0
+        ):
+            pause_duration = workout_inner_data["pause_duration"]
+        spo2_average = None
+        if (
+            "spo2_average" in workout_inner_data
+            and workout_inner_data["spo2_average"] != 0
+        ):
+            spo2_average = workout_inner_data["spo2_average"]
+        steps = None
+        if "steps" in workout_inner_data and workout_inner_data["steps"] != 0:
+            steps = workout_inner_data["steps"]
+
+        return cls(
+            workout_id=workout_data["id"],
+            category=to_enum(
+                WorkoutCategory,
+                workout_data["category"],
+                WorkoutCategory.OTHER,
+            ),
+            attribution=to_enum(
+                MeasurementAttribution,
+                workout_data["attrib"],
+                MeasurementAttribution.UNKNOWN,
+            ),
+            start_date=datetime.fromtimestamp(
+                workout_data["startdate"],
+                tz=timezone.utc,
+            ),
+            end_date=datetime.fromtimestamp(
+                workout_data["enddate"],
+                tz=timezone.utc,
+            ),
+            date=date.fromisoformat(workout_data["date"]),
+            active_calories_burnt=active_calories_burnt,
+            distance=distance,
+            floors_climbed=floors_climbed,
+            average_heart_rate=average_heart_rate,
+            min_heart_rate=min_heart_rate,
+            max_heart_rate=max_heart_rate,
+            duration_heart_rate_light_zone=duration_heart_rate_light_zone,
+            duration_heart_rate_moderate_zone=duration_heart_rate_moderate_zone,
+            duration_heart_rate_intense_zone=duration_heart_rate_intense_zone,
+            duration_heart_rate_maximal_zone=duration_heart_rate_maximal_zone,
+            intensity=intensity,
+            pause_duration=pause_duration,
+            spo2_average=spo2_average,
+            steps=steps,
         )

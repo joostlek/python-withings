@@ -45,6 +45,8 @@ from .models import (
     SleepSeries,
     SleepSummary,
     SleepSummaryDataFields,
+    Workout,
+    WorkoutDataFields,
 )
 
 if TYPE_CHECKING:
@@ -297,6 +299,45 @@ class WithingsClient:
         """Get activities during period."""
         return await self._get_activities(
             activity_data_fields,
+            {"startdateymd": str(start_date), "enddateymd": str(end_date)},
+        )
+
+    async def _get_workouts(
+        self,
+        workout_data_fields: list[WorkoutDataFields] | None,
+        base_data: dict[str, Any],
+    ) -> list[Workout]:
+        data = {**base_data, "action": "getworkouts"}
+        if workout_data_fields is not None:
+            data["data_fields"] = ",".join(
+                [str(workout_data_field) for workout_data_field in workout_data_fields],
+            )
+        response = await self._request(
+            "v2/measure",
+            data=data,
+        )
+        return [Workout.from_api(workout) for workout in response["series"]]
+
+    async def get_workouts_since(
+        self,
+        workouts_since: datetime,
+        workout_data_fields: list[WorkoutDataFields] | None = None,
+    ) -> list[Workout]:
+        """Get workouts since workouts_since."""
+        return await self._get_workouts(
+            workout_data_fields,
+            {"lastupdate": int(workouts_since.timestamp())},
+        )
+
+    async def get_workouts_in_period(
+        self,
+        start_date: date,
+        end_date: date,
+        workout_data_fields: list[WorkoutDataFields] | None = None,
+    ) -> list[Workout]:
+        """Get workouts during period."""
+        return await self._get_workouts(
+            workout_data_fields,
             {"startdateymd": str(start_date), "enddateymd": str(end_date)},
         )
 

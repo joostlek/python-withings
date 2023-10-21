@@ -23,8 +23,8 @@ from .models import (
     DeviceType,
     Goals,
     Measurement,
+    MeasurementAttribution,
     MeasurementGroup,
-    MeasurementGroupAttribution,
     MeasurementGroupCategory,
     MeasurementType,
     NotificationCategory,
@@ -36,6 +36,9 @@ from .models import (
     SleepSummary,
     SleepSummaryDataFields,
     WebhookCall,
+    Workout,
+    WorkoutCategory,
+    WorkoutDataFields,
     get_measurement_type_from_notification_category,
 )
 from .withings import WithingsClient
@@ -62,7 +65,7 @@ __all__ = [
     "WithingsUnknownStatusError",
     "WithingsClient",
     "Goals",
-    "MeasurementGroupAttribution",
+    "MeasurementAttribution",
     "MeasurementGroupCategory",
     "MeasurementGroup",
     "MeasurementType",
@@ -78,4 +81,7 @@ __all__ = [
     "SleepSeriesTimeData",
     "SleepSeries",
     "SleepDataFields",
+    "WorkoutDataFields",
+    "Workout",
+    "WorkoutCategory",
 ]

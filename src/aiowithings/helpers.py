@@ -3,11 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from aiowithings.models import (
-    MeasurementGroupAttribution,
-    MeasurementType,
-    SleepSummary,
-)
+from aiowithings.models import MeasurementAttribution, MeasurementType, SleepSummary
 
 if TYPE_CHECKING:
     from aiowithings import MeasurementGroup
@@ -23,8 +19,8 @@ def aggregate_measurements(
 
     for measurement in groups:
         if measurement.attribution not in (
-            MeasurementGroupAttribution.UNKNOWN,
-            MeasurementGroupAttribution.DEVICE_ENTRY_FOR_USER_AMBIGUOUS,
+            MeasurementAttribution.UNKNOWN,
+            MeasurementAttribution.DEVICE_ENTRY_FOR_USER_AMBIGUOUS,
         ):
             for data_point in measurement.measurements:
                 result[data_point.measurement_type] = data_point.value

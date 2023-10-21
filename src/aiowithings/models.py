@@ -861,7 +861,7 @@ class Workout:
             steps = workout_inner_data["steps"]
 
         return cls(
-            id=workout_data["id"],
+            workout_id=workout_data["id"],
             category=to_enum(
                 WorkoutCategory,
                 workout_data["category"],

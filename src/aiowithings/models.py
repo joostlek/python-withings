@@ -784,7 +784,7 @@ class WorkoutCategory(IntEnum):
 class Workout:
     """Class representing a workout."""
 
-    id: int
+    workout_id: int
     category: WorkoutCategory
     attribution: MeasurementAttribution
     start_date: datetime
@@ -808,7 +808,7 @@ class Workout:
 
     @classmethod
     # pylint: disable-next=too-many-branches,too-many-locals
-    def from_api(cls, workout_data: dict[str, Any]) -> Self:
+    def from_api(cls, workout_data: dict[str, Any]) -> Self:  # noqa: PLR0912
         """Initialize from the API."""
         workout_inner_data = workout_data["data"]
         active_calories_burnt = None
@@ -863,7 +863,9 @@ class Workout:
         return cls(
             id=workout_data["id"],
             category=to_enum(
-                WorkoutCategory, workout_data["category"], WorkoutCategory.OTHER
+                WorkoutCategory,
+                workout_data["category"],
+                WorkoutCategory.OTHER,
             ),
             attribution=to_enum(
                 MeasurementAttribution,

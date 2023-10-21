@@ -33,6 +33,8 @@ from .exceptions import (
     WithingsUnknownStatusError,
 )
 from .models import (
+    Activity,
+    ActivityDataFields,
     Device,
     Goals,
     MeasurementGroup,
@@ -253,6 +255,48 @@ class WithingsClient:
         """Get sleep summary during period."""
         return await self._get_sleep_summary(
             sleep_summary_data_fields,
+            {"startdateymd": str(start_date), "enddateymd": str(end_date)},
+        )
+
+    async def _get_activities(
+        self,
+        activity_data_fields: list[ActivityDataFields] | None,
+        base_data: dict[str, Any],
+    ) -> list[Activity]:
+        data = {**base_data, "action": "getactivity"}
+        if activity_data_fields is not None:
+            data["data_fields"] = ",".join(
+                [
+                    str(activity_data_field)
+                    for activity_data_field in activity_data_fields
+                ],
+            )
+        response = await self._request(
+            "v2/measure",
+            data=data,
+        )
+        return [Activity.from_api(activity) for activity in response["activities"]]
+
+    async def get_activities_since(
+        self,
+        activities_since: datetime,
+        activity_data_fields: list[ActivityDataFields] | None = None,
+    ) -> list[Activity]:
+        """Get activities since activities_since."""
+        return await self._get_activities(
+            activity_data_fields,
+            {"lastupdate": int(activities_since.timestamp())},
+        )
+
+    async def get_activities_in_period(
+        self,
+        start_date: date,
+        end_date: date,
+        activity_data_fields: list[ActivityDataFields] | None = None,
+    ) -> list[Activity]:
+        """Get activities during period."""
+        return await self._get_activities(
+            activity_data_fields,
             {"startdateymd": str(start_date), "enddateymd": str(end_date)},
         )
 

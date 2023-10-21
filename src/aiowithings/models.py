@@ -620,3 +620,107 @@ class SleepSummary:
             time_awake_during_sleep=sleep_data["data"].get("waso"),
             withings_index=sleep_data["data"].get("withings_index"),
         )
+
+
+class ActivityDataFields(StrEnum):
+    """Enum representing the activity data fields."""
+
+    STEPS = "steps"
+    DISTANCE = "distance"
+    FLOORS_CLIMBED = "elevation"
+    SOFT_ACTIVITY = "soft"
+    MODERATE_ACTIVITY = "moderate"
+    INTENSE_ACTIVITY = "intense"
+    TOTAL_TIME_ACTIVE = "active"
+    ACTIVE_CALORIES_BURNT = "calories"
+    TOTAL_CALORIES_BURNT = "totalcalories"
+    AVERAGE_HEART_RATE = "hr_average"
+    MIN_HEART_RATE = "hr_min"
+    MAX_HEART_RATE = "hr_max"
+    DURATION_HEART_RATE_LIGHT_ZONE = "hr_zone_0"
+    DURATION_HEART_RATE_MODERATE_ZONE = "hr_zone_1"
+    DURATION_HEART_RATE_INTENSE_ZONE = "hr_zone_2"
+    DURATION_HEART_RATE_MAXIMAL_ZONE = "hr_zone_3"
+
+
+class ActivityDataOrigin(IntEnum):
+    """Enum representing the origin of activity data."""
+
+    UNKNOWN = -1
+    WITHINGS = 1
+    EXTERNAL = 18
+
+
+@dataclass(slots=True)
+class Activity:
+    """Class representing aggregated activity in a day."""
+
+    steps: int
+    distance: float
+    floors_climbed: int
+    soft_activity: int
+    moderate_activity: int
+    intense_activity: int
+    total_time_active: int
+    active_calories_burnt: float
+    total_calories_burnt: float
+    average_heart_rate: int | None
+    min_heart_rate: int | None
+    max_heart_rate: int | None
+    duration_heart_rate_light_zone: int | None
+    duration_heart_rate_moderate_zone: int | None
+    duration_heart_rate_intense_zone: int | None
+    duration_heart_rate_maximal_zone: int | None
+    date: date
+    modified: datetime
+    is_withings_tracker: bool
+    origin: ActivityDataOrigin
+
+    @classmethod
+    def from_api(cls, activity_data: dict[str, Any]) -> Self:
+        """Initialize from the API."""
+        average_heart_rate = None
+        min_heart_rate = None
+        max_heart_rate = None
+        duration_heart_rate_light_zone = None
+        duration_heart_rate_moderate_zone = None
+        duration_heart_rate_intense_zone = None
+        duration_heart_rate_maximal_zone = None
+        if activity_data["hr_average"] != 0:
+            average_heart_rate = activity_data["hr_average"]
+            min_heart_rate = activity_data["hr_min"]
+            max_heart_rate = activity_data["hr_max"]
+            duration_heart_rate_light_zone = activity_data["hr_zone_0"]
+            duration_heart_rate_moderate_zone = activity_data["hr_zone_1"]
+            duration_heart_rate_intense_zone = activity_data["hr_zone_2"]
+            duration_heart_rate_maximal_zone = activity_data["hr_zone_3"]
+
+        return cls(
+            steps=activity_data["steps"],
+            distance=activity_data["distance"],
+            floors_climbed=activity_data["elevation"],
+            soft_activity=activity_data["soft"],
+            moderate_activity=activity_data["moderate"],
+            intense_activity=activity_data["intense"],
+            total_time_active=activity_data["active"],
+            active_calories_burnt=activity_data["calories"],
+            total_calories_burnt=activity_data["totalcalories"],
+            average_heart_rate=average_heart_rate,
+            min_heart_rate=min_heart_rate,
+            max_heart_rate=max_heart_rate,
+            duration_heart_rate_light_zone=duration_heart_rate_light_zone,
+            duration_heart_rate_moderate_zone=duration_heart_rate_moderate_zone,
+            duration_heart_rate_intense_zone=duration_heart_rate_intense_zone,
+            duration_heart_rate_maximal_zone=duration_heart_rate_maximal_zone,
+            date=date.fromisoformat(activity_data["date"]),
+            modified=datetime.fromtimestamp(
+                activity_data["modified"],
+                tz=timezone.utc,
+            ),
+            is_withings_tracker=activity_data["is_tracker"],
+            origin=to_enum(
+                ActivityDataOrigin,
+                activity_data["brand"],
+                ActivityDataOrigin.UNKNOWN,
+            ),
+        )

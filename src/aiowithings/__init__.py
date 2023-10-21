@@ -13,6 +13,9 @@ from .exceptions import (
 )
 from .helpers import aggregate_measurements
 from .models import (
+    Activity,
+    ActivityDataFields,
+    ActivityDataOrigin,
     AuthScope,
     Device,
     DeviceBattery,
@@ -41,6 +44,9 @@ __all__ = [
     "AUTHORIZATION_URL",
     "TOKEN_URL",
     "AuthScope",
+    "ActivityDataFields",
+    "ActivityDataOrigin",
+    "Activity",
     "DeviceBattery",
     "Device",
     "DeviceType",

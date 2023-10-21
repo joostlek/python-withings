@@ -849,11 +849,11 @@ class Workout:
         if "hr_average" in workout_inner_data and workout_inner_data["hr_average"] != 0:
             average_heart_rate = workout_inner_data["hr_average"]
         min_heart_rate = None
-        if "hr_max" in workout_inner_data and workout_inner_data["hr_max"] != 0:
-            active_calories_burnt = workout_inner_data["hr_max"]
-        max_heart_rate = None
         if "hr_min" in workout_inner_data and workout_inner_data["hr_min"] != 0:
-            max_heart_rate = workout_inner_data["hr_min"]
+            min_heart_rate = workout_inner_data["hr_min"]
+        max_heart_rate = None
+        if "hr_max" in workout_inner_data and workout_inner_data["hr_max"] != 0:
+            max_heart_rate = workout_inner_data["hr_max"]
         duration_heart_rate_light_zone = None
         if "hr_zone_0" in workout_inner_data and workout_inner_data["hr_zone_0"] != 0:
             duration_heart_rate_light_zone = workout_inner_data["hr_zone_0"]

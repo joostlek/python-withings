@@ -1,8 +1,22 @@
 # serializer version: 1
-# name: test_get_goals
+# name: test_get_goals[goals]
   dict({
     'sleep': 28800,
     'steps': 10000,
     'weight': 70.5,
+  })
+# ---
+# name: test_get_goals[goals_1]
+  dict({
+    'sleep': None,
+    'steps': None,
+    'weight': 70.5,
+  })
+# ---
+# name: test_get_goals[goals_2]
+  dict({
+    'sleep': 28800,
+    'steps': 10000,
+    'weight': None,
   })
 # ---

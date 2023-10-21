@@ -780,6 +780,31 @@ class WorkoutCategory(IntEnum):
     INDOOR_CYCLING = 308
 
 
+class WorkoutDataFields(StrEnum):
+    """Enum representing the workout data fields."""
+
+    CALORIES = "calories"
+    INTENSITY = "intensity"
+    MANUAL_DISTANCE = "manual_distance"
+    MANUAL_CALORIES = "manual_calories"
+    AVERAGE_HEART_RATE = "hr_average"
+    MIN_HEART_RATE = "hr_min"
+    MAX_HEART_RATE = "hr_max"
+    DURATION_HEART_RATE_LIGHT_ZONE = "hr_zone_0"
+    DURATION_HEART_RATE_MODERATE_ZONE = "hr_zone_1"
+    DURATION_HEART_RATE_INTENSE_ZONE = "hr_zone_2"
+    DURATION_HEART_RATE_MAXIMAL_ZONE = "hr_zone_3"
+    PAUSE_DURATION = "pause_duration"
+    ALGO_PAUSE_DURATION = "algo_pause_duration"
+    SPO2_AVERAGE = "spo2_average"
+    STEPS = "steps"
+    DISTANCE = "distance"
+    ELEVATION = "elevation"
+    POOL_LAPS = "pool_laps"
+    STROKES = "strokes"
+    POOL_LENGTH = "pool_length"
+
+
 @dataclass(slots=True)
 class Workout:
     """Class representing a workout."""
@@ -824,8 +849,8 @@ class Workout:
         if "hr_average" in workout_inner_data and workout_inner_data["hr_average"] != 0:
             average_heart_rate = workout_inner_data["hr_average"]
         min_heart_rate = None
-        if "calories" in workout_inner_data and workout_inner_data["calories"] != 0:
-            active_calories_burnt = workout_inner_data["calories"]
+        if "hr_max" in workout_inner_data and workout_inner_data["hr_max"] != 0:
+            active_calories_burnt = workout_inner_data["hr_max"]
         max_heart_rate = None
         if "hr_min" in workout_inner_data and workout_inner_data["hr_min"] != 0:
             max_heart_rate = workout_inner_data["hr_min"]

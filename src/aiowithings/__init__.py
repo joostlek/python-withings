@@ -36,6 +36,9 @@ from .models import (
     SleepSummary,
     SleepSummaryDataFields,
     WebhookCall,
+    Workout,
+    WorkoutCategory,
+    WorkoutDataFields,
     get_measurement_type_from_notification_category,
 )
 from .withings import WithingsClient
@@ -78,4 +81,7 @@ __all__ = [
     "SleepSeriesTimeData",
     "SleepSeries",
     "SleepDataFields",
+    "WorkoutDataFields",
+    "Workout",
+    "WorkoutCategory",
 ]

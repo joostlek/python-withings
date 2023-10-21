@@ -138,17 +138,20 @@ class Device:
 class Goals:
     """Model for Withings goals."""
 
-    steps: int
-    sleep: int
-    weight: float
+    steps: int | None
+    sleep: int | None
+    weight: float | None
 
     @classmethod
     def from_api(cls, goals: dict[str, Any]) -> Self:
         """Initialize from the API."""
+        weight = None
+        if "weight" in goals:
+            weight = get_measurement_from_dict(goals["weight"])
         return cls(
-            steps=goals["steps"],
-            sleep=goals["sleep"],
-            weight=get_measurement_from_dict(goals["weight"]),
+            steps=goals.get("steps"),
+            sleep=goals.get("sleep"),
+            weight=weight,
         )
 
 

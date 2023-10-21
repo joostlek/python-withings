@@ -2,6 +2,7 @@
 
 import aiohttp
 from aresponses import ResponsesMockServer
+import pytest
 
 from aiowithings import WithingsClient
 from syrupy import SnapshotAssertion
@@ -11,9 +12,18 @@ from . import load_fixture
 WITHINGS_URL = "wbsapi.withings.net"
 
 
+@pytest.mark.parametrize(
+    "fixture",
+    [
+        "goals",
+        "goals_1",
+        "goals_2",
+    ],
+)
 async def test_get_goals(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,
+    fixture: str,
 ) -> None:
     """Test retrieving devices."""
     aresponses.add(
@@ -23,7 +33,7 @@ async def test_get_goals(
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixture("goals.json"),
+            text=load_fixture(f"{fixture}.json"),
         ),
         body_pattern="action=getgoals",
     )

@@ -2,7 +2,7 @@
 # name: test_get_measurement_period
   list([
     dict({
-      'attribution': <MeasurementGroupAttribution.DEVICE_ENTRY_FOR_USER: 0>,
+      'attribution': <MeasurementAttribution.DEVICE_ENTRY_FOR_USER: 0>,
       'category': <MeasurementGroupCategory.REAL: 1>,
       'device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
       'group_id': 4815757309,
@@ -18,7 +18,7 @@
       'updated_at': datetime.datetime(2023, 9, 2, 10, 39, 45, tzinfo=datetime.timezone.utc),
     }),
     dict({
-      'attribution': <MeasurementGroupAttribution.DEVICE_ENTRY_FOR_USER: 0>,
+      'attribution': <MeasurementAttribution.DEVICE_ENTRY_FOR_USER: 0>,
       'category': <MeasurementGroupCategory.REAL: 1>,
       'device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
       'group_id': 4815757309,
@@ -38,7 +38,7 @@
 # name: test_get_measurement_since
   list([
     dict({
-      'attribution': <MeasurementGroupAttribution.DEVICE_ENTRY_FOR_USER: 0>,
+      'attribution': <MeasurementAttribution.DEVICE_ENTRY_FOR_USER: 0>,
       'category': <MeasurementGroupCategory.REAL: 1>,
       'device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
       'group_id': 4815757309,
@@ -54,7 +54,7 @@
       'updated_at': datetime.datetime(2023, 9, 2, 10, 39, 45, tzinfo=datetime.timezone.utc),
     }),
     dict({
-      'attribution': <MeasurementGroupAttribution.DEVICE_ENTRY_FOR_USER: 0>,
+      'attribution': <MeasurementAttribution.DEVICE_ENTRY_FOR_USER: 0>,
       'category': <MeasurementGroupCategory.REAL: 1>,
       'device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
       'group_id': 4815757309,

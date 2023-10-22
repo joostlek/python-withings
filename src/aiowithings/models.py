@@ -686,7 +686,7 @@ class Activity:
         duration_heart_rate_moderate_zone = None
         duration_heart_rate_intense_zone = None
         duration_heart_rate_maximal_zone = None
-        if activity_data["hr_average"] != 0:
+        if "hr_average" in activity_data and activity_data["hr_average"] != 0:
             average_heart_rate = activity_data["hr_average"]
             min_heart_rate = activity_data["hr_min"]
             max_heart_rate = activity_data["hr_max"]

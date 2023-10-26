@@ -143,8 +143,10 @@ class Goals:
     weight: float | None
 
     @classmethod
-    def from_api(cls, goals: dict[str, Any]) -> Self:
+    def from_api(cls, goals: dict[str, Any] | list[Any]) -> Self:
         """Initialize from the API."""
+        if isinstance(goals, list):
+            return cls(steps=None, sleep=None, weight=None)
         weight = None
         if "weight" in goals:
             weight = get_measurement_from_dict(goals["weight"])

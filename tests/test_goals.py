@@ -18,6 +18,7 @@ WITHINGS_URL = "wbsapi.withings.net"
         "goals",
         "goals_1",
         "goals_2",
+        "no_goals",
     ],
 )
 async def test_get_goals(

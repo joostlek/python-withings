@@ -20,3 +20,10 @@
     'weight': None,
   })
 # ---
+# name: test_get_goals[no_goals]
+  dict({
+    'sleep': None,
+    'steps': None,
+    'weight': None,
+  })
+# ---

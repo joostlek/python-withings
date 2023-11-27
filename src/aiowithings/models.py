@@ -629,7 +629,7 @@ class ActivityDataFields(StrEnum):
 
     STEPS = "steps"
     DISTANCE = "distance"
-    FLOORS_CLIMBED = "elevation"
+    ELEVATION = "elevation"
     SOFT_ACTIVITY = "soft"
     MODERATE_ACTIVITY = "moderate"
     INTENSE_ACTIVITY = "intense"
@@ -659,7 +659,7 @@ class Activity:
 
     steps: int
     distance: float
-    floors_climbed: int
+    elevation: int
     soft_activity: int
     moderate_activity: int
     intense_activity: int
@@ -700,7 +700,7 @@ class Activity:
         return cls(
             steps=activity_data["steps"],
             distance=activity_data["distance"],
-            floors_climbed=activity_data["elevation"],
+            elevation=activity_data["elevation"],
             soft_activity=activity_data["soft"],
             moderate_activity=activity_data["moderate"],
             intense_activity=activity_data["intense"],
@@ -820,7 +820,7 @@ class Workout:
 
     active_calories_burnt: int | None
     distance: int | None
-    floors_climbed: int | None
+    elevation: int | None
     average_heart_rate: int | None
     min_heart_rate: int | None
     max_heart_rate: int | None
@@ -844,9 +844,9 @@ class Workout:
         distance = None
         if "distance" in workout_inner_data and workout_inner_data["distance"] != 0:
             distance = workout_inner_data["distance"]
-        floors_climbed = None
+        elevation = None
         if "elevation" in workout_inner_data and workout_inner_data["elevation"] != 0:
-            floors_climbed = workout_inner_data["elevation"]
+            elevation = workout_inner_data["elevation"]
         average_heart_rate = None
         if "hr_average" in workout_inner_data and workout_inner_data["hr_average"] != 0:
             average_heart_rate = workout_inner_data["hr_average"]
@@ -910,7 +910,7 @@ class Workout:
             date=date.fromisoformat(workout_data["date"]),
             active_calories_burnt=active_calories_burnt,
             distance=distance,
-            floors_climbed=floors_climbed,
+            elevation=elevation,
             average_heart_rate=average_heart_rate,
             min_heart_rate=min_heart_rate,
             max_heart_rate=max_heart_rate,

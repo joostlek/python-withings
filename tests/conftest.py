@@ -2,12 +2,12 @@
 from typing import AsyncGenerator, Generator
 
 import aiohttp
-import pytest
 from aioresponses import aioresponses
-
-from syrupy import SnapshotAssertion
+import pytest
 
 from aiowithings import WithingsClient
+from syrupy import SnapshotAssertion
+
 from .syrupy import WithingsSnapshotExtension
 
 

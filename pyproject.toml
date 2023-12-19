@@ -44,7 +44,7 @@ ruff = "0.1.8"
 safety = "2.4.0b2"
 yamllint = "1.33.0"
 syrupy = "4.6.0"
-aioresponses = "^0.7.6"
+aioresponses = "0.7.6"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joostlek/python-withings/issues"

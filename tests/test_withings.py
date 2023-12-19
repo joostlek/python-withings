@@ -580,11 +580,13 @@ async def test_get_sleep_summary_in_period(
             "action": "getsummary",
             "startdateymd": "1970-01-01",
             "enddateymd": "2021-01-02",
-            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,"
-            "wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
-            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,"
-            "mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,"
-            "sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
+            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,"
+            "total_sleep_time,total_timeinbed,wakeup_latency,waso,"
+            "apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
+            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,"
+            "mvt_active_duration,mvt_score_avg,night_events,out_of_bed_count,"
+            "remsleepduration,rr_average,rr_min,rr_max,sleep_score,snoring,"
+            "snoringepisodecount,wakeupcount,wakeupduration,withings_index",
         },
     )
 
@@ -669,11 +671,13 @@ async def test_get_sleep_summary_since(
         data={
             "action": "getsummary",
             "lastupdate": 0,
-            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,"
-            "wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
-            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,"
-            "mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,"
-            "sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
+            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,"
+            "total_sleep_time,total_timeinbed,wakeup_latency,waso,"
+            "apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
+            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,"
+            "mvt_active_duration,mvt_score_avg,night_events,out_of_bed_count,"
+            "remsleepduration,rr_average,rr_min,rr_max,sleep_score,snoring,"
+            "snoringepisodecount,wakeupcount,wakeupduration,withings_index",
         },
     )
 

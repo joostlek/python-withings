@@ -16,6 +16,7 @@ def snapshot_assertion(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     """Return snapshot assertion fixture with the Withings extension."""
     return snapshot.use_extension(WithingsSnapshotExtension)
 
+
 @pytest.fixture(name="withings_client")
 async def client() -> AsyncGenerator[WithingsClient, None]:
     """Return a Withings client."""

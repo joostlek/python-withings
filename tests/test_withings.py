@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 from datetime import datetime, timezone
 import json
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import aiohttp
 from aiohttp.hdrs import METH_POST
@@ -13,6 +13,11 @@ import pytest
 
 from aiowithings import (
     ActivityDataFields,
+    MeasurementType,
+    NotificationCategory,
+    SleepDataFields,
+    SleepSummaryDataFields,
+    WebhookCall,
     WithingsAuthenticationFailedError,
     WithingsBadStateError,
     WithingsClient,
@@ -22,13 +27,16 @@ from aiowithings import (
     WithingsInvalidParamsError,
     WithingsTooManyRequestsError,
     WithingsUnauthorizedError,
-    WithingsUnknownStatusError, MeasurementType, NotificationCategory, get_measurement_type_from_notification_category,
-    WebhookCall, SleepDataFields, SleepSummaryDataFields, WorkoutDataFields,
+    WithingsUnknownStatusError,
+    WorkoutDataFields,
+    get_measurement_type_from_notification_category,
 )
-from syrupy import SnapshotAssertion
 
 from . import load_fixture
 from .const import HEADERS, WITHINGS_URL
+
+if TYPE_CHECKING:
+    from syrupy import SnapshotAssertion
 
 
 async def test_putting_in_own_session(
@@ -83,8 +91,6 @@ async def test_refresh_token() -> None:
         await withings.refresh_token()
 
         assert withings._token == "token"  # pylint: disable=protected-access
-
-
 
 
 async def test_unexpected_server_response(
@@ -155,7 +161,6 @@ async def test_error_codes(
         assert await authenticated_client.get_devices()
 
 
-
 async def test_get_activities_since(
     responses: aioresponses,
     snapshot: SnapshotAssertion,
@@ -176,7 +181,11 @@ async def test_get_activities_since(
         f"{WITHINGS_URL}/v2/measure",
         METH_POST,
         headers=HEADERS,
-        data={"lastupdate": 1609559200, "action": "getactivity", "data_fields": "distance"},
+        data={
+            "lastupdate": 1609559200,
+            "action": "getactivity",
+            "data_fields": "distance",
+        },
     )
 
 
@@ -200,7 +209,11 @@ async def test_get_activities_period(
         f"{WITHINGS_URL}/v2/measure",
         METH_POST,
         headers=HEADERS,
-        data={"action": "getactivity", "startdateymd": "2021-01-01 00:00:00+00:00", "enddateymd": "2021-01-02 03:46:40+00:00"},
+        data={
+            "action": "getactivity",
+            "startdateymd": "2021-01-01 00:00:00+00:00",
+            "enddateymd": "2021-01-02 03:46:40+00:00",
+        },
     )
 
 
@@ -380,6 +393,7 @@ async def test_revoking(
         },
     )
 
+
 async def test_list_subscriptions(
     responses: aioresponses,
     snapshot: SnapshotAssertion,
@@ -431,8 +445,6 @@ async def test_list_all_subscriptions(
 async def test_measurement_points_to_get(
     notification_category: NotificationCategory,
     snapshot: SnapshotAssertion,
-    responses: aioresponses,
-    authenticated_client: WithingsClient,
 ) -> None:
     """Test if we receive the right updated measurement points."""
     assert (
@@ -450,6 +462,7 @@ async def test_webhook_object(snapshot: SnapshotAssertion) -> None:
         "enddate": 1530698753,
     }
     assert WebhookCall.from_api(data) == snapshot
+
 
 async def test_get_sleep(
     responses: aioresponses,
@@ -527,35 +540,35 @@ async def test_get_sleep_summary_in_period(
         start_date=datetime.fromtimestamp(0, tz=timezone.utc).date(),
         end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc).date(),
         sleep_summary_data_fields=[
-                SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
-                SleepSummaryDataFields.SLEEP_EFFICIENCY,
-                SleepSummaryDataFields.SLEEP_LATENCY,
-                SleepSummaryDataFields.TOTAL_SLEEP_TIME,
-                SleepSummaryDataFields.TOTAL_TIME_IN_BED,
-                SleepSummaryDataFields.WAKE_UP_LATENCY,
-                SleepSummaryDataFields.TIME_AWAKE_DURING_SLEEP,
-                SleepSummaryDataFields.APNEA_HYPOPNEA_INDEX,
-                SleepSummaryDataFields.BREATHING_DISTURBANCES_INTENSITY,
-                SleepSummaryDataFields.EXTERNAL_TOTAL_SLEEP_TIME,
-                SleepSummaryDataFields.DEEP_SLEEP_DURATION,
-                SleepSummaryDataFields.AVERAGE_HEART_RATE,
-                SleepSummaryDataFields.MIN_HEART_RATE,
-                SleepSummaryDataFields.MAX_HEART_RATE,
-                SleepSummaryDataFields.LIGHT_SLEEP_DURATION,
-                SleepSummaryDataFields.ACTIVE_MOVEMENT_DURATION,
-                SleepSummaryDataFields.AVERAGE_MOVEMENT_SCORE,
-                SleepSummaryDataFields.NIGHT_EVENTS,
-                SleepSummaryDataFields.OUT_OF_BED_COUNT,
-                SleepSummaryDataFields.REM_SLEEP_DURATION,
-                SleepSummaryDataFields.AVERAGE_RESPIRATION_RATE,
-                SleepSummaryDataFields.MIN_RESPIRATION_RATE,
-                SleepSummaryDataFields.MAX_RESPIRATION_RATE,
-                SleepSummaryDataFields.SLEEP_SCORE,
-                SleepSummaryDataFields.SNORING,
-                SleepSummaryDataFields.SNORING_COUNT,
-                SleepSummaryDataFields.WAKE_UP_COUNT,
-                SleepSummaryDataFields.TOTAL_TIME_AWAKE,
-                SleepSummaryDataFields.WITHINGS_INDEX,
+            SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
+            SleepSummaryDataFields.SLEEP_EFFICIENCY,
+            SleepSummaryDataFields.SLEEP_LATENCY,
+            SleepSummaryDataFields.TOTAL_SLEEP_TIME,
+            SleepSummaryDataFields.TOTAL_TIME_IN_BED,
+            SleepSummaryDataFields.WAKE_UP_LATENCY,
+            SleepSummaryDataFields.TIME_AWAKE_DURING_SLEEP,
+            SleepSummaryDataFields.APNEA_HYPOPNEA_INDEX,
+            SleepSummaryDataFields.BREATHING_DISTURBANCES_INTENSITY,
+            SleepSummaryDataFields.EXTERNAL_TOTAL_SLEEP_TIME,
+            SleepSummaryDataFields.DEEP_SLEEP_DURATION,
+            SleepSummaryDataFields.AVERAGE_HEART_RATE,
+            SleepSummaryDataFields.MIN_HEART_RATE,
+            SleepSummaryDataFields.MAX_HEART_RATE,
+            SleepSummaryDataFields.LIGHT_SLEEP_DURATION,
+            SleepSummaryDataFields.ACTIVE_MOVEMENT_DURATION,
+            SleepSummaryDataFields.AVERAGE_MOVEMENT_SCORE,
+            SleepSummaryDataFields.NIGHT_EVENTS,
+            SleepSummaryDataFields.OUT_OF_BED_COUNT,
+            SleepSummaryDataFields.REM_SLEEP_DURATION,
+            SleepSummaryDataFields.AVERAGE_RESPIRATION_RATE,
+            SleepSummaryDataFields.MIN_RESPIRATION_RATE,
+            SleepSummaryDataFields.MAX_RESPIRATION_RATE,
+            SleepSummaryDataFields.SLEEP_SCORE,
+            SleepSummaryDataFields.SNORING,
+            SleepSummaryDataFields.SNORING_COUNT,
+            SleepSummaryDataFields.WAKE_UP_COUNT,
+            SleepSummaryDataFields.TOTAL_TIME_AWAKE,
+            SleepSummaryDataFields.WITHINGS_INDEX,
         ],
     )
     assert response == snapshot
@@ -567,7 +580,11 @@ async def test_get_sleep_summary_in_period(
             "action": "getsummary",
             "startdateymd": "1970-01-01",
             "enddateymd": "2021-01-02",
-            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
+            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,"
+            "wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
+            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,"
+            "mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,"
+            "sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
         },
     )
 
@@ -613,36 +630,36 @@ async def test_get_sleep_summary_since(
     response = await authenticated_client.get_sleep_summary_since(
         sleep_summary_since=datetime.fromtimestamp(0, tz=timezone.utc),
         sleep_summary_data_fields=[
-                SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
-                SleepSummaryDataFields.SLEEP_EFFICIENCY,
-                SleepSummaryDataFields.SLEEP_LATENCY,
-                SleepSummaryDataFields.TOTAL_SLEEP_TIME,
-                SleepSummaryDataFields.TOTAL_TIME_IN_BED,
-                SleepSummaryDataFields.WAKE_UP_LATENCY,
-                SleepSummaryDataFields.TIME_AWAKE_DURING_SLEEP,
-                SleepSummaryDataFields.APNEA_HYPOPNEA_INDEX,
-                SleepSummaryDataFields.BREATHING_DISTURBANCES_INTENSITY,
-                SleepSummaryDataFields.EXTERNAL_TOTAL_SLEEP_TIME,
-                SleepSummaryDataFields.DEEP_SLEEP_DURATION,
-                SleepSummaryDataFields.AVERAGE_HEART_RATE,
-                SleepSummaryDataFields.MIN_HEART_RATE,
-                SleepSummaryDataFields.MAX_HEART_RATE,
-                SleepSummaryDataFields.LIGHT_SLEEP_DURATION,
-                SleepSummaryDataFields.ACTIVE_MOVEMENT_DURATION,
-                SleepSummaryDataFields.AVERAGE_MOVEMENT_SCORE,
-                SleepSummaryDataFields.NIGHT_EVENTS,
-                SleepSummaryDataFields.OUT_OF_BED_COUNT,
-                SleepSummaryDataFields.REM_SLEEP_DURATION,
-                SleepSummaryDataFields.AVERAGE_RESPIRATION_RATE,
-                SleepSummaryDataFields.MIN_RESPIRATION_RATE,
-                SleepSummaryDataFields.MAX_RESPIRATION_RATE,
-                SleepSummaryDataFields.SLEEP_SCORE,
-                SleepSummaryDataFields.SNORING,
-                SleepSummaryDataFields.SNORING_COUNT,
-                SleepSummaryDataFields.WAKE_UP_COUNT,
-                SleepSummaryDataFields.TOTAL_TIME_AWAKE,
-                SleepSummaryDataFields.WITHINGS_INDEX,
-            ],
+            SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
+            SleepSummaryDataFields.SLEEP_EFFICIENCY,
+            SleepSummaryDataFields.SLEEP_LATENCY,
+            SleepSummaryDataFields.TOTAL_SLEEP_TIME,
+            SleepSummaryDataFields.TOTAL_TIME_IN_BED,
+            SleepSummaryDataFields.WAKE_UP_LATENCY,
+            SleepSummaryDataFields.TIME_AWAKE_DURING_SLEEP,
+            SleepSummaryDataFields.APNEA_HYPOPNEA_INDEX,
+            SleepSummaryDataFields.BREATHING_DISTURBANCES_INTENSITY,
+            SleepSummaryDataFields.EXTERNAL_TOTAL_SLEEP_TIME,
+            SleepSummaryDataFields.DEEP_SLEEP_DURATION,
+            SleepSummaryDataFields.AVERAGE_HEART_RATE,
+            SleepSummaryDataFields.MIN_HEART_RATE,
+            SleepSummaryDataFields.MAX_HEART_RATE,
+            SleepSummaryDataFields.LIGHT_SLEEP_DURATION,
+            SleepSummaryDataFields.ACTIVE_MOVEMENT_DURATION,
+            SleepSummaryDataFields.AVERAGE_MOVEMENT_SCORE,
+            SleepSummaryDataFields.NIGHT_EVENTS,
+            SleepSummaryDataFields.OUT_OF_BED_COUNT,
+            SleepSummaryDataFields.REM_SLEEP_DURATION,
+            SleepSummaryDataFields.AVERAGE_RESPIRATION_RATE,
+            SleepSummaryDataFields.MIN_RESPIRATION_RATE,
+            SleepSummaryDataFields.MAX_RESPIRATION_RATE,
+            SleepSummaryDataFields.SLEEP_SCORE,
+            SleepSummaryDataFields.SNORING,
+            SleepSummaryDataFields.SNORING_COUNT,
+            SleepSummaryDataFields.WAKE_UP_COUNT,
+            SleepSummaryDataFields.TOTAL_TIME_AWAKE,
+            SleepSummaryDataFields.WITHINGS_INDEX,
+        ],
     )
     assert len(response) == 300
     responses.assert_called_once_with(
@@ -652,7 +669,11 @@ async def test_get_sleep_summary_since(
         data={
             "action": "getsummary",
             "lastupdate": 0,
-            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
+            "data_fields": "nb_rem_episodes,sleep_efficiency,sleep_latency,total_sleep_time,total_timeinbed,"
+            "wakeup_latency,waso,apnea_hypopnea_index,breathing_disturbances_intensity,asleepduration,"
+            "deepsleepduration,hr_average,hr_min,hr_max,lightsleepduration,mvt_active_duration,"
+            "mvt_score_avg,night_events,out_of_bed_count,remsleepduration,rr_average,rr_min,rr_max,"
+            "sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration,withings_index",
         },
     )
 
@@ -726,5 +747,9 @@ async def test_get_workouts_period(
         f"{WITHINGS_URL}/v2/measure",
         METH_POST,
         headers=HEADERS,
-        data={"action": "getworkouts", "startdateymd": "1970-01-01 00:00:00+00:00", "enddateymd": "2021-01-02 03:46:40+00:00"},
+        data={
+            "action": "getworkouts",
+            "startdateymd": "1970-01-01 00:00:00+00:00",
+            "enddateymd": "2021-01-02 03:46:40+00:00",
+        },
     )

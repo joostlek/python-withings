@@ -167,6 +167,7 @@ class MeasurementAttribution(IntEnum):
     MANUAL_USER_DURING_ACCOUNT_CREATION = 4
     MEASURE_AUTO = 5
     MEASURE_USER_CONFIRMED = 7
+    GUIDED_CONDITIONS = 15
 
 
 class MeasurementGroupCategory(IntEnum):

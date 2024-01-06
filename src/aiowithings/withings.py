@@ -54,6 +54,9 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
 
+VERSION = metadata.version(__package__)
+
+
 @dataclass
 class WithingsClient:
     """Main class for handling connections with Withings."""
@@ -81,7 +84,6 @@ class WithingsClient:
         data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Handle a request to Withings."""
-        version = metadata.version(__package__)
         url = URL.build(
             scheme="https",
             host=self.api_host,
@@ -91,7 +93,7 @@ class WithingsClient:
         await self.refresh_token()
 
         headers = {
-            "User-Agent": f"AioWithings/{version}",
+            "User-Agent": f"AioWithings/{VERSION}",
             "Accept": "application/json, text/plain, */*",
             "Authorization": f"Bearer {self._token}",
         }

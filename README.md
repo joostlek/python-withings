@@ -88,7 +88,7 @@ check [the contributor's page][contributors].
 
 MIT License
 
-Copyright (c) 2023 Joost Lekkerkerker
+Copyright (c) 2023 - 2024 Joost Lekkerkerker
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -116,7 +116,6 @@ SOFTWARE.
 [commits-shield]: https://img.shields.io/github/commit-activity/y/joostlek/python-withings.svg
 [commits]: https://github.com/joostlek/python-withings/commits/master
 [contributors]: https://github.com/joostlek/python-withings/graphs/contributors
-[frenck]: https://github.com/frenck
 [joostlek]: https://github.com/joostlek
 [keepchangelog]: http://keepachangelog.com/en/1.0.0/
 [license-shield]: https://img.shields.io/github/license/joostlek/python-withings.svg

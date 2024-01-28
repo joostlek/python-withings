@@ -1,21 +1,22 @@
 """Asynchronous Python client for Withings."""
 from __future__ import annotations
 
+from enum import Enum
 from typing import Any, TypeVar, cast
 
 from aiowithings.const import LOGGER
 
-_EnumT = TypeVar("_EnumT")
+T = TypeVar("T", bound=Enum)
 
 
 def to_enum(
-    enum_class: type[_EnumT],
+    enum_class: type[T],
     value: Any,
-    default_value: _EnumT,
-) -> _EnumT:
+    default_value: T,
+) -> T:
     """Convert a value to an enum and log if it doesn't exist."""
     try:
-        return enum_class(value)  # type: ignore[call-arg]
+        return enum_class(value)
     except ValueError:
         LOGGER.warning(
             "%s is an unsupported value for %s, please report this at https://github.com/joostlek/python-withings/issues",
@@ -23,6 +24,17 @@ def to_enum(
             str(enum_class),
         )
         return default_value
+
+
+def to_enum_or_none(
+    enum_class: type[T],
+    value: Any,
+) -> T | None:
+    """Convert a value to an enum or None if it fails."""
+    try:
+        return enum_class(value)
+    except ValueError:
+        return None
 
 
 def get_measurement(value: int, unit: int) -> float:

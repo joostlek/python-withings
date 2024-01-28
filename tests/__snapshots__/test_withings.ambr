@@ -156,6 +156,7 @@
       'measurements': list([
         dict({
           'measurement_type': <MeasurementType.WEIGHT: 1>,
+          'position': None,
           'value': 118.003,
         }),
       ]),
@@ -172,6 +173,7 @@
       'measurements': list([
         dict({
           'measurement_type': <MeasurementType.WEIGHT: 1>,
+          'position': None,
           'value': 118.003,
         }),
       ]),
@@ -192,6 +194,7 @@
       'measurements': list([
         dict({
           'measurement_type': <MeasurementType.WEIGHT: 1>,
+          'position': None,
           'value': 118.003,
         }),
       ]),
@@ -208,6 +211,7 @@
       'measurements': list([
         dict({
           'measurement_type': <MeasurementType.WEIGHT: 1>,
+          'position': None,
           'value': 118.003,
         }),
       ]),

@@ -133,6 +133,8 @@ ignore = [
   "ANN101", # Self... explanatory
   "ANN102", # cls... just as useless
   "ANN401", # Opinioated warning on disallowing dynamically typed expressions
+  "COM812", # Breaks the linting
+  "ISC001", # Breaks the linting
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions

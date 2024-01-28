@@ -6,7 +6,7 @@ from datetime import date, datetime, timezone
 from enum import IntEnum, IntFlag, StrEnum
 from typing import Any, Self
 
-from aiowithings.util import get_measurement_from_dict, to_enum
+from aiowithings.util import get_measurement_from_dict, to_enum, to_enum_or_none
 
 
 class AuthScope(StrEnum):
@@ -170,6 +170,27 @@ class MeasurementAttribution(IntEnum):
     GUIDED_CONDITIONS = 15
 
 
+class MeasurementPosition(IntEnum):
+    """Measure positions."""
+
+    UNKNOWN = -1
+    RIGHT_WRIST = 0
+    LEFT_WRIST = 1
+    RIGHT_ARM = 2
+    LEFT_ARM = 3
+    RIGHT_FOOT = 4
+    LEFT_FOOT = 5
+    BETWEEN_LEGS = 6
+    WHOLE_BODY = 7
+    LEFT_PART_BODY = 8
+    RIGHT_PART_BODY = 9
+    LEFT_LEG = 10
+    RIGHT_LEG = 11
+    TORSO = 12
+    LEFT_HAND = 13
+    RIGHT_HAND = 14
+
+
 class MeasurementGroupCategory(IntEnum):
     """Measure categories."""
 
@@ -250,6 +271,10 @@ class MeasurementType(IntEnum):
     HYDRATION = 77
     BONE_MASS = 88
     PULSE_WAVE_VELOCITY = 91
+    MUSCLE_PERCENT = 93
+    BONE_PERCENT = 92
+    WATER_PERCENT = 95
+    FAT_FREE_PERCENT = 122
     VO2 = 123
     ATRIAL_FIBRILLATION = 130
     QRS_INTERVAL = 135
@@ -264,11 +289,19 @@ class MeasurementType(IntEnum):
     EXTRACELLULAR_WATER = 168
     INTRACELLULAR_WATER = 169
     VISCERAL_FAT = 170
+    FAT_FREE_MASS_FOR_SEGMENTS = 173
     FAT_MASS_FOR_SEGMENTS = 174
     MUSCLE_MASS_FOR_SEGMENTS = 175
+    IMPEDANCE_5KHZ_FOR_SEGMENTS = 176
+    IMPEDANCE_50HZ_FOR_SEGMENTS = 177
+    IMPEDANCE_250HZ_FOR_SEGMENTS = 178
+    IMPEDANCE_625KHZ_FOR_SEGMENTS = 189
     ELECTRODERMAL_ACTIVITY_FEET = 196
     ELECTRODERMAL_ACTIVITY_LEFT_FOOT = 197
     ELECTRODERMAL_ACTIVITY_RIGHT_FOOT = 198
+    BIA_ERROR = 207
+    BASAL_METABOLIC_RATE = 226
+    METABOLIC_AGE = 227
 
 
 @dataclass(slots=True)
@@ -277,17 +310,25 @@ class Measurement:
 
     measurement_type: MeasurementType
     value: float
+    position: MeasurementPosition | None
 
     @classmethod
-    def from_api(cls, measurement: dict[str, Any]) -> Self:
+    def from_api(cls, measurement: dict[str, Any]) -> Measurement:
         """Initialize from the API."""
+        measurement_type = to_enum(
+            MeasurementType,
+            measurement["type"],
+            MeasurementType.UNKNOWN,
+        )
+        value = get_measurement_from_dict(measurement)
+        position = to_enum_or_none(
+            MeasurementPosition,
+            measurement.get("position", None),
+        )
         return cls(
-            measurement_type=to_enum(
-                MeasurementType,
-                measurement["type"],
-                MeasurementType.UNKNOWN,
-            ),
-            value=get_measurement_from_dict(measurement),
+            measurement_type=measurement_type,
+            value=value,
+            position=position,
         )
 
 

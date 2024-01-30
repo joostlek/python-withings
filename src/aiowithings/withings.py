@@ -402,6 +402,7 @@ class WithingsClient:
         Returns
         -------
             The WithingsClient object.
+
         """
         return self
 
@@ -411,5 +412,6 @@ class WithingsClient:
         Args:
         ----
             _exc_info: Exec type.
+
         """
         await self.close()

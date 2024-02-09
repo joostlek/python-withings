@@ -74,6 +74,9 @@ jobs:
           poetry run coverage xml -i
       - name: 🚀 Upload coverage report
         uses: codecov/codecov-action@v4.0.1
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: SonarCloud Scan
         if: github.event.pull_request.head.repo.fork == false
         uses: SonarSource/sonarcloud-github-action@v2.1.1

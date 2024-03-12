@@ -128,29 +128,31 @@ max-line-length = 88
 addopts = "--cov"
 asyncio_mode = "auto"
 
-[tool.ruff]
+[tool.ruff.lint]
 ignore = [
   "ANN101", # Self... explanatory
   "ANN102", # cls... just as useless
   "ANN401", # Opinioated warning on disallowing dynamically typed expressions
+  "COM812", # Conflicts with other rules
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions
+  "ISC001", # Conflicts with other rules
   "PLR2004", # Just annoying, not really useful
 ]
 select = ["ALL"]
 
-[tool.ruff.flake8-pytest-style]
+[tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["aiowithings"]
 force-sort-within-sections = true
 split-on-trailing-comma = false
 combine-as-imports = true
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 25
 
 [build-system]

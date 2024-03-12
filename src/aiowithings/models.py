@@ -1,4 +1,5 @@
 """Asynchronous Python client for Withings."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

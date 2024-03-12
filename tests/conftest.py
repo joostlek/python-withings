@@ -1,4 +1,5 @@
 """Asynchronous Python client for Withings."""
+
 from typing import AsyncGenerator, Generator
 
 import aiohttp

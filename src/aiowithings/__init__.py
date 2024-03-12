@@ -1,4 +1,5 @@
 """Asynchronous Python client for Withings."""
+
 from .const import AUTHORIZATION_URL, TOKEN_URL
 from .exceptions import (
     WithingsAuthenticationFailedError,

@@ -1,23 +1,170 @@
 # serializer version: 1
 # name: test_aggregate_measurements
   dict({
-    <MeasurementType.WEIGHT: 1>: 108.4,
-    <MeasurementType.HEIGHT: 4>: 1.6,
-    <MeasurementType.FAT_FREE_MASS: 5>: 96.0,
-    <MeasurementType.FAT_RATIO: 6>: 11.439,
-    <MeasurementType.FAT_MASS_WEIGHT: 8>: 12.4,
-    <MeasurementType.DIASTOLIC_BLOOD_PRESSURE: 9>: 106.0,
-    <MeasurementType.SYSTOLIC_BLOOD_PRESSURE: 10>: 158.0,
-    <MeasurementType.HEART_RATE: 11>: 62.0,
-    <MeasurementType.MUSCLE_MASS: 76>: 92.2,
-    <MeasurementType.HYDRATION: 77>: 70.39,
-    <MeasurementType.BONE_MASS: 88>: 3.8000000000000003,
-    <MeasurementType.PULSE_WAVE_VELOCITY: 91>: 7.4,
-    <MeasurementType.VASCULAR_AGE: 155>: 28.900000000000002,
+    tuple(
+      <MeasurementType.WEIGHT: 1>,
+      None,
+    ): 108.4,
+    tuple(
+      <MeasurementType.HEIGHT: 4>,
+      None,
+    ): 1.6,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS: 5>,
+      None,
+    ): 96.0,
+    tuple(
+      <MeasurementType.FAT_RATIO: 6>,
+      None,
+    ): 11.439,
+    tuple(
+      <MeasurementType.FAT_MASS_WEIGHT: 8>,
+      None,
+    ): 12.4,
+    tuple(
+      <MeasurementType.DIASTOLIC_BLOOD_PRESSURE: 9>,
+      None,
+    ): 106.0,
+    tuple(
+      <MeasurementType.SYSTOLIC_BLOOD_PRESSURE: 10>,
+      None,
+    ): 158.0,
+    tuple(
+      <MeasurementType.HEART_RATE: 11>,
+      None,
+    ): 62.0,
+    tuple(
+      <MeasurementType.MUSCLE_MASS: 76>,
+      None,
+    ): 92.2,
+    tuple(
+      <MeasurementType.HYDRATION: 77>,
+      None,
+    ): 70.39,
+    tuple(
+      <MeasurementType.BONE_MASS: 88>,
+      None,
+    ): 3.8000000000000003,
+    tuple(
+      <MeasurementType.PULSE_WAVE_VELOCITY: 91>,
+      None,
+    ): 7.4,
+    tuple(
+      <MeasurementType.VASCULAR_AGE: 155>,
+      None,
+    ): 28.900000000000002,
   })
 # ---
 # name: test_aggregate_no_sleep_summary
   None
+# ---
+# name: test_aggregate_positional_measurements
+  dict({
+    tuple(
+      <MeasurementType.UNKNOWN: 0>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 2308,
+    tuple(
+      <MeasurementType.WEIGHT: 1>,
+      None,
+    ): 96.44,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS: 5>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 78.63,
+    tuple(
+      <MeasurementType.FAT_RATIO: 6>,
+      None,
+    ): 18.457,
+    tuple(
+      <MeasurementType.FAT_MASS_WEIGHT: 8>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 17.8,
+    tuple(
+      <MeasurementType.MUSCLE_MASS: 76>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 74.75,
+    tuple(
+      <MeasurementType.HYDRATION: 77>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 52.96,
+    tuple(
+      <MeasurementType.BONE_MASS: 88>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 3.87,
+    tuple(
+      <MeasurementType.EXTRACELLULAR_WATER: 168>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 21.75,
+    tuple(
+      <MeasurementType.INTRACELLULAR_WATER: 169>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 31.2,
+    tuple(
+      <MeasurementType.VISCERAL_FAT: 170>,
+      <MeasurementPosition.WHOLE_BODY: 7>,
+    ): 3.1,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,
+      <MeasurementPosition.RIGHT_ARM: 2>,
+    ): 5.18,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,
+      <MeasurementPosition.LEFT_ARM: 3>,
+    ): 5.05,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,
+      <MeasurementPosition.LEFT_LEG: 10>,
+    ): 13.84,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,
+      <MeasurementPosition.RIGHT_LEG: 11>,
+    ): 14.05,
+    tuple(
+      <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,
+      <MeasurementPosition.TORSO: 12>,
+    ): 40.49,
+    tuple(
+      <MeasurementType.FAT_MASS_FOR_SEGMENTS: 174>,
+      <MeasurementPosition.RIGHT_ARM: 2>,
+    ): 0.99,
+    tuple(
+      <MeasurementType.FAT_MASS_FOR_SEGMENTS: 174>,
+      <MeasurementPosition.LEFT_ARM: 3>,
+    ): 1.03,
+    tuple(
+      <MeasurementType.FAT_MASS_FOR_SEGMENTS: 174>,
+      <MeasurementPosition.LEFT_LEG: 10>,
+    ): 2.45,
+    tuple(
+      <MeasurementType.FAT_MASS_FOR_SEGMENTS: 174>,
+      <MeasurementPosition.RIGHT_LEG: 11>,
+    ): 2.33,
+    tuple(
+      <MeasurementType.FAT_MASS_FOR_SEGMENTS: 174>,
+      <MeasurementPosition.TORSO: 12>,
+    ): 10.99,
+    tuple(
+      <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
+      <MeasurementPosition.RIGHT_ARM: 2>,
+    ): 4.89,
+    tuple(
+      <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
+      <MeasurementPosition.LEFT_ARM: 3>,
+    ): 4.7700000000000005,
+    tuple(
+      <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
+      <MeasurementPosition.LEFT_LEG: 10>,
+    ): 13.09,
+    tuple(
+      <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
+      <MeasurementPosition.RIGHT_LEG: 11>,
+    ): 13.290000000000001,
+    tuple(
+      <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
+      <MeasurementPosition.TORSO: 12>,
+    ): 38.7,
+  })
 # ---
 # name: test_aggregate_single_sleep_summary
   dict({

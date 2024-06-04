@@ -1,0 +1,3909 @@
+[
+    {
+        "grpid": 5109691092,
+        "attrib": 0,
+        "date": 1703523863,
+        "created": 1703530448,
+        "modified": 1703530448,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 120,
+                "type": 11,
+                "unit": 0,
+                "algo": 0,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5109691089,
+        "attrib": 0,
+        "date": 1703523863,
+        "created": 1703530448,
+        "modified": 1703530448,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 54897,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 50404,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 59050,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5109691080,
+        "attrib": 0,
+        "date": 1703523863,
+        "created": 1703530448,
+        "modified": 1703530448,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95817,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5112626817,
+        "attrib": 0,
+        "date": 1703641917,
+        "created": 1703642083,
+        "modified": 1703642083,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95854,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5112626831,
+        "attrib": 0,
+        "date": 1703642005,
+        "created": 1703642084,
+        "modified": 1703642084,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 104,
+                "type": 11,
+                "unit": 0,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5112626829,
+        "attrib": 0,
+        "date": 1703642005,
+        "created": 1703642084,
+        "modified": 1703642084,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95840,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5112626820,
+        "attrib": 0,
+        "date": 1703641917,
+        "created": 1703642084,
+        "modified": 1703642084,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 53703,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 52146,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 53691,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5114418400,
+        "attrib": 0,
+        "date": 1703700043,
+        "created": 1703700117,
+        "modified": 1703700117,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95908,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            },
+            {
+                "value": 7680,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7680,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1909,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1909,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7301,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 5217,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 378,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2139,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3078,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 33,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3981,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1304,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 505,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1353,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 536,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 1147,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 295,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 104,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 267,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 94,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 3804,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1233,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 477,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1280,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 506,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 2252,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 19904,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5114418417,
+        "attrib": 0,
+        "date": 1703700043,
+        "created": 1703700118,
+        "modified": 1703700118,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 116,
+                "type": 11,
+                "unit": 0,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5114418415,
+        "attrib": 0,
+        "date": 1703700043,
+        "created": 1703700118,
+        "modified": 1703700118,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 45428,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 43427,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 45917,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5122267177,
+        "attrib": 0,
+        "date": 1703974036,
+        "created": 1703974140,
+        "modified": 1703974140,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 49720,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 52505,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 45918,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5122267171,
+        "attrib": 0,
+        "date": 1703974036,
+        "created": 1703974140,
+        "modified": 1703974140,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95226,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            },
+            {
+                "value": 7489,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7489,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2033,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2033,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7119,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 5102,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 370,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2126,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2975,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 35,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3915,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1285,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 461,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1345,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 479,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 1298,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 276,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 110,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 242,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 105,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 3740,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1216,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 435,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1273,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 453,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 2193,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 21349,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5122267193,
+        "attrib": 0,
+        "date": 1703974036,
+        "created": 1703974141,
+        "modified": 1703991134,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 113,
+                "type": 11,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 131,
+                "algo_params": {
+                    "1": 1
+                }
+            },
+            {
+                "value": 8,
+                "type": 130,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 131,
+                "algo_params": {
+                    "1": 1
+                }
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5124961425,
+        "attrib": 0,
+        "date": 1704073540,
+        "created": 1704073608,
+        "modified": 1704073608,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 94763,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7414,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7414,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2061,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2061,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7047,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5088,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 366,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2093,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2995,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 35,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3881,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1251,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 477,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1306,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 496,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1261,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 306,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 110,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 276,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 106,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3707,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1184,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 450,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1235,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 468,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2169,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 21749,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5143545220,
+        "attrib": 0,
+        "date": 1704567441,
+        "created": 1704607569,
+        "modified": 1704607569,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95772,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7638,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7638,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1938,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1938,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7261,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5213,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 376,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2121,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3091,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 33,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3962,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1296,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 523,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1336,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 520,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1189,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 290,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 94,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 266,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 98,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3786,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1226,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 494,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1263,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 491,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2239,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 20236,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5143545263,
+        "attrib": 0,
+        "date": 1704567441,
+        "created": 1704607570,
+        "modified": 1704607570,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 114,
+                "type": 11,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            },
+            {
+                "value": 8,
+                "type": 130,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5149666517,
+        "attrib": 0,
+        "date": 1704769719,
+        "created": 1704769835,
+        "modified": 1704769835,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 60078,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 59328,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 59343,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5149666502,
+        "attrib": 0,
+        "date": 1704769719,
+        "created": 1704769835,
+        "modified": 1704769835,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95854,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7718,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7718,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1866,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1866,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7338,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5205,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 380,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2162,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3043,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 32,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 4000,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1350,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 469,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1406,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 491,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1209,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 241,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 107,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 207,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 99,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3823,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1277,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 442,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1330,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 463,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2263,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 19467,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5149666553,
+        "attrib": 0,
+        "date": 1704769719,
+        "created": 1704769836,
+        "modified": 1704769836,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 119,
+                "type": 11,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            },
+            {
+                "value": 8,
+                "type": 130,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5156052100,
+        "attrib": 0,
+        "date": 1704938744,
+        "created": 1704938811,
+        "modified": 1704938811,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 96440,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7863,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7863,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1780,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1780,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7475,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5296,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 387,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2175,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3120,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 31,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 4049,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1384,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 505,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1405,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 518,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1099,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 245,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 103,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 233,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 99,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3870,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1309,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 477,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1329,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 489,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2308,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 18457,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5162469043,
+        "attrib": 0,
+        "date": 1705116428,
+        "created": 1705116482,
+        "modified": 1705116482,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95976,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7775,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7775,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1822,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1822,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7391,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5242,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 383,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2164,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3077,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 32,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 4018,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1366,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 483,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1410,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 495,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1139,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 248,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 107,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 219,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 106,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3841,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1292,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 455,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1334,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 468,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2280,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 18984,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5174426217,
+        "attrib": 0,
+        "date": 1705454074,
+        "created": 1705454200,
+        "modified": 1705454200,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 94681,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7545,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7545,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1922,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1922,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7173,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5146,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 372,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2108,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3038,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 33,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3928,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1267,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 509,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1337,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 502,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1180,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 291,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 97,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 250,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 101,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3752,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1199,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 481,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1265,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 474,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2209,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 20300,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5174426258,
+        "attrib": 0,
+        "date": 1705454130,
+        "created": 1705454201,
+        "modified": 1705454201,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 94858,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7395,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7395,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2090,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2090,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7029,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5066,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 365,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2101,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2965,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 35,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3878,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1235,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 488,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1302,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 490,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1286,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 315,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 105,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 276,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 107,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3704,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1168,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 460,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1231,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 463,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2164,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 22033,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5180691777,
+        "attrib": 0,
+        "date": 1705628844,
+        "created": 1705628915,
+        "modified": 1705628915,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 95036,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            },
+            {
+                "value": 7525,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7525,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1978,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1978,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7153,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 5117,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 371,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2125,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2991,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 34,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3927,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1284,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 469,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1361,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 482,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 1244,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 281,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 109,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 235,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 106,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 3752,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1214,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 442,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1288,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 455,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 2203,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 20813,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5183334764,
+        "attrib": 0,
+        "date": 1705696977,
+        "created": 1705697076,
+        "modified": 1705697076,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 50322,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 46726,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 52563,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5183334738,
+        "attrib": 0,
+        "date": 1705696977,
+        "created": 1705697076,
+        "modified": 1705697076,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 93904,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 131
+            },
+            {
+                "value": 7587,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7587,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1802,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 1802,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 7213,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 5200,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 374,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 2075,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3124,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 32,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 3929,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1287,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 504,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1338,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 527,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 1083,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 277,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 94,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 248,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 98,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 3754,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 12
+            },
+            {
+                "value": 1218,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 10
+            },
+            {
+                "value": 476,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 3
+            },
+            {
+                "value": 1265,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 11
+            },
+            {
+                "value": 498,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 2
+            },
+            {
+                "value": 2220,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 131,
+                "position": 7
+            },
+            {
+                "value": 19190,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5183334799,
+        "attrib": 0,
+        "date": 1705696977,
+        "created": 1705697077,
+        "modified": 1705697077,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 113,
+                "type": 11,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 131,
+                "algo_params": {
+                    "1": 1
+                }
+            },
+            {
+                "value": 8,
+                "type": 130,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 131,
+                "algo_params": {
+                    "1": 1
+                }
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5183334781,
+        "attrib": 8,
+        "date": 1705696977,
+        "created": 1705697077,
+        "modified": 1705697077,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 7680,
+                "type": 91,
+                "unit": -3,
+                "algo": 0,
+                "fm": 131
+            },
+            {
+                "value": 462,
+                "type": 155,
+                "unit": -1,
+                "algo": 0,
+                "fm": 131
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5192759218,
+        "attrib": 0,
+        "date": 1705972169,
+        "created": 1705972232,
+        "modified": 1705972232,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 93713,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7518,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7518,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1852,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1852,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7147,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5125,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 371,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2098,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3026,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 32,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3914,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1290,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 496,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1309,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 507,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1140,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 265,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 98,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 253,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 94,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3739,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1220,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 469,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1238,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 479,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2198,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 19762,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5199031731,
+        "attrib": 0,
+        "date": 1706145126,
+        "created": 1706145228,
+        "modified": 1706145228,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 94804,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7643,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7643,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1837,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1837,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7265,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5178,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 377,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2134,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3044,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 32,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3966,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1302,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 483,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1384,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 505,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1119,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 280,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 106,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 230,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 100,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3790,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1232,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 456,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1309,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 477,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2238,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 19377,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5199031740,
+        "attrib": 8,
+        "date": 1706145126,
+        "created": 1706145229,
+        "modified": 1706145229,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 7744,
+                "type": 91,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 465,
+                "type": 155,
+                "unit": -1,
+                "algo": 0,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5199031737,
+        "attrib": 0,
+        "date": 1706145126,
+        "created": 1706145229,
+        "modified": 1706145229,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 62333,
+                "type": 196,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 59939,
+                "type": 197,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            },
+            {
+                "value": 63692,
+                "type": 198,
+                "unit": -3,
+                "algo": 0,
+                "fm": 3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5199031745,
+        "attrib": 0,
+        "date": 1706145126,
+        "created": 1706145230,
+        "modified": 1706145230,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 111,
+                "type": 11,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            },
+            {
+                "value": 8,
+                "type": 130,
+                "unit": 0,
+                "algo": 16909313,
+                "fm": 3,
+                "algo_params": {
+                    "1": 1
+                }
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    },
+    {
+        "grpid": 5202286135,
+        "attrib": 0,
+        "date": 1706241995,
+        "created": 1706242058,
+        "modified": 1706242058,
+        "category": 1,
+        "deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "hash_deviceid": "51e8d0e7d16da9ff673accf10958ca94fea55d6e",
+        "measures": [
+            {
+                "value": 94667,
+                "type": 1,
+                "unit": -3,
+                "algo": 218235904,
+                "fm": 3
+            },
+            {
+                "value": 7685,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7685,
+                "type": 5,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1781,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 1781,
+                "type": 8,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 7306,
+                "type": 76,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 5214,
+                "type": 77,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 379,
+                "type": 88,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 2125,
+                "type": 168,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3089,
+                "type": 169,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 31,
+                "type": 170,
+                "unit": -1,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 3976,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1325,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 486,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1409,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 487,
+                "type": 173,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 1092,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 264,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 105,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 211,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 107,
+                "type": 174,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 3800,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 12
+            },
+            {
+                "value": 1253,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 10
+            },
+            {
+                "value": 458,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 3
+            },
+            {
+                "value": 1332,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 11
+            },
+            {
+                "value": 460,
+                "type": 175,
+                "unit": -2,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 2
+            },
+            {
+                "value": 2250,
+                "type": 226,
+                "unit": 0,
+                "algo": 218235904,
+                "fm": 3,
+                "position": 7
+            },
+            {
+                "value": 18813,
+                "type": 6,
+                "unit": -3
+            }
+        ],
+        "modelid": 10,
+        "model": "Body Scan",
+        "comment": null
+    }
+]

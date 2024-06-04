@@ -23,6 +23,19 @@ def test_aggregate_measurements(snapshot: SnapshotAssertion) -> None:
     assert aggregate_measurements(measurements) == snapshot
 
 
+def test_aggregate_positional_measurements(snapshot: SnapshotAssertion) -> None:
+    """Test aggregation of positional measurements."""
+    json_file: list[dict[str, Any]] = json.loads(
+        load_fixture("measurement_positions.json")
+    )
+
+    measurements = [MeasurementGroup.from_api(measurement) for measurement in json_file]
+
+    aggregation = aggregate_measurements(measurements)
+    assert len(aggregation.items()) == 26
+    assert aggregate_measurements(measurements) == snapshot
+
+
 def test_aggregate_sleep_summary(snapshot: SnapshotAssertion) -> None:
     """Test aggregation."""
     json_file: list[dict[str, Any]] = json.loads(load_fixture("sleep_summary.json"))[

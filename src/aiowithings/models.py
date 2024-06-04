@@ -198,6 +198,8 @@ class MeasurementGroup:
         """Initialize from the API."""
         if measurement_group["attrib"] == 8:
             measurement_group["attrib"] = 0
+        if measurement_group["attrib"] == 17:
+            measurement_group["attrib"] = 15
         return cls(
             group_id=measurement_group["grpid"],
             attribution=to_enum(

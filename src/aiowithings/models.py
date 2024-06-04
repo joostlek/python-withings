@@ -267,11 +267,32 @@ class MeasurementType(IntEnum):
     EXTRACELLULAR_WATER = 168
     INTRACELLULAR_WATER = 169
     VISCERAL_FAT = 170
+    FAT_FREE_MASS_FOR_SEGMENTS = 173
     FAT_MASS_FOR_SEGMENTS = 174
     MUSCLE_MASS_FOR_SEGMENTS = 175
     ELECTRODERMAL_ACTIVITY_FEET = 196
     ELECTRODERMAL_ACTIVITY_LEFT_FOOT = 197
     ELECTRODERMAL_ACTIVITY_RIGHT_FOOT = 198
+
+
+class MeasurementPosition(IntEnum):
+    """Measurement positions."""
+
+    RIGHT_WRIST = 0
+    LEFT_WRIST = 1
+    RIGHT_ARM = 2
+    LEFT_ARM = 3
+    RIGHT_FOOT = 4
+    LEFT_FOOT = 5
+    BETWEEN_LEGS = 6
+    WHOLE_BODY = 7
+    LEFT_PART_OF_BODY = 8
+    RIGHT_PART_OF_BODY = 9
+    LEFT_LEG = 10
+    RIGHT_LEG = 11
+    TORSO = 12
+    LEFT_HAND = 13
+    RIGHT_HAND = 14
 
 
 @dataclass(slots=True)
@@ -280,10 +301,19 @@ class Measurement:
 
     measurement_type: MeasurementType
     value: float
+    position: MeasurementPosition | None = None
 
     @classmethod
     def from_api(cls, measurement: dict[str, Any]) -> Self:
         """Initialize from the API."""
+        raw_position = measurement.get("position")
+        position: MeasurementPosition | None = None
+        if raw_position is not None:
+            position = to_enum(
+                MeasurementPosition,
+                raw_position,
+                None,
+            )
         return cls(
             measurement_type=to_enum(
                 MeasurementType,
@@ -291,6 +321,7 @@ class Measurement:
                 MeasurementType.UNKNOWN,
             ),
             value=get_measurement_from_dict(measurement),
+            position=position,
         )
 
 

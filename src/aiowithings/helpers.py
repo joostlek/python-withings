@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from aiowithings.models import MeasurementAttribution, MeasurementType, SleepSummary
+from aiowithings.models import (
+    MeasurementAttribution,
+    MeasurementPosition,
+    MeasurementType,
+    SleepSummary,
+)
 
 if TYPE_CHECKING:
     from aiowithings import MeasurementGroup
@@ -12,9 +17,9 @@ if TYPE_CHECKING:
 
 def aggregate_measurements(
     measurements: list[MeasurementGroup],
-) -> dict[MeasurementType, float]:
+) -> dict[tuple[MeasurementType, MeasurementPosition | None], float]:
     """Aggregate the measurements to return a list of the latest measurements."""
-    result: dict[MeasurementType, float] = {}
+    result: dict[tuple[MeasurementType, MeasurementPosition | None], float] = {}
 
     groups = sorted(measurements, key=lambda group: group.taken_at)
 
@@ -24,7 +29,9 @@ def aggregate_measurements(
             MeasurementAttribution.DEVICE_ENTRY_FOR_USER_AMBIGUOUS,
         ):
             for data_point in measurement.measurements:
-                result[data_point.measurement_type] = data_point.value
+                result[(data_point.measurement_type, data_point.position)] = (
+                    data_point.value
+                )
 
     return result
 

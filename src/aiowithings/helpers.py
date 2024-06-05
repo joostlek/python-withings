@@ -29,6 +29,8 @@ def aggregate_measurements(
             MeasurementAttribution.DEVICE_ENTRY_FOR_USER_AMBIGUOUS,
         ):
             for data_point in measurement.measurements:
+                if data_point.position is MeasurementPosition.WHOLE_BODY:
+                    data_point.position = None
                 result[(data_point.measurement_type, data_point.position)] = (
                     data_point.value
                 )

@@ -62,7 +62,7 @@
   dict({
     tuple(
       <MeasurementType.UNKNOWN: 0>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 2308,
     tuple(
       <MeasurementType.WEIGHT: 1>,
@@ -70,7 +70,7 @@
     ): 96.44,
     tuple(
       <MeasurementType.FAT_FREE_MASS: 5>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 78.63,
     tuple(
       <MeasurementType.FAT_RATIO: 6>,
@@ -78,31 +78,31 @@
     ): 18.457,
     tuple(
       <MeasurementType.FAT_MASS_WEIGHT: 8>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 17.8,
     tuple(
       <MeasurementType.MUSCLE_MASS: 76>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 74.75,
     tuple(
       <MeasurementType.HYDRATION: 77>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 52.96,
     tuple(
       <MeasurementType.BONE_MASS: 88>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 3.87,
     tuple(
       <MeasurementType.EXTRACELLULAR_WATER: 168>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 21.75,
     tuple(
       <MeasurementType.INTRACELLULAR_WATER: 169>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 31.2,
     tuple(
       <MeasurementType.VISCERAL_FAT: 170>,
-      <MeasurementPosition.WHOLE_BODY: 7>,
+      None,
     ): 3.1,
     tuple(
       <MeasurementType.FAT_FREE_MASS_FOR_SEGMENTS: 173>,

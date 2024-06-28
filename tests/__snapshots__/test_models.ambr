@@ -57727,7 +57727,7 @@
         }),
         dict({
           'measurement_type': <MeasurementType.EXTRACELLULAR_WATER: 168>,
-          'position': <MeasurementPosition.WHOLE_BODY: 7>,
+          'position': <MeasurementPosition.BETWEEN_LEGS: 6>,
           'value': 21.39,
         }),
         dict({

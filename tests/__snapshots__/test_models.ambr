@@ -57816,7 +57816,7 @@
           'value': 5.0600000000000005,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2252,
         }),
@@ -58039,7 +58039,7 @@
           'value': 4.53,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2193,
         }),
@@ -58213,7 +58213,7 @@
           'value': 4.68,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2169,
         }),
@@ -58365,7 +58365,7 @@
           'value': 4.91,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2239,
         }),
@@ -58566,7 +58566,7 @@
           'value': 4.63,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2263,
         }),
@@ -58740,7 +58740,7 @@
           'value': 4.89,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2308,
         }),
@@ -58892,7 +58892,7 @@
           'value': 4.68,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2280,
         }),
@@ -59044,7 +59044,7 @@
           'value': 4.74,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2209,
         }),
@@ -59196,7 +59196,7 @@
           'value': 4.63,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2164,
         }),
@@ -59348,7 +59348,7 @@
           'value': 4.55,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2203,
         }),
@@ -59527,7 +59527,7 @@
           'value': 4.98,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2220,
         }),
@@ -59723,7 +59723,7 @@
           'value': 4.79,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2198,
         }),
@@ -59875,7 +59875,7 @@
           'value': 4.7700000000000005,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2238,
         }),
@@ -60098,7 +60098,7 @@
           'value': 4.6000000000000005,
         }),
         dict({
-          'measurement_type': <MeasurementType.UNKNOWN: 0>,
+          'measurement_type': <MeasurementType.BASAL_METABOLIC_RATE: 226>,
           'position': <MeasurementPosition.WHOLE_BODY: 7>,
           'value': 2250,
         }),

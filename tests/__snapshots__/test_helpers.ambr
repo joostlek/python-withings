@@ -61,10 +61,6 @@
 # name: test_aggregate_positional_measurements
   dict({
     tuple(
-      <MeasurementType.UNKNOWN: 0>,
-      None,
-    ): 2308,
-    tuple(
       <MeasurementType.WEIGHT: 1>,
       None,
     ): 96.44,
@@ -164,6 +160,10 @@
       <MeasurementType.MUSCLE_MASS_FOR_SEGMENTS: 175>,
       <MeasurementPosition.TORSO: 12>,
     ): 38.7,
+    tuple(
+      <MeasurementType.BASAL_METABOLIC_RATE: 226>,
+      None,
+    ): 2308,
   })
 # ---
 # name: test_aggregate_single_sleep_summary

@@ -2,7 +2,7 @@
 
 from importlib import metadata
 
-WITHINGS_URL = "https://wbsapi.withings.net:443"
+WITHINGS_URL = "https://wbsapi.withings.net"
 
 version = metadata.version("aiowithings")
 

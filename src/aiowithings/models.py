@@ -103,6 +103,7 @@ class Device:
 
     device_type: DeviceType
     battery: DeviceBattery
+    raw_model: str
     model: DeviceModel
     first_session_date: datetime | None
     last_session_date: datetime | None
@@ -127,6 +128,7 @@ class Device:
         return cls(
             device_type=to_enum(DeviceType, device["type"], DeviceType.UNKNOWN),
             battery=DeviceBattery(device["battery"]),
+            raw_model=device["model"],
             model=to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN),
             first_session_date=first_session_date,
             last_session_date=last_session_date,

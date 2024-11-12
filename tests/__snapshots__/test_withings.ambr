@@ -117,6 +117,16 @@
       'model': <DeviceModel.BODY_PLUS: 5>,
       'raw_model': 'Body+',
     }),
+    dict({
+      'battery': <DeviceBattery.HIGH: 'high'>,
+      'device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
+      'device_type': <DeviceType.SLEEP_MONITOR: 'Sleep Monitor'>,
+      'first_session_date': datetime.datetime(2023, 9, 4, 22, 39, 39, tzinfo=datetime.timezone.utc),
+      'hashed_device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
+      'last_session_date': None,
+      'model': <DeviceModel.SLEEP_ANALYZER: 13>,
+      'raw_model': 'Sleep Analyzer',
+    }),
   ])
 # ---
 # name: test_get_goals[goals]

@@ -23,6 +23,28 @@
                 "last_session_date": null,
                 "deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d",
                 "hash_deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d"
+            },
+            {
+                "type": "Sleep Monitor",
+                "battery": "high",
+                "model": "Aura Sensor V2",
+                "model_id": 13,
+                "timezone": "Europe/Amsterdam",
+                "first_session_date": 1693867179,
+                "last_session_date": null,
+                "deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d",
+                "hash_deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d"
+            },
+            {
+                "type": "Sleep Monitor",
+                "battery": "high",
+                "model": "",
+                "model_id": 13,
+                "timezone": "Europe/Amsterdam",
+                "first_session_date": 1693867179,
+                "last_session_date": null,
+                "deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d",
+                "hash_deviceid": "f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d"
             }
         ]
     }

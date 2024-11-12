@@ -125,7 +125,7 @@
       'hashed_device_id': 'f998be4b9ccc9e136fd8cd8e8e344c31ec3b271d',
       'last_session_date': None,
       'model': <DeviceModel.SLEEP_ANALYZER: 13>,
-      'raw_model': '',
+      'raw_model': 'Sleep Analyzer',
     }),
   ])
 # ---

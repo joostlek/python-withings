@@ -126,6 +126,10 @@ class Device:
                 device["last_session_date"],
                 tz=timezone.utc,
             )
+        device_model = to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN)
+        model = device["model"]
+        if not model and device_model is DeviceModel.SLEEP_ANALYZER:
+            model = "Sleep Analyzer"
         return cls(
             device_type=to_enum(DeviceType, device["type"], DeviceType.UNKNOWN),
             battery=DeviceBattery(device["battery"]),

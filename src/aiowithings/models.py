@@ -103,7 +103,7 @@ class Device:
     """Model for a Withings device."""
 
     device_type: DeviceType
-    battery: DeviceBattery
+    battery: DeviceBattery | None
     raw_model: str
     model: DeviceModel
     first_session_date: datetime | None
@@ -130,9 +130,11 @@ class Device:
         model = device["model"]
         if not model and device_model is DeviceModel.SLEEP_ANALYZER:
             model = "Sleep Analyzer"
+        battery = device["battery"]
+        battery = DeviceBattery(battery) if battery != "unknown" else None
         return cls(
             device_type=to_enum(DeviceType, device["type"], DeviceType.UNKNOWN),
-            battery=DeviceBattery(device["battery"]),
+            battery=battery,
             raw_model=model,
             model=device_model,
             first_session_date=first_session_date,

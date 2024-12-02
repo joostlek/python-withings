@@ -1,6 +1,6 @@
 """Asynchronous Python client for Withings."""
 
-from typing import AsyncGenerator, Generator
+from collections.abc import AsyncGenerator, Generator
 
 import aiohttp
 from aioresponses import aioresponses
@@ -21,9 +21,12 @@ def snapshot_assertion(snapshot: SnapshotAssertion) -> SnapshotAssertion:
 @pytest.fixture(name="withings_client")
 async def client() -> AsyncGenerator[WithingsClient, None]:
     """Return a Withings client."""
-    async with aiohttp.ClientSession() as session, WithingsClient(
-        session=session,
-    ) as withings_client:
+    async with (
+        aiohttp.ClientSession() as session,
+        WithingsClient(
+            session=session,
+        ) as withings_client,
+    ):
         yield withings_client
 
 

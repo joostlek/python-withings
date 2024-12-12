@@ -283,6 +283,7 @@ class MeasurementType(IntEnum):
     ELECTRODERMAL_ACTIVITY_LEFT_FOOT = 197
     ELECTRODERMAL_ACTIVITY_RIGHT_FOOT = 198
     BASAL_METABOLIC_RATE = 226
+    METABOLIC_AGE = 227
 
 
 class MeasurementPosition(IntEnum):

@@ -35,6 +35,8 @@ class DeviceModel(IntEnum):
     WBS10 = 11
     WBS11 = 12
     SLEEP_ANALYZER = 13
+    BODY_SMART = 16
+    BODY_COMP = 18
     SMART_BABY_MONITOR = 21
     WITHINGS_HOME = 22
     WITHINGS_BLOOD_PRESSURE_MONITOR_V1 = 41
@@ -54,6 +56,8 @@ class DeviceModel(IntEnum):
     MOVE_ECG_1 = 91
     MOVE_ECG_2 = 92
     SCANWATCH = 93
+    SCANWATCH_2 = 94
+    SCANWATCH_LIGHT = 95
     AURA_DOCK = 60
     AURA_SENSOR = 61
     AURA_SENSOR_V2 = 63

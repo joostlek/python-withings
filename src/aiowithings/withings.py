@@ -126,10 +126,10 @@ class WithingsClient:
                 {"Content-Type": content_type, "response": text},
             )
 
-        response_data = cast(dict[str, Any], await response.json())
+        response_data = cast("dict[str, Any]", await response.json())
         response_status = response_data.get("status", -1)
         if response_status in STATUS_SUCCESS:
-            return cast(dict[str, Any], response_data.get("body"))
+            return cast("dict[str, Any]", response_data.get("body"))
         error = response_data.get("error")
         if response_status in STATUS_AUTH_FAILED:
             raise WithingsAuthenticationFailedError(error)

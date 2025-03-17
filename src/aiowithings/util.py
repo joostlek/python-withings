@@ -28,11 +28,11 @@ def to_enum(
 
 def get_measurement(value: int, unit: int) -> float:
     """Convert value and unit to real value."""
-    return cast(float, value * pow(10, unit))
+    return cast("float", value * pow(10, unit))
 
 
 def get_measurement_from_dict(input_dict: dict[str, Any]) -> float:
     """Convert dict with value and unit to real value."""
-    value = cast(int, input_dict["value"])
-    unit = cast(int, input_dict["unit"])
+    value = cast("int", input_dict["value"])
+    unit = cast("int", input_dict["unit"])
     return get_measurement(value, unit)

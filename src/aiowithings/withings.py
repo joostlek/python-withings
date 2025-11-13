@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass
 from importlib import metadata
-from typing import TYPE_CHECKING, Any, Callable, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from aiohttp import ClientSession
 from aiohttp.hdrs import METH_POST
@@ -50,7 +50,7 @@ from .models import (
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Awaitable
+    from collections.abc import Awaitable, Callable
     from datetime import date, datetime
 
     from typing_extensions import Self

@@ -47,6 +47,7 @@ class DeviceModel(IntEnum):
     BPM_CORE = 44
     BPM_CONNECT = 45
     BPM_CONNECT_PRO = 46
+    BPM_VISION = 48
     PULSE = 51
     ACTIVITE = 52
     ACTIVITE_POP_STEEL = 53

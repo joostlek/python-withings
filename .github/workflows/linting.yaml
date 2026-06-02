@@ -19,22 +19,14 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🚀 Check code for common misspellings
-        run: poetry run prek run codespell --all-files
+        run: uv run prek run codespell --all-files
 
   ruff:
     name: Ruff
@@ -42,24 +34,16 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🚀 Run ruff linter
-        run: poetry run ruff check --output-format=github .
+        run: uv run ruff check --output-format=github .
       - name: 🚀 Run ruff formatter
-        run: poetry run ruff format --check .
+        run: uv run ruff format --check .
 
   prek-builtin-hooks:
     name: prek-builtin-hooks
@@ -98,24 +82,16 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🚀 Check Python AST
-        run: poetry run prek run check-ast --all-files
+        run: uv run prek run check-ast --all-files
       - name: 🚀 Check docstring is first
-        run: poetry run prek run check-docstring-first --all-files
+        run: uv run prek run check-docstring-first --all-files
 
   pylint:
     name: pylint
@@ -123,22 +99,14 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🚀 Run pylint
-        run: poetry run prek run pylint --all-files
+        run: uv run prek run pylint --all-files
 
   yamllint:
     name: yamllint
@@ -146,22 +114,14 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🚀 Run yamllint
-        run: poetry run yamllint .
+        run: uv run yamllint .
 
   prettier:
     name: Prettier
@@ -169,20 +129,12 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6.0.2
-      - name: 🏗 Set up Poetry
-        run: pipx install poetry
-      - name: 🏗 Set up Python ${{ env.DEFAULT_PYTHON }}
-        id: python
-        uses: actions/setup-python@v6.2.0
+      - name: 🏗 Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-          cache: "poetry"
-      - name: 🏗 Install workflow dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
       - name: 🏗 Set up Node.js
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
@@ -191,4 +143,4 @@ jobs:
       - name: 🏗 Install NPM dependencies
         run: npm install
       - name: 🚀 Run prettier
-        run: poetry run prek run prettier --all-files
+        run: uv run prek run prettier --all-files

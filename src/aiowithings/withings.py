@@ -52,8 +52,7 @@ from .models import (
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable
     from datetime import date, datetime
-
-    from typing_extensions import Self
+    from typing import Self
 
 
 VERSION = metadata.version(__package__)
@@ -112,7 +111,7 @@ class WithingsClient:
                     headers=headers,
                     data=data,
                 )
-        except asyncio.TimeoutError as exception:
+        except TimeoutError as exception:
             msg = "Timeout occurred while connecting to Withings"
             raise WithingsConnectionError(msg) from exception
 

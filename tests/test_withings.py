@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 import json
 from typing import TYPE_CHECKING, Any
 
@@ -174,7 +174,7 @@ async def test_get_activities_since(
         body=load_fixture("activity.json"),
     )
     response = await authenticated_client.get_activities_since(
-        datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        datetime.fromtimestamp(1609559200, tz=UTC),
         activity_data_fields=[ActivityDataFields.DISTANCE],
     )
     assert response == snapshot
@@ -202,8 +202,8 @@ async def test_get_activities_period(
         body=load_fixture("activity.json"),
     )
     response = await authenticated_client.get_activities_in_period(
-        start_date=datetime.fromtimestamp(1609459200, tz=timezone.utc),
-        end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        start_date=datetime.fromtimestamp(1609459200, tz=UTC),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC),
     )
     assert response == snapshot
     responses.assert_called_once_with(
@@ -307,7 +307,7 @@ async def test_get_measurement_since(
         body=load_fixture("measurement.json"),
     )
     response = await authenticated_client.get_measurement_since(
-        datetime.fromtimestamp(1609459200, tz=timezone.utc),
+        datetime.fromtimestamp(1609459200, tz=UTC),
         measurement_types=[MeasurementType.WEIGHT],
     )
     assert response == snapshot
@@ -331,8 +331,8 @@ async def test_get_measurement_period(
         body=load_fixture("measurement.json"),
     )
     response = await authenticated_client.get_measurement_in_period(
-        start_date=datetime.fromtimestamp(1609459200, tz=timezone.utc),
-        end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        start_date=datetime.fromtimestamp(1609459200, tz=UTC),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC),
     )
     assert response == snapshot
     responses.assert_called_once_with(
@@ -477,8 +477,8 @@ async def test_get_sleep(
         body=load_fixture("sleep.json"),
     )
     response = await authenticated_client.get_sleep(
-        datetime.fromtimestamp(0, tz=timezone.utc),
-        datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        datetime.fromtimestamp(0, tz=UTC),
+        datetime.fromtimestamp(1609559200, tz=UTC),
         [
             SleepDataFields.HEART_RATE,
             SleepDataFields.RESPIRATION_RATE,
@@ -514,8 +514,8 @@ async def test_get_sleep_without_data_fields(
         body=load_fixture("sleep_no_datafields.json"),
     )
     response = await authenticated_client.get_sleep(
-        datetime.fromtimestamp(0, tz=timezone.utc),
-        datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        datetime.fromtimestamp(0, tz=UTC),
+        datetime.fromtimestamp(1609559200, tz=UTC),
     )
     assert response == snapshot
     responses.assert_called_once_with(
@@ -538,8 +538,8 @@ async def test_get_sleep_summary_in_period(
         body=load_fixture("sleep_summary.json"),
     )
     response = await authenticated_client.get_sleep_summary_in_period(
-        start_date=datetime.fromtimestamp(0, tz=timezone.utc).date(),
-        end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc).date(),
+        start_date=datetime.fromtimestamp(0, tz=UTC).date(),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC).date(),
         sleep_summary_data_fields=[
             SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
             SleepSummaryDataFields.SLEEP_EFFICIENCY,
@@ -604,8 +604,8 @@ async def test_get_sleep_summary_in_period_without_data_fields(
         body=load_fixture("sleep_summary_no_datafields.json"),
     )
     response = await authenticated_client.get_sleep_summary_in_period(
-        start_date=datetime.fromtimestamp(0, tz=timezone.utc).date(),
-        end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc).date(),
+        start_date=datetime.fromtimestamp(0, tz=UTC).date(),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC).date(),
     )
     assert response == snapshot
     responses.assert_called_once_with(
@@ -631,7 +631,7 @@ async def test_get_sleep_summary_since(
         body=load_fixture("sleep_summary.json"),
     )
     response = await authenticated_client.get_sleep_summary_since(
-        sleep_summary_since=datetime.fromtimestamp(0, tz=timezone.utc),
+        sleep_summary_since=datetime.fromtimestamp(0, tz=UTC),
         sleep_summary_data_fields=[
             SleepSummaryDataFields.REM_SLEEP_PHASE_COUNT,
             SleepSummaryDataFields.SLEEP_EFFICIENCY,
@@ -694,7 +694,7 @@ async def test_get_sleep_summary_since_without_data_fields(
         body=load_fixture("sleep_summary_no_datafields.json"),
     )
     response = await authenticated_client.get_sleep_summary_since(
-        datetime.fromtimestamp(0, tz=timezone.utc),
+        datetime.fromtimestamp(0, tz=UTC),
     )
     assert len(response) == 300
     responses.assert_called_once_with(
@@ -720,7 +720,7 @@ async def test_get_workouts_since(
         body=load_fixture("workouts.json"),
     )
     response = await authenticated_client.get_workouts_since(
-        datetime.fromtimestamp(0, tz=timezone.utc),
+        datetime.fromtimestamp(0, tz=UTC),
         workout_data_fields=[WorkoutDataFields.CALORIES],
     )
     assert response == snapshot
@@ -744,8 +744,8 @@ async def test_get_workouts_period(
         body=load_fixture("workouts.json"),
     )
     response = await authenticated_client.get_workouts_in_period(
-        start_date=datetime.fromtimestamp(0, tz=timezone.utc),
-        end_date=datetime.fromtimestamp(1609559200, tz=timezone.utc),
+        start_date=datetime.fromtimestamp(0, tz=UTC),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC),
     )
     assert response == snapshot
     responses.assert_called_once_with(

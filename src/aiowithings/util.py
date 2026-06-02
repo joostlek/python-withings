@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Any, TypeVar, cast
+from typing import Any, cast
 
 from aiowithings.const import LOGGER
 
-_EnumT = TypeVar("_EnumT")
 
-
-def to_enum(
-    enum_class: type[_EnumT],
+def to_enum[EnumT](
+    enum_class: type[EnumT],
     value: Any,
-    default_value: _EnumT,
-) -> _EnumT:
+    default_value: EnumT,
+) -> EnumT:
     """Convert a value to an enum and log if it doesn't exist."""
     try:
         return enum_class(value)  # type: ignore[call-arg]

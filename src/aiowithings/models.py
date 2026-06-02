@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from enum import IntEnum, IntFlag, StrEnum
 from typing import Any, Self
 
@@ -124,13 +124,13 @@ class Device:
         if device["first_session_date"] is not None:
             first_session_date = datetime.fromtimestamp(
                 device["first_session_date"],
-                tz=timezone.utc,
+                tz=UTC,
             )
         last_session_date = None
         if device["last_session_date"] is not None:
             last_session_date = datetime.fromtimestamp(
                 device["last_session_date"],
-                tz=timezone.utc,
+                tz=UTC,
             )
         device_model = to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN)
         model = device["model"]
@@ -225,15 +225,15 @@ class MeasurementGroup:
             ),
             taken_at=datetime.fromtimestamp(
                 measurement_group["date"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             stored_at=datetime.fromtimestamp(
                 measurement_group["created"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             updated_at=datetime.fromtimestamp(
                 measurement_group["modified"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             category=to_enum(
                 MeasurementGroupCategory,
@@ -453,11 +453,11 @@ class WebhookCall:
             ),
             start_date=datetime.fromtimestamp(
                 data["startdate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             end_date=datetime.fromtimestamp(
                 data["enddate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
         )
 
@@ -467,7 +467,7 @@ def get_sleep_series_time_data(time: str, value: int) -> SleepSeriesTimeData:
     return SleepSeriesTimeData(
         time=datetime.fromtimestamp(
             int(time),
-            tz=timezone.utc,
+            tz=UTC,
         ),
         value=value,
     )
@@ -533,11 +533,11 @@ class SleepSeries:
         return cls(
             start_date=datetime.fromtimestamp(
                 sleep_data["startdate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             end_date=datetime.fromtimestamp(
                 sleep_data["enddate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             state=to_enum(SleepState, sleep_data["state"], SleepState.UNSPECIFIED),
             hashed_device_id=sleep_data["hash_deviceid"],
@@ -636,11 +636,11 @@ class SleepSummary:
         return cls(
             start_date=datetime.fromtimestamp(
                 sleep_data["startdate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             end_date=datetime.fromtimestamp(
                 sleep_data["enddate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             date=date.fromisoformat(sleep_data["date"]),
             hashed_device_id=sleep_data["hash_deviceid"],
@@ -770,7 +770,7 @@ class Activity:
             date=date.fromisoformat(activity_data["date"]),
             modified=datetime.fromtimestamp(
                 activity_data["modified"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             is_withings_tracker=activity_data["is_tracker"],
             origin=to_enum(
@@ -954,11 +954,11 @@ class Workout:
             ),
             start_date=datetime.fromtimestamp(
                 workout_data["startdate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             end_date=datetime.fromtimestamp(
                 workout_data["enddate"],
-                tz=timezone.utc,
+                tz=UTC,
             ),
             date=date.fromisoformat(workout_data["date"]),
             active_calories_burnt=active_calories_burnt,

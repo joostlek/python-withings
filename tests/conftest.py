@@ -19,7 +19,7 @@ def snapshot_assertion(snapshot: SnapshotAssertion) -> SnapshotAssertion:
 
 
 @pytest.fixture(name="withings_client")
-async def client() -> AsyncGenerator[WithingsClient, None]:
+async def client() -> AsyncGenerator[WithingsClient]:
     """Return a Withings client."""
     async with (
         aiohttp.ClientSession() as session,
@@ -40,7 +40,7 @@ async def authenticated_client(
 
 
 @pytest.fixture(name="responses")
-def aioresponses_fixture() -> Generator[aioresponses, None, None]:
+def aioresponses_fixture() -> Generator[aioresponses]:
     """Return aioresponses fixture."""
     with aioresponses() as mocked_responses:
         yield mocked_responses

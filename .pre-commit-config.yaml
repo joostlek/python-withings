@@ -21,51 +21,11 @@ repos:
         language: system
         types: [python]
         entry: poetry run check-ast
-      - id: check-case-conflict
-        name: 🔠 Check for case conflicts
-        language: system
-        entry: poetry run check-case-conflict
       - id: check-docstring-first
         name: ℹ️  Check docstring is first
         language: system
         types: [python]
         entry: poetry run check-docstring-first
-      - id: check-executables-have-shebangs
-        name: 🧐 Check that executables have shebangs
-        language: system
-        types: [text, executable]
-        entry: poetry run check-executables-have-shebangs
-        stages: [commit, push, manual]
-      - id: check-json
-        name: ｛ Check JSON files
-        language: system
-        types: [json]
-        entry: poetry run check-json
-      - id: check-merge-conflict
-        name: 💥 Check for merge conflicts
-        language: system
-        types: [text]
-        entry: poetry run check-merge-conflict
-      - id: check-symlinks
-        name: 🔗 Check for broken symlinks
-        language: system
-        types: [symlink]
-        entry: poetry run check-symlinks
-      - id: check-toml
-        name: ✅ Check TOML files
-        language: system
-        types: [toml]
-        entry: poetry run check-toml
-      - id: check-xml
-        name: ✅ Check XML files
-        entry: check-xml
-        language: system
-        types: [xml]
-      - id: check-yaml
-        name: ✅ Check YAML files
-        language: system
-        types: [yaml]
-        entry: poetry run check-yaml
       - id: codespell
         name: ✅ Check code for common misspellings
         language: system
@@ -74,31 +34,12 @@ repos:
         entry: poetry run codespell
         args:
           - --ignore-words-list=activite
-      - id: detect-private-key
-        name: 🕵️  Detect Private Keys
-        language: system
-        types: [text]
-        entry: poetry run detect-private-key
-      - id: end-of-file-fixer
-        name: ⮐  Fix End of Files
-        language: system
-        types: [text]
-        entry: poetry run end-of-file-fixer
-        stages: [commit, push, manual]
       - id: mypy
         name: 🆎 Static type checking using mypy
         language: system
         types: [python]
         entry: poetry run mypy
         require_serial: true
-      - id: no-commit-to-branch
-        name: 🛑 Don't commit to main branch
-        language: system
-        entry: poetry run no-commit-to-branch
-        pass_filenames: false
-        always_run: true
-        args:
-          - --branch=main
       - id: poetry
         name: 📜 Check pyproject with Poetry
         language: system
@@ -122,14 +63,39 @@ repos:
         types: [python]
         entry: poetry run pytest
         pass_filenames: false
-      - id: trailing-whitespace
-        name: ✄  Trim Trailing Whitespace
-        language: system
-        types: [text]
-        entry: poetry run trailing-whitespace-fixer
-        stages: [commit, push, manual]
       - id: yamllint
         name: 🎗  Check YAML files with yamllint
         language: system
         types: [yaml]
         entry: poetry run yamllint
+  - repo: builtin
+    hooks:
+      - id: check-case-conflict
+        name: 🔠 Check for case conflicts
+      - id: check-executables-have-shebangs
+        name: 🧐 Check that executables have shebangs
+        stages: [pre-commit, pre-push, manual]
+      - id: check-json
+        name: ｛ Check JSON files
+      - id: check-merge-conflict
+        name: 💥 Check for merge conflicts
+      - id: check-symlinks
+        name: 🔗 Check for broken symlinks
+      - id: check-toml
+        name: ✅ Check TOML files
+      - id: check-xml
+        name: ✅ Check XML files
+      - id: check-yaml
+        name: ✅ Check YAML files
+      - id: detect-private-key
+        name: 🕵️  Detect Private Keys
+      - id: end-of-file-fixer
+        name: ⮐  Fix End of Files
+        stages: [pre-commit, pre-push, manual]
+      - id: no-commit-to-branch
+        name: 🛑 Don't commit to main branch
+        args:
+          - --branch=main
+      - id: trailing-whitespace
+        name: ✄  Trim Trailing Whitespace
+        stages: [pre-commit, pre-push, manual]

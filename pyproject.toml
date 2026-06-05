@@ -41,7 +41,7 @@ dev = [
     "codespell==2.4.2",
     "covdefaults==2.3.0",
     "coverage[toml]==7.13.5",
-    "mypy==1.20.1",
+    "mypy==1.20.2",
     "prek==0.3.9",
     "pre-commit-hooks==6.0.0",
     "pylint==4.0.5",

@@ -42,7 +42,7 @@ dev = [
     "covdefaults==2.3.0",
     "coverage[toml]==7.15.2",
     "mypy==1.20.2",
-    "prek==0.4.9",
+    "prek==0.4.10",
     "pre-commit-hooks==6.0.0",
     "pylint==4.0.6",
     "pytest==9.1.1",

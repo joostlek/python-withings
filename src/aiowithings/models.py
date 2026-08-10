@@ -47,6 +47,7 @@ class DeviceModel(IntEnum):
     BPM_CORE = 44
     BPM_CONNECT = 45
     BPM_CONNECT_PRO = 46
+    BPM_VISION = 48
     PULSE = 51
     ACTIVITE = 52
     ACTIVITE_POP_STEEL = 53
@@ -64,6 +65,7 @@ class DeviceModel(IntEnum):
     AURA_SENSOR = 61
     AURA_SENSOR_V2 = 63
     THERMO = 70
+    BEAMO = 71
     WUP01 = 100
     IGLUCOSE_GLUCOMETER = 1061
     IOS_STEP_TRACKER_1 = 1051

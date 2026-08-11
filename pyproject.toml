@@ -40,7 +40,7 @@ dev = [
     "aiohttp<3.14",
     "codespell==2.4.3",
     "covdefaults==2.3.0",
-    "coverage[toml]==7.15.2",
+    "coverage[toml]==7.15.4",
     "mypy==1.20.2",
     "prek==0.4.11",
     "pre-commit-hooks==6.0.0",

@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install prek
         run: pipx install prek
       - name: 🚀 Check for case conflicts
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:
@@ -128,7 +128,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
         uses: astral-sh/setup-uv@v8.3.2
         with:

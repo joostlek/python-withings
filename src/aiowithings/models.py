@@ -91,6 +91,7 @@ class DeviceType(StrEnum):
     ACTIVITY_TRACKER = "Activity Tracker"
     SLEEP_MONITOR = "Sleep Monitor"
     SMART_CONNECTED_THERMOMETER = "Smart Connected Thermometer"
+    FLUID_ANALYZER = "Fluid Analyzer"
     GATEWAY = "Gateway"
     IGLUCOSE = "iGlucose"
     HEALTHKIT_APPLE = "HealthKit Apple"

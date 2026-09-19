@@ -153,6 +153,7 @@ asyncio_mode = "auto"
 ignore = [
   "ANN401", # Opinioated warning on disallowing dynamically typed expressions
   "COM812", # Conflicts with other rules
+  "CPY001", # This project does not use copyright headers
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions

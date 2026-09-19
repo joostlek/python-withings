@@ -48,7 +48,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "pytest-cov==7.1.0",
-    "ruff==0.15.22",
+    "ruff==0.16.8",
     "safety==3.8.1",
     "yamllint==1.38.0",
     "syrupy==5.5.3",
@@ -153,6 +153,7 @@ asyncio_mode = "auto"
 ignore = [
   "ANN401", # Opinioated warning on disallowing dynamically typed expressions
   "COM812", # Conflicts with other rules
+  "CPY001", # This project does not use copyright headers
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions

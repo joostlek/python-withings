@@ -26,11 +26,11 @@ def test_measurement_from_dict() -> None:
 class _Color(enum.IntEnum):
     """A throwaway enum, isolated from the library's real ones.
 
-    The dedup set is process-global. With a real enum (e.g. DeviceModel),
-    an unsupported value logged by another test file would already be in
-    the set, or one logged here would still be in it when that file runs,
-    so a warning count could depend on test order. A private enum keeps
-    these entries apart from anything the rest of the suite logs.
+    The dedup set is process-global, and the fixture below only clears it
+    before each test in this file, not after. With a real enum (e.g.
+    DeviceModel), an entry these tests leave behind would silence that
+    value's warning in any later test of the run. A private enum also
+    keeps "99 is unsupported" true even if the library adds members.
     """
 
     RED = 1

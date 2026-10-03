@@ -26,11 +26,11 @@ def test_measurement_from_dict() -> None:
 class _Color(enum.IntEnum):
     """A throwaway enum, isolated from the library's real ones.
 
-    Reusing a real enum (e.g. DeviceModel) would share the module-level
-    dedup set across tests and across the library's own real usage,
-    exactly the "shared mutable fixture" bug the project's own contribution
-    notes warn about (a fixture/state one test populates silently changes
-    the result of another).
+    The dedup set is process-global. With a real enum (e.g. DeviceModel),
+    an unsupported value logged by another test file would already be in
+    the set, or one logged here would still be in it when that file runs,
+    so a warning count could depend on test order. A private enum keeps
+    these entries apart from anything the rest of the suite logs.
     """
 
     RED = 1

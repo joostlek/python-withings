@@ -149,11 +149,7 @@ class WithingsClient:
     async def get_devices(self) -> list[Device]:
         """Get devices."""
         response = await self._request("v2/user", data={"action": "getdevice"})
-        return [
-            Device.from_api(device)
-            for device in response["devices"]
-            if device["model"] != "Aura Sensor V2"
-        ]
+        return [Device.from_api(device) for device in response["devices"]]
 
     async def get_goals(self) -> Goals:
         """Get goals."""

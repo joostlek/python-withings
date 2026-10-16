@@ -14,6 +14,8 @@ import pytest
 
 from aiowithings import (
     ActivityDataFields,
+    DeviceModel,
+    DeviceType,
     MeasurementType,
     NotificationCategory,
     SleepDataFields,
@@ -237,6 +239,44 @@ async def test_get_devices(
         headers=HEADERS,
         data={"action": "getdevice"},
     )
+
+
+@pytest.mark.parametrize("include_scale", [False, True])
+async def test_get_sleep_monitor(
+    responses: aioresponses,
+    authenticated_client: WithingsClient,
+    *,
+    include_scale: bool,
+) -> None:
+    """Test that an Aura Sensor V2 is returned, including alongside a scale."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    sleep_monitor = {
+        **scale,
+        "type": "Sleep Monitor",
+        "model": "Aura Sensor V2",
+        "model_id": 63,
+        "deviceid": "sleep-monitor-device",
+        "hash_deviceid": "sleep-monitor-hash",
+    }
+    devices = [sleep_monitor, scale] if include_scale else [sleep_monitor]
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": devices}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == len(devices)
+    assert response[0].device_id == "sleep-monitor-device"
+    assert response[0].hashed_device_id == "sleep-monitor-hash"
+    assert response[0].device_type is DeviceType.SLEEP_MONITOR
+    assert response[0].model is DeviceModel.AURA_SENSOR_V2
+    assert response[0].raw_model == "Aura Sensor V2"
+    if include_scale:
+        assert response[1].device_id == scale["deviceid"]
+        assert response[1].device_type is DeviceType.SCALE
+        assert response[1].model is DeviceModel.BODY_PLUS
+        assert response[1].raw_model == "Body+"
 
 
 async def test_get_new_device(

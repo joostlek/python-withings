@@ -370,6 +370,67 @@ async def test_get_devices_with_u_scan(
     assert "102 is an unsupported value for <enum 'DeviceModel'>" not in caplog.text
 
 
+@pytest.mark.parametrize(
+    "model",
+    [
+        pytest.param(
+            (47, "BPM_PRO_2", "BPM Pro 2", "Blood Pressure Monitor"),
+            id="bpm-pro-2",
+        ),
+        pytest.param(
+            (1061, "IGLUCOSE_GLUCOMETER", "iGlucose Plus", "Smart Meter"),
+            id="iglucose-plus-device-type",
+        ),
+        pytest.param(
+            (1063, "LINGO_SENSOR", "Lingo Sensor", "Lingo"),
+            id="lingo-sensor",
+        ),
+        pytest.param(
+            (1065, "IGLUCOSE_ESSENTIAL", "iGlucose Essential", "Smart Meter"),
+            id="iglucose-essential",
+        ),
+        pytest.param(
+            (1066, "IPULSE_OX", "iPulse OX", "Smart Meter"),
+            id="ipulse-ox",
+        ),
+    ],
+)
+async def test_get_devices_with_current_official_models(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+    model: tuple[int, str, str, str],
+) -> None:
+    """Test device models and types currently listed by Withings."""
+    model_id, model_name, raw_model, device_type = model
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    device = {
+        **scale,
+        "type": device_type,
+        "model": raw_model,
+        "model_id": model_id,
+        "deviceid": f"device-{model_id}",
+        "hash_deviceid": f"hash-{model_id}",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [device, scale]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 2
+    assert response[0].device_id == f"device-{model_id}"
+    assert response[0].hashed_device_id == f"hash-{model_id}"
+    assert response[0].model.value == model_id
+    assert response[0].model.name == model_name
+    assert response[0].raw_model == raw_model
+    assert response[0].device_type.value == device_type
+    assert response[1].device_id == scale["deviceid"]
+    assert response[1].device_type is DeviceType.SCALE
+    assert response[1].model is DeviceModel.BODY_PLUS
+    assert response[1].raw_model == "Body+"
+
+
 async def test_get_new_device(
     responses: aiointercept,
     snapshot: SnapshotAssertion,

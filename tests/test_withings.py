@@ -14,6 +14,8 @@ import pytest
 
 from aiowithings import (
     ActivityDataFields,
+    DeviceModel,
+    DeviceType,
     MeasurementType,
     NotificationCategory,
     SleepDataFields,
@@ -237,6 +239,68 @@ async def test_get_devices(
         headers=HEADERS,
         data={"action": "getdevice"},
     )
+
+
+async def test_get_sleep_monitor(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Test that an Aura Sensor V2 is returned when it is the only device."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    sleep_monitor = {
+        **scale,
+        "type": "Sleep Monitor",
+        "model": "Aura Sensor V2",
+        "model_id": 63,
+        "deviceid": "sleep-monitor-device",
+        "hash_deviceid": "sleep-monitor-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [sleep_monitor]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 1
+    assert response[0].device_id == "sleep-monitor-device"
+    assert response[0].hashed_device_id == "sleep-monitor-hash"
+    assert response[0].device_type is DeviceType.SLEEP_MONITOR
+    assert response[0].model is DeviceModel.AURA_SENSOR_V2
+    assert response[0].raw_model == "Aura Sensor V2"
+
+
+async def test_get_sleep_monitor_with_scale(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Test that an Aura Sensor V2 is returned alongside a scale."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    sleep_monitor = {
+        **scale,
+        "type": "Sleep Monitor",
+        "model": "Aura Sensor V2",
+        "model_id": 63,
+        "deviceid": "sleep-monitor-device",
+        "hash_deviceid": "sleep-monitor-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [sleep_monitor, scale]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 2
+    assert response[0].device_id == "sleep-monitor-device"
+    assert response[0].hashed_device_id == "sleep-monitor-hash"
+    assert response[0].device_type is DeviceType.SLEEP_MONITOR
+    assert response[0].model is DeviceModel.AURA_SENSOR_V2
+    assert response[0].raw_model == "Aura Sensor V2"
+    assert response[1].device_id == scale["deviceid"]
+    assert response[1].device_type is DeviceType.SCALE
+    assert response[1].model is DeviceModel.BODY_PLUS
+    assert response[1].raw_model == "Body+"
 
 
 async def test_get_new_device(

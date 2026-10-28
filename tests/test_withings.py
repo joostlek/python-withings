@@ -241,6 +241,38 @@ async def test_get_devices(
     )
 
 
+async def test_get_devices_with_body_fit(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Test that a Body Fit is returned alongside a known scale."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    body_fit = {
+        **scale,
+        "model": "Body Fit",
+        "model_id": 20,
+        "deviceid": "body-fit-device",
+        "hash_deviceid": "body-fit-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [body_fit, scale]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 2
+    assert response[0].device_id == "body-fit-device"
+    assert response[0].hashed_device_id == "body-fit-hash"
+    assert response[0].device_type is DeviceType.SCALE
+    assert response[0].model is DeviceModel.BODY_FIT
+    assert response[0].raw_model == "Body Fit"
+    assert response[1].device_id == scale["deviceid"]
+    assert response[1].device_type is DeviceType.SCALE
+    assert response[1].model is DeviceModel.BODY_PLUS
+    assert response[1].raw_model == "Body+"
+
+
 async def test_get_sleep_monitor(
     responses: aiointercept,
     authenticated_client: WithingsClient,

@@ -49,6 +49,7 @@ class DeviceModel(IntEnum):
     BPM_CORE = 44
     BPM_CONNECT = 45
     BPM_CONNECT_PRO = 46
+    BPM_PRO_2 = 47
     BPM_VISION = 48
     PULSE = 51
     ACTIVITE = 52
@@ -71,6 +72,9 @@ class DeviceModel(IntEnum):
     WUP01 = 100
     U_SCAN = 102
     IGLUCOSE_GLUCOMETER = 1061
+    LINGO_SENSOR = 1063
+    IGLUCOSE_ESSENTIAL = 1065
+    IPULSE_OX = 1066
     IOS_STEP_TRACKER_1 = 1051
     IOS_STEP_TRACKER_2 = 1052
     HEALTHKIT_STEP_IPHONE_TRACKER = 1057
@@ -97,6 +101,8 @@ class DeviceType(StrEnum):
     FLUID_ANALYZER = "Fluid Analyzer"
     GATEWAY = "Gateway"
     IGLUCOSE = "iGlucose"
+    SMART_METER = "Smart Meter"
+    LINGO = "Lingo"
     HEALTHKIT_APPLE = "HealthKit Apple"
     HEALTHKIT_GOOGLE = "HealthKit Google"
     HEALTHKIT_HUAWEI = "HealthKit Huawei"

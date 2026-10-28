@@ -335,6 +335,41 @@ async def test_get_sleep_monitor_with_scale(
     assert response[1].raw_model == "Body+"
 
 
+async def test_get_devices_with_u_scan(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test that a U-Scan is returned alongside an existing scale."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    u_scan = {
+        **scale,
+        "type": "Fluid Analyzer",
+        "model": "WPA02",
+        "model_id": 102,
+        "deviceid": "u-scan-device",
+        "hash_deviceid": "u-scan-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [u_scan, scale]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 2
+    assert response[0].device_id == "u-scan-device"
+    assert response[0].hashed_device_id == "u-scan-hash"
+    assert response[0].device_type is DeviceType.FLUID_ANALYZER
+    assert response[0].model is DeviceModel.U_SCAN
+    assert response[0].raw_model == "WPA02"
+    assert response[1].device_id == scale["deviceid"]
+    assert response[1].device_type is DeviceType.SCALE
+    assert response[1].model is DeviceModel.BODY_PLUS
+    assert response[1].raw_model == "Body+"
+    assert "102 is an unsupported value for <enum 'DeviceModel'>" not in caplog.text
+
+
 async def test_get_new_device(
     responses: aiointercept,
     snapshot: SnapshotAssertion,

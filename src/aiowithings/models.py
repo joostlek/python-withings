@@ -69,6 +69,7 @@ class DeviceModel(IntEnum):
     THERMO = 70
     BEAMO = 71
     WUP01 = 100
+    U_SCAN = 102
     IGLUCOSE_GLUCOMETER = 1061
     IOS_STEP_TRACKER_1 = 1051
     IOS_STEP_TRACKER_2 = 1052

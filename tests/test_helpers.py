@@ -49,6 +49,25 @@ def test_aggregate_sleep_summary(snapshot: SnapshotAssertion) -> None:
     assert aggregate_sleep_summary(sleep_summaries) == snapshot
 
 
+def test_aggregate_sleep_summary_with_missing_optional_metric() -> None:
+    """Test aggregation when an optional metric is unavailable in every summary."""
+    json_file: list[dict[str, Any]] = json.loads(load_fixture("sleep_summary.json"))[
+        "body"
+    ]["series"][:2]
+    for sleep_summary in json_file:
+        sleep_summary["data"].pop("breathing_disturbances_intensity")
+
+    sleep_summaries = [
+        SleepSummary.from_api(sleep_summary) for sleep_summary in json_file
+    ]
+
+    aggregated_summary = aggregate_sleep_summary(sleep_summaries)
+
+    assert aggregated_summary is not None
+    assert aggregated_summary.breathing_disturbances_intensity is None
+    assert aggregated_summary.average_heart_rate == 96
+
+
 def test_aggregate_single_sleep_summary(snapshot: SnapshotAssertion) -> None:
     """Test aggregation."""
     json_file: dict[str, Any] = json.loads(load_fixture("sleep_summary.json"))["body"][

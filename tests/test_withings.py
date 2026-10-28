@@ -9,11 +9,13 @@ from typing import TYPE_CHECKING, Any
 
 import aiohttp
 from aiohttp.hdrs import METH_POST
-from aioresponses import CallbackResult, aioresponses
+from aiointercept import CallbackResult, aiointercept
 import pytest
 
 from aiowithings import (
     ActivityDataFields,
+    DeviceModel,
+    DeviceType,
     MeasurementType,
     NotificationCategory,
     SleepDataFields,
@@ -41,7 +43,7 @@ if TYPE_CHECKING:
 
 
 async def test_putting_in_own_session(
-    responses: aioresponses,
+    responses: aiointercept,
 ) -> None:
     """Test putting in own session."""
     responses.post(
@@ -60,7 +62,7 @@ async def test_putting_in_own_session(
 
 
 async def test_creating_own_session(
-    responses: aioresponses,
+    responses: aiointercept,
 ) -> None:
     """Test creating own session."""
     responses.post(
@@ -95,7 +97,7 @@ async def test_refresh_token() -> None:
 
 
 async def test_unexpected_server_response(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test handling unexpected response."""
@@ -110,7 +112,7 @@ async def test_unexpected_server_response(
 
 
 async def test_timeout(
-    responses: aioresponses,
+    responses: aiointercept,
 ) -> None:
     """Test request timeout."""
 
@@ -144,7 +146,7 @@ async def test_timeout(
     ],
 )
 async def test_error_codes(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
     status: int | None,
     error: type[Exception],
@@ -163,7 +165,7 @@ async def test_error_codes(
 
 
 async def test_get_activities_since(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -191,7 +193,7 @@ async def test_get_activities_since(
 
 
 async def test_get_activities_period(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -219,7 +221,7 @@ async def test_get_activities_period(
 
 
 async def test_get_devices(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -239,8 +241,70 @@ async def test_get_devices(
     )
 
 
+async def test_get_sleep_monitor(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Test that an Aura Sensor V2 is returned when it is the only device."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    sleep_monitor = {
+        **scale,
+        "type": "Sleep Monitor",
+        "model": "Aura Sensor V2",
+        "model_id": 63,
+        "deviceid": "sleep-monitor-device",
+        "hash_deviceid": "sleep-monitor-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [sleep_monitor]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 1
+    assert response[0].device_id == "sleep-monitor-device"
+    assert response[0].hashed_device_id == "sleep-monitor-hash"
+    assert response[0].device_type is DeviceType.SLEEP_MONITOR
+    assert response[0].model is DeviceModel.AURA_SENSOR_V2
+    assert response[0].raw_model == "Aura Sensor V2"
+
+
+async def test_get_sleep_monitor_with_scale(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Test that an Aura Sensor V2 is returned alongside a scale."""
+    scale = json.loads(load_fixture("device.json"))["body"]["devices"][0]
+    sleep_monitor = {
+        **scale,
+        "type": "Sleep Monitor",
+        "model": "Aura Sensor V2",
+        "model_id": 63,
+        "deviceid": "sleep-monitor-device",
+        "hash_deviceid": "sleep-monitor-hash",
+    }
+    responses.post(
+        f"{WITHINGS_URL}/v2/user",
+        payload={"status": 0, "body": {"devices": [sleep_monitor, scale]}},
+    )
+
+    response = await authenticated_client.get_devices()
+
+    assert len(response) == 2
+    assert response[0].device_id == "sleep-monitor-device"
+    assert response[0].hashed_device_id == "sleep-monitor-hash"
+    assert response[0].device_type is DeviceType.SLEEP_MONITOR
+    assert response[0].model is DeviceModel.AURA_SENSOR_V2
+    assert response[0].raw_model == "Aura Sensor V2"
+    assert response[1].device_id == scale["deviceid"]
+    assert response[1].device_type is DeviceType.SCALE
+    assert response[1].model is DeviceModel.BODY_PLUS
+    assert response[1].raw_model == "Body+"
+
+
 async def test_get_new_device(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
     caplog: pytest.LogCaptureFixture,
@@ -274,7 +338,7 @@ async def test_get_new_device(
     ],
 )
 async def test_get_goals(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
     fixture: str,
@@ -296,7 +360,7 @@ async def test_get_goals(
 
 
 async def test_get_measurement_since(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -320,7 +384,7 @@ async def test_get_measurement_since(
 
 
 async def test_get_measurement_period(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -344,7 +408,7 @@ async def test_get_measurement_period(
 
 
 async def test_subscribing(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test subscribing to webhook updates."""
@@ -370,7 +434,7 @@ async def test_subscribing(
 
 
 async def test_revoking(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test subscribing to webhook updates."""
@@ -396,7 +460,7 @@ async def test_revoking(
 
 
 async def test_list_subscriptions(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -419,7 +483,7 @@ async def test_list_subscriptions(
 
 
 async def test_list_all_subscriptions(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test retrieving all subscriptions."""
@@ -466,7 +530,7 @@ async def test_webhook_object(snapshot: SnapshotAssertion) -> None:
 
 
 async def test_get_sleep(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -503,7 +567,7 @@ async def test_get_sleep(
 
 
 async def test_get_sleep_without_data_fields(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -527,7 +591,7 @@ async def test_get_sleep_without_data_fields(
 
 
 async def test_get_sleep_summary_in_period(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -593,7 +657,7 @@ async def test_get_sleep_summary_in_period(
 
 
 async def test_get_sleep_summary_in_period_without_data_fields(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -621,7 +685,7 @@ async def test_get_sleep_summary_in_period_without_data_fields(
 
 
 async def test_get_sleep_summary_since(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test retrieving sleep."""
@@ -684,7 +748,7 @@ async def test_get_sleep_summary_since(
 
 
 async def test_get_sleep_summary_since_without_data_fields(
-    responses: aioresponses,
+    responses: aiointercept,
     authenticated_client: WithingsClient,
 ) -> None:
     """Test retrieving sleep without datafields."""
@@ -709,7 +773,7 @@ async def test_get_sleep_summary_since_without_data_fields(
 
 
 async def test_get_workouts_since(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:
@@ -733,7 +797,7 @@ async def test_get_workouts_since(
 
 
 async def test_get_workouts_period(
-    responses: aioresponses,
+    responses: aiointercept,
     snapshot: SnapshotAssertion,
     authenticated_client: WithingsClient,
 ) -> None:

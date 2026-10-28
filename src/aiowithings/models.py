@@ -48,6 +48,7 @@ class DeviceModel(IntEnum):
     BPM_CORE = 44
     BPM_CONNECT = 45
     BPM_CONNECT_PRO = 46
+    BPM_VISION = 48
     PULSE = 51
     ACTIVITE = 52
     ACTIVITE_POP_STEEL = 53
@@ -65,6 +66,7 @@ class DeviceModel(IntEnum):
     AURA_SENSOR = 61
     AURA_SENSOR_V2 = 63
     THERMO = 70
+    BEAMO = 71
     WUP01 = 100
     IGLUCOSE_GLUCOMETER = 1061
     IOS_STEP_TRACKER_1 = 1051
@@ -90,6 +92,7 @@ class DeviceType(StrEnum):
     ACTIVITY_TRACKER = "Activity Tracker"
     SLEEP_MONITOR = "Sleep Monitor"
     SMART_CONNECTED_THERMOMETER = "Smart Connected Thermometer"
+    FLUID_ANALYZER = "Fluid Analyzer"
     GATEWAY = "Gateway"
     IGLUCOSE = "iGlucose"
     HEALTHKIT_APPLE = "HealthKit Apple"
@@ -135,7 +138,13 @@ class Device:
             )
         device_model = to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN)
         model = device["model"]
-        if not model and device_model is DeviceModel.SLEEP_ANALYZER:
+        if (
+            device_model is DeviceModel.SLEEP_ANALYZER
+            and device["type"] == DeviceType.SCALE
+            and model in ("", "Sleep Analyzer")
+        ):
+            model = "Body+"
+        elif not model and device_model is DeviceModel.SLEEP_ANALYZER:
             model = "Sleep Analyzer"
         battery = device["battery"]
         battery = DeviceBattery(battery) if battery != "unknown" else None

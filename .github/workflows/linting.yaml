@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -33,9 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install prek
         run: pipx install prek
       - name: 🚀 Check for case conflicts
@@ -81,9 +81,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -98,9 +98,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -113,9 +113,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -128,15 +128,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
         run: uv sync --all-groups
       - name: 🏗 Set up Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"

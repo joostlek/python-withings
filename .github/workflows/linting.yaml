@@ -20,7 +20,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -35,7 +35,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -83,7 +83,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -100,7 +100,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -115,7 +115,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
@@ -130,13 +130,13 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v7.0.1
       - name: 🏗 Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
       - name: 🏗 Install Python dependencies
         run: uv sync --all-groups
       - name: 🏗 Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"

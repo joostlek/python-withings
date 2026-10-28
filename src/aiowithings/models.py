@@ -134,7 +134,13 @@ class Device:
             )
         device_model = to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN)
         model = device["model"]
-        if not model and device_model is DeviceModel.SLEEP_ANALYZER:
+        if (
+            device_model is DeviceModel.SLEEP_ANALYZER
+            and device["type"] == DeviceType.SCALE
+            and model in ("", "Sleep Analyzer")
+        ):
+            model = "Body+"
+        elif not model and device_model is DeviceModel.SLEEP_ANALYZER:
             model = "Sleep Analyzer"
         battery = device["battery"]
         battery = DeviceBattery(battery) if battery != "unknown" else None

@@ -275,11 +275,15 @@ class WithingsClient:
                     for activity_data_field in activity_data_fields
                 ],
             )
-        response = await self._request(
-            "v2/measure",
-            data=data,
-        )
-        return [Activity.from_api(activity) for activity in response["activities"]]
+        activities: list[Activity] = []
+        while True:
+            response = await self._request("v2/measure", data=data)
+            activities.extend(
+                Activity.from_api(activity) for activity in response["activities"]
+            )
+            if not response.get("more"):
+                return activities
+            data["offset"] = response["offset"]
 
     async def get_activities_since(
         self,
@@ -314,11 +318,13 @@ class WithingsClient:
             data["data_fields"] = ",".join(
                 [str(workout_data_field) for workout_data_field in workout_data_fields],
             )
-        response = await self._request(
-            "v2/measure",
-            data=data,
-        )
-        return [Workout.from_api(workout) for workout in response["series"]]
+        workouts: list[Workout] = []
+        while True:
+            response = await self._request("v2/measure", data=data)
+            workouts.extend(Workout.from_api(workout) for workout in response["series"])
+            if not response.get("more"):
+                return workouts
+            data["offset"] = response["offset"]
 
     async def get_workouts_since(
         self,

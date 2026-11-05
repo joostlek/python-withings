@@ -6,11 +6,13 @@ import asyncio
 from datetime import UTC, datetime
 import json
 from typing import TYPE_CHECKING, Any
+from urllib.parse import parse_qs
 
 import aiohttp
 from aiohttp.hdrs import METH_POST
 from aiointercept import CallbackResult, aiointercept
 import pytest
+from yarl import URL
 
 from aiowithings import (
     ActivityDataFields,
@@ -533,6 +535,114 @@ async def test_get_measurement_period(
         headers=HEADERS,
         data={"action": "getmeas", "startdate": 1609459200, "enddate": 1609559200},
     )
+
+
+async def test_get_measurement_since_paginated(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Follow each returned offset while preserving the measurement filters."""
+    groups = json.loads(load_fixture("measurement_list_2.json"))[:3]
+    for page, more, offset in (
+        (groups[:1], 1, 123),
+        (groups[1:2], 1, 456),
+        (groups[2:], 0, 0),
+    ):
+        responses.post(
+            f"{WITHINGS_URL}/measure",
+            payload={
+                "status": 0,
+                "body": {"measuregrps": page, "more": more, "offset": offset},
+            },
+        )
+
+    response = await authenticated_client.get_measurement_since(
+        datetime.fromtimestamp(1609459200, tz=UTC),
+        measurement_types=[MeasurementType.WEIGHT],
+    )
+
+    assert [group.group_id for group in response] == [
+        5109691092,
+        5109691089,
+        5109691080,
+    ]
+    assert responses.call_count == 3
+    filters = {
+        "action": ["getmeas"],
+        "lastupdate": ["1609459200"],
+        "meastypes": ["1"],
+    }
+    for request, expected_data in zip(
+        responses.requests[(METH_POST, URL(f"{WITHINGS_URL}/measure"))],
+        [filters, {**filters, "offset": ["123"]}, {**filters, "offset": ["456"]}],
+        strict=True,
+    ):
+        assert request.captured_body is not None
+        assert parse_qs(request.captured_body.decode()) == expected_data
+
+
+async def test_get_measurement_period_paginated(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Retrieve all pages without replacing the requested date range."""
+    groups = json.loads(load_fixture("measurement_list_2.json"))[:2]
+    responses.post(
+        f"{WITHINGS_URL}/measure",
+        payload={
+            "status": 0,
+            "body": {"measuregrps": groups[:1], "more": 1, "offset": 123},
+        },
+    )
+    responses.post(
+        f"{WITHINGS_URL}/measure",
+        payload={"status": 0, "body": {"measuregrps": groups[1:], "more": 0}},
+    )
+
+    response = await authenticated_client.get_measurement_in_period(
+        start_date=datetime.fromtimestamp(1609459200, tz=UTC),
+        end_date=datetime.fromtimestamp(1609559200, tz=UTC),
+    )
+
+    assert [group.group_id for group in response] == [5109691092, 5109691089]
+    assert responses.call_count == 2
+    responses.assert_called_with(
+        f"{WITHINGS_URL}/measure",
+        METH_POST,
+        headers=HEADERS,
+        data={
+            "action": "getmeas",
+            "startdate": 1609459200,
+            "enddate": 1609559200,
+            "offset": 123,
+        },
+    )
+
+
+async def test_get_measurement_pagination_error(
+    responses: aiointercept,
+    authenticated_client: WithingsClient,
+) -> None:
+    """Raise a later page's API error instead of returning incomplete data."""
+    groups = json.loads(load_fixture("measurement_list_2.json"))[:1]
+    responses.post(
+        f"{WITHINGS_URL}/measure",
+        payload={
+            "status": 0,
+            "body": {"measuregrps": groups, "more": 1, "offset": 123},
+        },
+    )
+    responses.post(
+        f"{WITHINGS_URL}/measure",
+        payload={"status": 601, "error": "Too many requests"},
+    )
+
+    with pytest.raises(WithingsTooManyRequestsError):
+        await authenticated_client.get_measurement_since(
+            datetime.fromtimestamp(1609459200, tz=UTC),
+        )
+
+    assert responses.call_count == 2
 
 
 async def test_subscribing(

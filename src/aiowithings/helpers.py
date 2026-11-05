@@ -54,7 +54,9 @@ def aggregate_sleep_summary(
         key=lambda sleep_summary: sleep_summary.start_date,
     )
 
-    def average(data: list[int]) -> int:
+    def average(data: list[int]) -> int | None:
+        if not data:
+            return None
         return round(sum(data) / len(data))
 
     return SleepSummary(

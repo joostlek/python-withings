@@ -764,7 +764,7 @@ async def test_webhook_object(snapshot: SnapshotAssertion) -> None:
         "startdate": 1530576000,
         "enddate": 1530698753,
     }
-    assert WebhookCall.from_api(data) == snapshot
+    assert WebhookCall.from_dict(data) == snapshot
 
 
 async def test_get_sleep(

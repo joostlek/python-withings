@@ -828,7 +828,7 @@ class WorkoutCategory(IntEnum):
     SQUASH = 14
     BADMINTON = 15
     LIFT_WEIGHTS = 16
-    CALISTHENICS = 17
+    FITNESS = 17
     ELLIPTICAL = 18
     PILATES = 19
     BASKET_BALL = 20
@@ -944,7 +944,7 @@ class WorkoutCategory(IntEnum):
     COOKING = 568
     MATCH_DAY = 569
     JUMP_ROPE = 570
-    CALISTHENICS_2 = 571
+    CALISTHENICS = 571
     BARRE = 572
     AQUA_AEROBICS = 573
     GYMNASTICS = 574

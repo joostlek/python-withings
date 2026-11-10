@@ -166,11 +166,16 @@ class WithingsClient:
             data["meastypes"] = ",".join(
                 [str(measurement_type) for measurement_type in measurement_types],
             )
-        response = await self._request("measure", data=data)
-        return [
-            MeasurementGroup.from_api(measurement_group)
-            for measurement_group in response["measuregrps"]
-        ]
+        measurements: list[MeasurementGroup] = []
+        while True:
+            response = await self._request("measure", data=data)
+            measurements.extend(
+                MeasurementGroup.from_api(measurement_group)
+                for measurement_group in response["measuregrps"]
+            )
+            if not response.get("more"):
+                return measurements
+            data["offset"] = response["offset"]
 
     async def get_measurement_since(
         self,

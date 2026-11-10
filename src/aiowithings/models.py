@@ -2,12 +2,51 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from enum import IntEnum, IntFlag, StrEnum
 from typing import Any, Self
 
+from mashumaro import DataClassDictMixin, field_options, pass_through
+from mashumaro.config import BaseConfig
+
 from aiowithings.util import get_measurement_from_dict, to_enum
+
+
+class _WithingsModel(DataClassDictMixin):
+    """Base class for models parsed from the Withings API."""
+
+    __slots__ = ()
+
+    class Config(BaseConfig):  # pylint: disable=too-few-public-methods
+        """Mashumaro configuration."""
+
+        # Withings sends timestamps as epoch seconds. Primitives pass through
+        # because mashumaro coerces them by default, for example None to "None".
+        serialization_strategy = {  # noqa: RUF012
+            datetime: {"deserialize": lambda ts: datetime.fromtimestamp(ts, tz=UTC)},
+            bool: pass_through,
+            float: pass_through,
+            int: pass_through,
+            str: pass_through,
+        }
+
+    @classmethod
+    def from_api(cls, data: Any) -> Self:
+        """Initialize from the API."""
+        return cls.from_dict(data)
+
+
+def _enum_options[EnumT](
+    enum_class: type[EnumT],
+    default_value: EnumT,
+    alias: str | None = None,
+) -> dict[str, Any]:
+    """Return field options that map unknown API values to a default."""
+    return field_options(
+        alias=alias,
+        deserialize=lambda value: to_enum(enum_class, value, default_value),
+    )
 
 
 class AuthScope(StrEnum):
@@ -118,78 +157,57 @@ class DeviceBattery(StrEnum):
 
 
 @dataclass(slots=True)
-class Device:
+class Device(_WithingsModel):
     """Model for a Withings device."""
 
-    device_type: DeviceType
-    battery: DeviceBattery | None
-    raw_model: str
-    model: DeviceModel
+    device_type: DeviceType = field(
+        metadata=_enum_options(DeviceType, DeviceType.UNKNOWN, "type")
+    )
+    battery: DeviceBattery | None = field(
+        metadata=field_options(
+            deserialize=lambda battery: (
+                DeviceBattery(battery) if battery != "unknown" else None
+            )
+        )
+    )
+    raw_model: str = field(metadata=field_options(alias="model"))
+    model: DeviceModel = field(
+        metadata=_enum_options(DeviceModel, DeviceModel.UNKNOWN, "model_id")
+    )
     first_session_date: datetime | None
     last_session_date: datetime | None
-    device_id: str
-    hashed_device_id: str
+    device_id: str = field(metadata=field_options(alias="deviceid"))
+    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
 
     @classmethod
-    def from_api(cls, device: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        first_session_date = None
-        if device["first_session_date"] is not None:
-            first_session_date = datetime.fromtimestamp(
-                device["first_session_date"],
-                tz=UTC,
-            )
-        last_session_date = None
-        if device["last_session_date"] is not None:
-            last_session_date = datetime.fromtimestamp(
-                device["last_session_date"],
-                tz=UTC,
-            )
-        device_model = to_enum(DeviceModel, device["model_id"], DeviceModel.UNKNOWN)
-        model = device["model"]
+    def __post_deserialize__(cls, obj: Self) -> Self:
+        """Fix model names that the API reports wrong for model 13."""
         if (
-            device_model is DeviceModel.SLEEP_ANALYZER
-            and device["type"] == DeviceType.SCALE
-            and model in ("", "Sleep Analyzer")
+            obj.model is DeviceModel.SLEEP_ANALYZER
+            and obj.device_type is DeviceType.SCALE
+            and obj.raw_model in ("", "Sleep Analyzer")
         ):
-            model = "Body+"
-        elif not model and device_model is DeviceModel.SLEEP_ANALYZER:
-            model = "Sleep Analyzer"
-        battery = device["battery"]
-        battery = DeviceBattery(battery) if battery != "unknown" else None
-        return cls(
-            device_type=to_enum(DeviceType, device["type"], DeviceType.UNKNOWN),
-            battery=battery,
-            raw_model=model,
-            model=device_model,
-            first_session_date=first_session_date,
-            last_session_date=last_session_date,
-            device_id=device["deviceid"],
-            hashed_device_id=device["hash_deviceid"],
-        )
+            obj.raw_model = "Body+"
+        elif not obj.raw_model and obj.model is DeviceModel.SLEEP_ANALYZER:
+            obj.raw_model = "Sleep Analyzer"
+        return obj
 
 
 @dataclass(slots=True)
-class Goals:
+class Goals(_WithingsModel):
     """Model for Withings goals."""
 
-    steps: int | None
-    sleep: int | None
-    weight: float | None
+    steps: int | None = None
+    sleep: int | None = None
+    weight: float | None = field(
+        default=None,
+        metadata=field_options(deserialize=get_measurement_from_dict),
+    )
 
     @classmethod
-    def from_api(cls, goals: dict[str, Any] | list[Any]) -> Self:
-        """Initialize from the API."""
-        if isinstance(goals, list):
-            return cls(steps=None, sleep=None, weight=None)
-        weight = None
-        if "weight" in goals:
-            weight = get_measurement_from_dict(goals["weight"])
-        return cls(
-            steps=goals.get("steps"),
-            sleep=goals.get("sleep"),
-            weight=weight,
-        )
+    def __pre_deserialize__(cls, d: Any) -> dict[str, Any]:
+        """Treat the empty list that the API sends without goals as no goals."""
+        return {} if isinstance(d, list) else d
 
 
 class MeasurementAttribution(IntEnum):
@@ -215,57 +233,31 @@ class MeasurementGroupCategory(IntEnum):
 
 
 @dataclass(slots=True)
-class MeasurementGroup:
+class MeasurementGroup(_WithingsModel):
     """Model for a measurement group."""
 
-    group_id: int
-    attribution: MeasurementAttribution
-    taken_at: datetime
-    stored_at: datetime
-    updated_at: datetime
-    category: MeasurementGroupCategory
-    device_id: str
-    hashed_device_id: str
-    measurements: list[Measurement]
+    group_id: int = field(metadata=field_options(alias="grpid"))
+    attribution: MeasurementAttribution = field(
+        metadata=_enum_options(
+            MeasurementAttribution, MeasurementAttribution.UNKNOWN, "attrib"
+        )
+    )
+    taken_at: datetime = field(metadata=field_options(alias="date"))
+    stored_at: datetime = field(metadata=field_options(alias="created"))
+    updated_at: datetime = field(metadata=field_options(alias="modified"))
+    category: MeasurementGroupCategory = field(
+        metadata=_enum_options(
+            MeasurementGroupCategory, MeasurementGroupCategory.UNKNOWN
+        )
+    )
+    device_id: str = field(metadata=field_options(alias="deviceid"))
+    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
+    measurements: list[Measurement] = field(metadata=field_options(alias="measures"))
 
     @classmethod
-    def from_api(cls, measurement_group: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        if measurement_group["attrib"] == 8:
-            measurement_group["attrib"] = 0
-        if measurement_group["attrib"] == 17:
-            measurement_group["attrib"] = 15
-        return cls(
-            group_id=measurement_group["grpid"],
-            attribution=to_enum(
-                MeasurementAttribution,
-                measurement_group["attrib"],
-                MeasurementAttribution.UNKNOWN,
-            ),
-            taken_at=datetime.fromtimestamp(
-                measurement_group["date"],
-                tz=UTC,
-            ),
-            stored_at=datetime.fromtimestamp(
-                measurement_group["created"],
-                tz=UTC,
-            ),
-            updated_at=datetime.fromtimestamp(
-                measurement_group["modified"],
-                tz=UTC,
-            ),
-            category=to_enum(
-                MeasurementGroupCategory,
-                measurement_group["category"],
-                MeasurementGroupCategory.UNKNOWN,
-            ),
-            device_id=measurement_group["deviceid"],
-            hashed_device_id=measurement_group["hash_deviceid"],
-            measurements=[
-                Measurement.from_api(measurement)
-                for measurement in measurement_group["measures"]
-            ],
-        )
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Map attributions 8 and 17 to the enum values they belong to."""
+        return d | {"attrib": {8: 0, 17: 15}.get(d["attrib"], d["attrib"])}
 
 
 class MeasurementType(IntEnum):
@@ -342,33 +334,24 @@ class MeasurementPosition(IntEnum):
 
 
 @dataclass(slots=True)
-class Measurement:
+class Measurement(_WithingsModel):
     """Model for a measurement."""
 
-    measurement_type: MeasurementType
+    measurement_type: MeasurementType = field(
+        metadata=_enum_options(MeasurementType, MeasurementType.UNKNOWN, "type")
+    )
     value: float
-    position: MeasurementPosition | None = None
+    position: MeasurementPosition | None = field(
+        default=None,
+        metadata=field_options(
+            deserialize=lambda position: to_enum(MeasurementPosition, position, None)
+        ),
+    )
 
     @classmethod
-    def from_api(cls, measurement: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        raw_position = measurement.get("position")
-        position: MeasurementPosition | None = None
-        if raw_position is not None:
-            position = to_enum(
-                MeasurementPosition,
-                raw_position,
-                None,
-            )
-        return cls(
-            measurement_type=to_enum(
-                MeasurementType,
-                measurement["type"],
-                MeasurementType.UNKNOWN,
-            ),
-            value=get_measurement_from_dict(measurement),
-            position=position,
-        )
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Apply the unit exponent to the value."""
+        return d | {"value": get_measurement_from_dict(d)}
 
 
 class NotificationCategory(IntEnum):
@@ -439,55 +422,30 @@ def get_measurement_type_from_notification_category(
 
 
 @dataclass(slots=True)
-class NotificationConfiguration:
+class NotificationConfiguration(_WithingsModel):
     """Class representing the webhook config from Withings."""
 
-    notification_category: NotificationCategory
-    callback_url: str
-    comment: str
-
-    @classmethod
-    def from_api(cls, configuration: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        return cls(
-            notification_category=to_enum(
-                NotificationCategory,
-                configuration["appli"],
-                NotificationCategory.UNKNOWN,
-            ),
-            callback_url=configuration["callbackurl"],
-            comment=configuration["comment"],
+    notification_category: NotificationCategory = field(
+        metadata=_enum_options(
+            NotificationCategory, NotificationCategory.UNKNOWN, "appli"
         )
+    )
+    callback_url: str = field(metadata=field_options(alias="callbackurl"))
+    comment: str
 
 
 @dataclass(slots=True)
-class WebhookCall:
+class WebhookCall(_WithingsModel):
     """Class representing the webhook call from Withings."""
 
-    user_id: int
-    notification_category: NotificationCategory
-    start_date: datetime
-    end_date: datetime
-
-    @classmethod
-    def from_api(cls, data: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        return cls(
-            user_id=data["userid"],
-            notification_category=to_enum(
-                NotificationCategory,
-                data["appli"],
-                NotificationCategory.UNKNOWN,
-            ),
-            start_date=datetime.fromtimestamp(
-                data["startdate"],
-                tz=UTC,
-            ),
-            end_date=datetime.fromtimestamp(
-                data["enddate"],
-                tz=UTC,
-            ),
+    user_id: int = field(metadata=field_options(alias="userid"))
+    notification_category: NotificationCategory = field(
+        metadata=_enum_options(
+            NotificationCategory, NotificationCategory.UNKNOWN, "appli"
         )
+    )
+    start_date: datetime = field(metadata=field_options(alias="startdate"))
+    end_date: datetime = field(metadata=field_options(alias="enddate"))
 
 
 def get_sleep_series_time_data(time: str, value: int) -> SleepSeriesTimeData:
@@ -502,12 +460,15 @@ def get_sleep_series_time_data(time: str, value: int) -> SleepSeriesTimeData:
 
 
 def get_sleep_series_time_data_list(
-    data: dict[str, int] | None,
-) -> list[SleepSeriesTimeData] | None:
+    data: dict[str, int],
+) -> list[SleepSeriesTimeData]:
     """Return sleep series time data."""
-    if data is None:
-        return None
     return [get_sleep_series_time_data(time, value) for time, value in data.items()]
+
+
+def _sleep_series_options(alias: str) -> dict[str, Any]:
+    """Return field options that read a timestamp-to-value dict of sleep data."""
+    return field_options(alias=alias, deserialize=get_sleep_series_time_data_list)
 
 
 class SleepState(IntEnum):
@@ -545,61 +506,45 @@ class SleepSeriesTimeData:
 
 
 @dataclass(slots=True)
-class SleepSeries:
+class SleepSeries(_WithingsModel):
     """Represents sleep data."""
 
-    start_date: datetime
-    end_date: datetime
-    state: SleepState
-    hashed_device_id: str
-    heart_rate: list[SleepSeriesTimeData] | None
-    respiration_rate: list[SleepSeriesTimeData] | None
-    snoring: list[SleepSeriesTimeData] | None
-    heart_rate_variability: list[SleepSeriesTimeData] | None
-    heart_rate_variability_2: list[SleepSeriesTimeData] | None
-    movement_score: list[SleepSeriesTimeData] | None
-    heart_rate_variability_quality: list[SleepSeriesTimeData] | None
-    chest_movement_rate: list[SleepSeriesTimeData] | None
-    breathing_sounds: list[SleepSeriesTimeData] | None
-    withings_index: list[SleepSeriesTimeData] | None
-
-    @classmethod
-    def from_api(cls, sleep_data: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        return cls(
-            start_date=datetime.fromtimestamp(
-                sleep_data["startdate"],
-                tz=UTC,
-            ),
-            end_date=datetime.fromtimestamp(
-                sleep_data["enddate"],
-                tz=UTC,
-            ),
-            state=to_enum(SleepState, sleep_data["state"], SleepState.UNSPECIFIED),
-            hashed_device_id=sleep_data["hash_deviceid"],
-            heart_rate=get_sleep_series_time_data_list(sleep_data.get("hr")),
-            respiration_rate=get_sleep_series_time_data_list(sleep_data.get("rr")),
-            snoring=get_sleep_series_time_data_list(sleep_data.get("snoring")),
-            heart_rate_variability=get_sleep_series_time_data_list(
-                sleep_data.get("sdnn_1"),
-            ),
-            heart_rate_variability_2=get_sleep_series_time_data_list(
-                sleep_data.get("rmssd"),
-            ),
-            movement_score=get_sleep_series_time_data_list(sleep_data.get("mvt_score")),
-            heart_rate_variability_quality=get_sleep_series_time_data_list(
-                sleep_data.get("hrv_quality"),
-            ),
-            chest_movement_rate=get_sleep_series_time_data_list(
-                sleep_data.get("chest_movement_rate"),
-            ),
-            breathing_sounds=get_sleep_series_time_data_list(
-                sleep_data.get("breathing_sounds"),
-            ),
-            withings_index=get_sleep_series_time_data_list(
-                sleep_data.get("withings_index"),
-            ),
-        )
+    start_date: datetime = field(metadata=field_options(alias="startdate"))
+    end_date: datetime = field(metadata=field_options(alias="enddate"))
+    state: SleepState = field(
+        metadata=_enum_options(SleepState, SleepState.UNSPECIFIED)
+    )
+    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
+    heart_rate: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("hr")
+    )
+    respiration_rate: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("rr")
+    )
+    snoring: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("snoring")
+    )
+    heart_rate_variability: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("sdnn_1")
+    )
+    heart_rate_variability_2: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("rmssd")
+    )
+    movement_score: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("mvt_score")
+    )
+    heart_rate_variability_quality: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("hrv_quality")
+    )
+    chest_movement_rate: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("chest_movement_rate")
+    )
+    breathing_sounds: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("breathing_sounds")
+    )
+    withings_index: list[SleepSeriesTimeData] | None = field(
+        default=None, metadata=_sleep_series_options("withings_index")
+    )
 
 
 class CoreBodyTemperatureStatus(StrEnum):
@@ -608,19 +553,6 @@ class CoreBodyTemperatureStatus(StrEnum):
     UNKNOWN = "unknown"
     USUAL = "usual"
     ELEVATED = "elevated"
-
-
-def get_core_body_temperature_status(
-    status: str | None,
-) -> CoreBodyTemperatureStatus | None:
-    """Convert the core body temperature status, if present."""
-    if status is None:
-        return None
-    return to_enum(
-        CoreBodyTemperatureStatus,
-        status,
-        CoreBodyTemperatureStatus.UNKNOWN,
-    )
 
 
 class SleepSummaryDataFields(StrEnum):
@@ -678,139 +610,131 @@ class SleepSummaryDataFields(StrEnum):
 
 
 @dataclass(slots=True)
-class SleepSummary:
+class SleepSummary(_WithingsModel):
     """Class representing sleep summary."""
 
-    start_date: datetime
-    end_date: datetime
+    start_date: datetime = field(metadata=field_options(alias="startdate"))
+    end_date: datetime = field(metadata=field_options(alias="enddate"))
     date: date
-    hashed_device_id: str
-    apnea_hypopnea_index: int | None
-    external_time_asleep: int | None
-    breathing_disturbances_intensity: int | None
-    deep_sleep_duration: int | None
-    average_heart_rate: int | None
-    min_heart_rate: int | None
-    max_heart_rate: int | None
-    light_sleep_duration: int | None
-    active_movement_duration: int | None
-    average_movement_score: int | None
-    rem_sleep_phase_count: int | None
-    out_of_bed_count: int | None
-    rem_sleep_duration: int | None
-    average_respiration_rate: int | None
-    min_respiration_rate: int | None
-    max_respiration_rate: int | None
-    sleep_efficiency: int | None
-    sleep_latency: int | None
-    sleep_score: int | None
-    snoring: int | None
-    snoring_count: int | None
-    total_sleep_time: int | None
-    total_time_in_bed: int | None
-    wake_up_latency: int | None
-    wake_up_count: int | None
-    total_time_awake: int | None
-    time_awake_during_sleep: int | None
-    withings_index: int | None
-    breathing_quality_assessment: int | None
-    breathing_sounds: int | None
-    breathing_sounds_count: int | None
-    average_chest_movement_rate: int | None
-    min_chest_movement_rate: int | None
-    max_chest_movement_rate: int | None
-    average_chest_movement_rate_wellness: int | None
-    min_chest_movement_rate_wellness: int | None
-    max_chest_movement_rate_wellness: int | None
-    average_core_body_temperature: float | None
-    min_core_body_temperature: float | None
-    max_core_body_temperature: float | None
-    core_body_temperature_status: CoreBodyTemperatureStatus | None
-    average_heart_rate_variability_start: float | None
-    average_heart_rate_variability_end: float | None
+    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
+    apnea_hypopnea_index: int | None = None
+    external_time_asleep: int | None = field(
+        default=None, metadata=field_options(alias="asleepduration")
+    )
+    breathing_disturbances_intensity: int | None = None
+    deep_sleep_duration: int | None = field(
+        default=None, metadata=field_options(alias="deepsleepduration")
+    )
+    average_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_average")
+    )
+    min_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_min")
+    )
+    max_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_max")
+    )
+    light_sleep_duration: int | None = field(
+        default=None, metadata=field_options(alias="lightsleepduration")
+    )
+    active_movement_duration: int | None = field(
+        default=None, metadata=field_options(alias="mvt_active_duration")
+    )
+    average_movement_score: int | None = field(
+        default=None, metadata=field_options(alias="mvt_score_avg")
+    )
+    rem_sleep_phase_count: int | None = field(
+        default=None, metadata=field_options(alias="nb_rem_episodes")
+    )
+    out_of_bed_count: int | None = None
+    rem_sleep_duration: int | None = field(
+        default=None, metadata=field_options(alias="remsleepduration")
+    )
+    average_respiration_rate: int | None = field(
+        default=None, metadata=field_options(alias="rr_average")
+    )
+    min_respiration_rate: int | None = field(
+        default=None, metadata=field_options(alias="rr_min")
+    )
+    max_respiration_rate: int | None = field(
+        default=None, metadata=field_options(alias="rr_max")
+    )
+    sleep_efficiency: int | None = None
+    sleep_latency: int | None = None
+    sleep_score: int | None = None
+    snoring: int | None = None
+    snoring_count: int | None = field(
+        default=None, metadata=field_options(alias="snoringepisodecount")
+    )
+    total_sleep_time: int | None = None
+    total_time_in_bed: int | None = field(
+        default=None, metadata=field_options(alias="total_timeinbed")
+    )
+    wake_up_latency: int | None = field(
+        default=None, metadata=field_options(alias="wakeup_latency")
+    )
+    wake_up_count: int | None = field(
+        default=None, metadata=field_options(alias="wakeupcount")
+    )
+    total_time_awake: int | None = field(
+        default=None, metadata=field_options(alias="wakeupduration")
+    )
+    time_awake_during_sleep: int | None = field(
+        default=None, metadata=field_options(alias="waso")
+    )
+    withings_index: int | None = None
+    breathing_quality_assessment: int | None = None
+    breathing_sounds: int | None = None
+    breathing_sounds_count: int | None = field(
+        default=None, metadata=field_options(alias="breathing_sounds_episode_count")
+    )
+    average_chest_movement_rate: int | None = field(
+        default=None, metadata=field_options(alias="chest_movement_rate_average")
+    )
+    min_chest_movement_rate: int | None = field(
+        default=None, metadata=field_options(alias="chest_movement_rate_min")
+    )
+    max_chest_movement_rate: int | None = field(
+        default=None, metadata=field_options(alias="chest_movement_rate_max")
+    )
+    average_chest_movement_rate_wellness: int | None = field(
+        default=None,
+        metadata=field_options(alias="chest_movement_rate_wellness_average"),
+    )
+    min_chest_movement_rate_wellness: int | None = field(
+        default=None, metadata=field_options(alias="chest_movement_rate_wellness_min")
+    )
+    max_chest_movement_rate_wellness: int | None = field(
+        default=None, metadata=field_options(alias="chest_movement_rate_wellness_max")
+    )
+    average_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_avg")
+    )
+    min_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_min")
+    )
+    max_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_max")
+    )
+    core_body_temperature_status: CoreBodyTemperatureStatus | None = field(
+        default=None,
+        metadata=_enum_options(
+            CoreBodyTemperatureStatus,
+            CoreBodyTemperatureStatus.UNKNOWN,
+            "core_body_temperature_status",
+        ),
+    )
+    average_heart_rate_variability_start: float | None = field(
+        default=None, metadata=field_options(alias="rmssd_start_avg")
+    )
+    average_heart_rate_variability_end: float | None = field(
+        default=None, metadata=field_options(alias="rmssd_end_avg")
+    )
 
     @classmethod
-    def from_api(cls, sleep_data: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        return cls(
-            start_date=datetime.fromtimestamp(
-                sleep_data["startdate"],
-                tz=UTC,
-            ),
-            end_date=datetime.fromtimestamp(
-                sleep_data["enddate"],
-                tz=UTC,
-            ),
-            date=date.fromisoformat(sleep_data["date"]),
-            hashed_device_id=sleep_data["hash_deviceid"],
-            apnea_hypopnea_index=sleep_data["data"].get("apnea_hypopnea_index"),
-            external_time_asleep=sleep_data["data"].get("asleepduration"),
-            breathing_disturbances_intensity=sleep_data["data"].get(
-                "breathing_disturbances_intensity",
-            ),
-            deep_sleep_duration=sleep_data["data"].get("deepsleepduration"),
-            average_heart_rate=sleep_data["data"].get("hr_average"),
-            min_heart_rate=sleep_data["data"].get("hr_min"),
-            max_heart_rate=sleep_data["data"].get("hr_max"),
-            light_sleep_duration=sleep_data["data"].get("lightsleepduration"),
-            active_movement_duration=sleep_data["data"].get("mvt_active_duration"),
-            average_movement_score=sleep_data["data"].get("mvt_score_avg"),
-            rem_sleep_phase_count=sleep_data["data"].get("nb_rem_episodes"),
-            out_of_bed_count=sleep_data["data"].get("out_of_bed_count"),
-            rem_sleep_duration=sleep_data["data"].get("remsleepduration"),
-            average_respiration_rate=sleep_data["data"].get("rr_average"),
-            min_respiration_rate=sleep_data["data"].get("rr_min"),
-            max_respiration_rate=sleep_data["data"].get("rr_max"),
-            sleep_efficiency=sleep_data["data"].get("sleep_efficiency"),
-            sleep_latency=sleep_data["data"].get("sleep_latency"),
-            sleep_score=sleep_data["data"].get("sleep_score"),
-            snoring=sleep_data["data"].get("snoring"),
-            snoring_count=sleep_data["data"].get("snoringepisodecount"),
-            total_sleep_time=sleep_data["data"].get("total_sleep_time"),
-            total_time_in_bed=sleep_data["data"].get("total_timeinbed"),
-            wake_up_latency=sleep_data["data"].get("wakeup_latency"),
-            wake_up_count=sleep_data["data"].get("wakeupcount"),
-            total_time_awake=sleep_data["data"].get("wakeupduration"),
-            time_awake_during_sleep=sleep_data["data"].get("waso"),
-            withings_index=sleep_data["data"].get("withings_index"),
-            breathing_quality_assessment=sleep_data["data"].get(
-                "breathing_quality_assessment"
-            ),
-            breathing_sounds=sleep_data["data"].get("breathing_sounds"),
-            breathing_sounds_count=sleep_data["data"].get(
-                "breathing_sounds_episode_count"
-            ),
-            average_chest_movement_rate=sleep_data["data"].get(
-                "chest_movement_rate_average"
-            ),
-            min_chest_movement_rate=sleep_data["data"].get("chest_movement_rate_min"),
-            max_chest_movement_rate=sleep_data["data"].get("chest_movement_rate_max"),
-            average_chest_movement_rate_wellness=sleep_data["data"].get(
-                "chest_movement_rate_wellness_average"
-            ),
-            min_chest_movement_rate_wellness=sleep_data["data"].get(
-                "chest_movement_rate_wellness_min"
-            ),
-            max_chest_movement_rate_wellness=sleep_data["data"].get(
-                "chest_movement_rate_wellness_max"
-            ),
-            average_core_body_temperature=sleep_data["data"].get(
-                "core_body_temperature_avg"
-            ),
-            min_core_body_temperature=sleep_data["data"].get(
-                "core_body_temperature_min"
-            ),
-            max_core_body_temperature=sleep_data["data"].get(
-                "core_body_temperature_max"
-            ),
-            core_body_temperature_status=get_core_body_temperature_status(
-                sleep_data["data"].get("core_body_temperature_status"),
-            ),
-            average_heart_rate_variability_start=sleep_data["data"].get(
-                "rmssd_start_avg"
-            ),
-            average_heart_rate_variability_end=sleep_data["data"].get("rmssd_end_avg"),
-        )
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Move the nested sleep metrics to the top level."""
+        return {**d, **d["data"]}
 
 
 class ActivityDataFields(StrEnum):
@@ -842,79 +766,61 @@ class ActivityDataOrigin(IntEnum):
     EXTERNAL = 18
 
 
+_ACTIVITY_HEART_RATE_KEYS = (
+    "hr_average",
+    "hr_min",
+    "hr_max",
+    "hr_zone_0",
+    "hr_zone_1",
+    "hr_zone_2",
+    "hr_zone_3",
+)
+
+
 @dataclass(slots=True)
-class Activity:
+class Activity(_WithingsModel):
     """Class representing aggregated activity in a day."""
 
     steps: int
     distance: float
     elevation: int
-    soft_activity: int
-    moderate_activity: int
-    intense_activity: int
-    total_time_active: int
-    active_calories_burnt: float
-    total_calories_burnt: float
-    average_heart_rate: int | None
-    min_heart_rate: int | None
-    max_heart_rate: int | None
-    duration_heart_rate_light_zone: int | None
-    duration_heart_rate_moderate_zone: int | None
-    duration_heart_rate_intense_zone: int | None
-    duration_heart_rate_maximal_zone: int | None
+    soft_activity: int = field(metadata=field_options(alias="soft"))
+    moderate_activity: int = field(metadata=field_options(alias="moderate"))
+    intense_activity: int = field(metadata=field_options(alias="intense"))
+    total_time_active: int = field(metadata=field_options(alias="active"))
+    active_calories_burnt: float = field(metadata=field_options(alias="calories"))
+    total_calories_burnt: float = field(metadata=field_options(alias="totalcalories"))
+    average_heart_rate: int | None = field(metadata=field_options(alias="hr_average"))
+    min_heart_rate: int | None = field(metadata=field_options(alias="hr_min"))
+    max_heart_rate: int | None = field(metadata=field_options(alias="hr_max"))
+    duration_heart_rate_light_zone: int | None = field(
+        metadata=field_options(alias="hr_zone_0")
+    )
+    duration_heart_rate_moderate_zone: int | None = field(
+        metadata=field_options(alias="hr_zone_1")
+    )
+    duration_heart_rate_intense_zone: int | None = field(
+        metadata=field_options(alias="hr_zone_2")
+    )
+    duration_heart_rate_maximal_zone: int | None = field(
+        metadata=field_options(alias="hr_zone_3")
+    )
     date: date
     modified: datetime
-    is_withings_tracker: bool
-    origin: ActivityDataOrigin
+    is_withings_tracker: bool = field(metadata=field_options(alias="is_tracker"))
+    origin: ActivityDataOrigin = field(
+        metadata=_enum_options(ActivityDataOrigin, ActivityDataOrigin.UNKNOWN, "brand")
+    )
 
     @classmethod
-    def from_api(cls, activity_data: dict[str, Any]) -> Self:
-        """Initialize from the API."""
-        average_heart_rate = None
-        min_heart_rate = None
-        max_heart_rate = None
-        duration_heart_rate_light_zone = None
-        duration_heart_rate_moderate_zone = None
-        duration_heart_rate_intense_zone = None
-        duration_heart_rate_maximal_zone = None
-        if "hr_average" in activity_data and activity_data["hr_average"] != 0:
-            average_heart_rate = activity_data["hr_average"]
-            min_heart_rate = activity_data["hr_min"]
-            max_heart_rate = activity_data["hr_max"]
-            duration_heart_rate_light_zone = activity_data["hr_zone_0"]
-            duration_heart_rate_moderate_zone = activity_data["hr_zone_1"]
-            duration_heart_rate_intense_zone = activity_data["hr_zone_2"]
-            duration_heart_rate_maximal_zone = activity_data["hr_zone_3"]
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Drop the heart rate data when no heart rate was measured.
 
-        return cls(
-            steps=activity_data["steps"],
-            distance=activity_data["distance"],
-            elevation=activity_data["elevation"],
-            soft_activity=activity_data["soft"],
-            moderate_activity=activity_data["moderate"],
-            intense_activity=activity_data["intense"],
-            total_time_active=activity_data["active"],
-            active_calories_burnt=activity_data["calories"],
-            total_calories_burnt=activity_data["totalcalories"],
-            average_heart_rate=average_heart_rate,
-            min_heart_rate=min_heart_rate,
-            max_heart_rate=max_heart_rate,
-            duration_heart_rate_light_zone=duration_heart_rate_light_zone,
-            duration_heart_rate_moderate_zone=duration_heart_rate_moderate_zone,
-            duration_heart_rate_intense_zone=duration_heart_rate_intense_zone,
-            duration_heart_rate_maximal_zone=duration_heart_rate_maximal_zone,
-            date=date.fromisoformat(activity_data["date"]),
-            modified=datetime.fromtimestamp(
-                activity_data["modified"],
-                tz=UTC,
-            ),
-            is_withings_tracker=activity_data["is_tracker"],
-            origin=to_enum(
-                ActivityDataOrigin,
-                activity_data["brand"],
-                ActivityDataOrigin.UNKNOWN,
-            ),
-        )
+        The API sends 0 for all heart rate values in that case.
+        """
+        if d.get("hr_average", 0) == 0:
+            return d | dict.fromkeys(_ACTIVITY_HEART_RATE_KEYS)
+        return d
 
 
 class WorkoutCategory(IntEnum):
@@ -1112,139 +1018,75 @@ class WorkoutDataFields(StrEnum):
 
 
 @dataclass(slots=True)
-class Workout:
+class Workout(_WithingsModel):
     """Class representing a workout."""
 
-    workout_id: int
-    category: WorkoutCategory
-    attribution: MeasurementAttribution
-    start_date: datetime
-    end_date: datetime
+    workout_id: int = field(metadata=field_options(alias="id"))
+    category: WorkoutCategory = field(
+        metadata=_enum_options(WorkoutCategory, WorkoutCategory.OTHER)
+    )
+    attribution: MeasurementAttribution = field(
+        metadata=_enum_options(
+            MeasurementAttribution, MeasurementAttribution.UNKNOWN, "attrib"
+        )
+    )
+    start_date: datetime = field(metadata=field_options(alias="startdate"))
+    end_date: datetime = field(metadata=field_options(alias="enddate"))
     date: date
 
-    active_calories_burnt: int | None
-    distance: int | None
-    elevation: int | None
-    average_heart_rate: int | None
-    min_heart_rate: int | None
-    max_heart_rate: int | None
-    duration_heart_rate_light_zone: int | None
-    duration_heart_rate_moderate_zone: int | None
-    duration_heart_rate_intense_zone: int | None
-    duration_heart_rate_maximal_zone: int | None
-    intensity: int | None
-    pause_duration: int | None
-    spo2_average: int | None
-    steps: int | None
-    manual_intensity: int | None
-    average_core_body_temperature: float | None
-    min_core_body_temperature: float | None
-    max_core_body_temperature: float | None
-    core_body_temperature_status: CoreBodyTemperatureStatus | None
+    active_calories_burnt: int | None = field(
+        default=None, metadata=field_options(alias="calories")
+    )
+    distance: int | None = None
+    elevation: int | None = None
+    average_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_average")
+    )
+    min_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_min")
+    )
+    max_heart_rate: int | None = field(
+        default=None, metadata=field_options(alias="hr_max")
+    )
+    duration_heart_rate_light_zone: int | None = field(
+        default=None, metadata=field_options(alias="hr_zone_0")
+    )
+    duration_heart_rate_moderate_zone: int | None = field(
+        default=None, metadata=field_options(alias="hr_zone_1")
+    )
+    duration_heart_rate_intense_zone: int | None = field(
+        default=None, metadata=field_options(alias="hr_zone_2")
+    )
+    duration_heart_rate_maximal_zone: int | None = field(
+        default=None, metadata=field_options(alias="hr_zone_3")
+    )
+    intensity: int | None = None
+    pause_duration: int | None = None
+    spo2_average: int | None = None
+    steps: int | None = None
+    manual_intensity: int | None = None
+    average_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_avg")
+    )
+    min_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_min")
+    )
+    max_core_body_temperature: float | None = field(
+        default=None, metadata=field_options(alias="core_body_temperature_max")
+    )
+    core_body_temperature_status: CoreBodyTemperatureStatus | None = field(
+        default=None,
+        metadata=_enum_options(
+            CoreBodyTemperatureStatus,
+            CoreBodyTemperatureStatus.UNKNOWN,
+            "core_body_temperature_status",
+        ),
+    )
 
     @classmethod
-    # pylint: disable-next=too-many-branches,too-many-locals
-    def from_api(cls, workout_data: dict[str, Any]) -> Self:  # noqa: PLR0912
-        """Initialize from the API."""
-        workout_inner_data = workout_data["data"]
-        active_calories_burnt = None
-        if "calories" in workout_inner_data and workout_inner_data["calories"] != 0:
-            active_calories_burnt = workout_inner_data["calories"]
-        distance = None
-        if "distance" in workout_inner_data and workout_inner_data["distance"] != 0:
-            distance = workout_inner_data["distance"]
-        elevation = None
-        if "elevation" in workout_inner_data and workout_inner_data["elevation"] != 0:
-            elevation = workout_inner_data["elevation"]
-        average_heart_rate = None
-        if "hr_average" in workout_inner_data and workout_inner_data["hr_average"] != 0:
-            average_heart_rate = workout_inner_data["hr_average"]
-        min_heart_rate = None
-        if "hr_min" in workout_inner_data and workout_inner_data["hr_min"] != 0:
-            min_heart_rate = workout_inner_data["hr_min"]
-        max_heart_rate = None
-        if "hr_max" in workout_inner_data and workout_inner_data["hr_max"] != 0:
-            max_heart_rate = workout_inner_data["hr_max"]
-        duration_heart_rate_light_zone = None
-        if "hr_zone_0" in workout_inner_data and workout_inner_data["hr_zone_0"] != 0:
-            duration_heart_rate_light_zone = workout_inner_data["hr_zone_0"]
-        duration_heart_rate_moderate_zone = None
-        if "hr_zone_1" in workout_inner_data and workout_inner_data["hr_zone_1"] != 0:
-            duration_heart_rate_moderate_zone = workout_inner_data["hr_zone_1"]
-        duration_heart_rate_intense_zone = None
-        if "hr_zone_2" in workout_inner_data and workout_inner_data["hr_zone_2"] != 0:
-            duration_heart_rate_intense_zone = workout_inner_data["hr_zone_2"]
-        duration_heart_rate_maximal_zone = None
-        if "hr_zone_3" in workout_inner_data and workout_inner_data["hr_zone_3"] != 0:
-            duration_heart_rate_maximal_zone = workout_inner_data["hr_zone_3"]
-        intensity = None
-        if "intensity" in workout_inner_data and workout_inner_data["intensity"] != 0:
-            intensity = workout_inner_data["intensity"]
-        pause_duration = None
-        if (
-            "pause_duration" in workout_inner_data
-            and workout_inner_data["pause_duration"] != 0
-        ):
-            pause_duration = workout_inner_data["pause_duration"]
-        spo2_average = None
-        if (
-            "spo2_average" in workout_inner_data
-            and workout_inner_data["spo2_average"] != 0
-        ):
-            spo2_average = workout_inner_data["spo2_average"]
-        steps = None
-        if "steps" in workout_inner_data and workout_inner_data["steps"] != 0:
-            steps = workout_inner_data["steps"]
-        manual_intensity = None
-        if workout_inner_data.get("manual_intensity"):
-            manual_intensity = workout_inner_data["manual_intensity"]
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Move the nested workout metrics to the top level.
 
-        return cls(
-            workout_id=workout_data["id"],
-            category=to_enum(
-                WorkoutCategory,
-                workout_data["category"],
-                WorkoutCategory.OTHER,
-            ),
-            attribution=to_enum(
-                MeasurementAttribution,
-                workout_data["attrib"],
-                MeasurementAttribution.UNKNOWN,
-            ),
-            start_date=datetime.fromtimestamp(
-                workout_data["startdate"],
-                tz=UTC,
-            ),
-            end_date=datetime.fromtimestamp(
-                workout_data["enddate"],
-                tz=UTC,
-            ),
-            date=date.fromisoformat(workout_data["date"]),
-            active_calories_burnt=active_calories_burnt,
-            distance=distance,
-            elevation=elevation,
-            average_heart_rate=average_heart_rate,
-            min_heart_rate=min_heart_rate,
-            max_heart_rate=max_heart_rate,
-            duration_heart_rate_light_zone=duration_heart_rate_light_zone,
-            duration_heart_rate_moderate_zone=duration_heart_rate_moderate_zone,
-            duration_heart_rate_intense_zone=duration_heart_rate_intense_zone,
-            duration_heart_rate_maximal_zone=duration_heart_rate_maximal_zone,
-            intensity=intensity,
-            pause_duration=pause_duration,
-            spo2_average=spo2_average,
-            steps=steps,
-            manual_intensity=manual_intensity,
-            average_core_body_temperature=workout_inner_data.get(
-                "core_body_temperature_avg",
-            ),
-            min_core_body_temperature=workout_inner_data.get(
-                "core_body_temperature_min",
-            ),
-            max_core_body_temperature=workout_inner_data.get(
-                "core_body_temperature_max",
-            ),
-            core_body_temperature_status=get_core_body_temperature_status(
-                workout_inner_data.get("core_body_temperature_status"),
-            ),
-        )
+        The API sends 0 for metrics that the device did not record.
+        """
+        return d | {key: value for key, value in d["data"].items() if value != 0}

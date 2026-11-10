@@ -25,6 +25,7 @@ classifiers = [
 ]
 dependencies = [
     "aiohttp>=3.0.0",
+    "mashumaro>=3.23",
     "yarl>=1.6.0",
 ]
 

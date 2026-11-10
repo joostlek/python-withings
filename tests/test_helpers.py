@@ -18,7 +18,9 @@ def test_aggregate_measurements(snapshot: SnapshotAssertion) -> None:
     """Test aggregation."""
     json_file: list[dict[str, Any]] = json.loads(load_fixture("measurement_list.json"))
 
-    measurements = [MeasurementGroup.from_api(measurement) for measurement in json_file]
+    measurements = [
+        MeasurementGroup.from_dict(measurement) for measurement in json_file
+    ]
 
     assert aggregate_measurements(measurements) == snapshot
 
@@ -29,7 +31,9 @@ def test_aggregate_positional_measurements(snapshot: SnapshotAssertion) -> None:
         load_fixture("measurement_positions.json")
     )
 
-    measurements = [MeasurementGroup.from_api(measurement) for measurement in json_file]
+    measurements = [
+        MeasurementGroup.from_dict(measurement) for measurement in json_file
+    ]
 
     aggregation = aggregate_measurements(measurements)
     assert len(aggregation.items()) == 26
@@ -43,7 +47,7 @@ def test_aggregate_sleep_summary(snapshot: SnapshotAssertion) -> None:
     ]["series"]
 
     sleep_summaries = [
-        SleepSummary.from_api(sleep_summary) for sleep_summary in json_file
+        SleepSummary.from_dict(sleep_summary) for sleep_summary in json_file
     ]
 
     assert aggregate_sleep_summary(sleep_summaries) == snapshot
@@ -58,7 +62,7 @@ def test_aggregate_sleep_summary_with_missing_optional_metric() -> None:
         sleep_summary["data"].pop("breathing_disturbances_intensity")
 
     sleep_summaries = [
-        SleepSummary.from_api(sleep_summary) for sleep_summary in json_file
+        SleepSummary.from_dict(sleep_summary) for sleep_summary in json_file
     ]
 
     aggregated_summary = aggregate_sleep_summary(sleep_summaries)
@@ -74,7 +78,7 @@ def test_aggregate_single_sleep_summary(snapshot: SnapshotAssertion) -> None:
         "series"
     ][0]
 
-    sleep_summary = SleepSummary.from_api(json_file)
+    sleep_summary = SleepSummary.from_dict(json_file)
 
     assert aggregate_sleep_summary([sleep_summary]) == snapshot
 

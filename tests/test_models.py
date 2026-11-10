@@ -37,7 +37,7 @@ def test_device_model_name(
     device_data = json.loads(load_fixture("device.json"))["body"]["devices"][0]
     device_data.update(type=device_type, model_id=model_id, model=model)
 
-    device = Device.from_api(device_data)
+    device = Device.from_dict(device_data)
 
     assert device.raw_model == expected_model
     assert device.device_type == device_type
@@ -55,6 +55,8 @@ def test_measurement_parsing(snapshot: SnapshotAssertion, file: str) -> None:
     """Test measurement parsing."""
     json_file: list[dict[str, Any]] = json.loads(load_fixture(file))
 
-    measurements = [MeasurementGroup.from_api(measurement) for measurement in json_file]
+    measurements = [
+        MeasurementGroup.from_dict(measurement) for measurement in json_file
+    ]
 
     assert measurements == snapshot(name=file)

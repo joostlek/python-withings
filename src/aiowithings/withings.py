@@ -149,12 +149,12 @@ class WithingsClient:
     async def get_devices(self) -> list[Device]:
         """Get devices."""
         response = await self._request("v2/user", data={"action": "getdevice"})
-        return [Device.from_api(device) for device in response["devices"]]
+        return [Device.from_dict(device) for device in response["devices"]]
 
     async def get_goals(self) -> Goals:
         """Get goals."""
         response = await self._request("v2/user", data={"action": "getgoals"})
-        return Goals.from_api(response["goals"])
+        return Goals.from_dict(response["goals"])
 
     async def _get_measurements(
         self,
@@ -170,7 +170,7 @@ class WithingsClient:
         while True:
             response = await self._request("measure", data=data)
             measurements.extend(
-                MeasurementGroup.from_api(measurement_group)
+                MeasurementGroup.from_dict(measurement_group)
                 for measurement_group in response["measuregrps"]
             )
             if not response.get("more"):
@@ -223,7 +223,7 @@ class WithingsClient:
             "v2/sleep",
             data=data,
         )
-        return [SleepSeries.from_api(sleep) for sleep in response["series"]]
+        return [SleepSeries.from_dict(sleep) for sleep in response["series"]]
 
     async def _get_sleep_summary(
         self,
@@ -242,7 +242,7 @@ class WithingsClient:
             "v2/sleep",
             data=data,
         )
-        return [SleepSummary.from_api(sleep) for sleep in response["series"]]
+        return [SleepSummary.from_dict(sleep) for sleep in response["series"]]
 
     async def get_sleep_summary_since(
         self,
@@ -284,7 +284,7 @@ class WithingsClient:
         while True:
             response = await self._request("v2/measure", data=data)
             activities.extend(
-                Activity.from_api(activity) for activity in response["activities"]
+                Activity.from_dict(activity) for activity in response["activities"]
             )
             if not response.get("more"):
                 return activities
@@ -326,7 +326,9 @@ class WithingsClient:
         workouts: list[Workout] = []
         while True:
             response = await self._request("v2/measure", data=data)
-            workouts.extend(Workout.from_api(workout) for workout in response["series"])
+            workouts.extend(
+                Workout.from_dict(workout) for workout in response["series"]
+            )
             if not response.get("more"):
                 return workouts
             data["offset"] = response["offset"]
@@ -384,7 +386,7 @@ class WithingsClient:
             data=request_data,
         )
         return [
-            NotificationConfiguration.from_api(config)
+            NotificationConfiguration.from_dict(config)
             for config in response["profiles"]
         ]
 

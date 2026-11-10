@@ -31,11 +31,6 @@ class _WithingsModel(DataClassDictMixin):
             str: pass_through,
         }
 
-    @classmethod
-    def from_api(cls, data: Any) -> Self:
-        """Initialize from the API."""
-        return cls.from_dict(data)
-
 
 def _enum_options[EnumT](
     enum_class: type[EnumT],

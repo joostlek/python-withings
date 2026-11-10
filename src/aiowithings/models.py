@@ -530,6 +530,10 @@ class SleepDataFields(StrEnum):
     HEART_RATE_VARIABILITY = "sdnn_1"
     HEART_RATE_VARIABILITY_2 = "rmssd"
     MOVEMENT_SCORE = "mvt_score"
+    HEART_RATE_VARIABILITY_QUALITY = "hrv_quality"
+    CHEST_MOVEMENT_RATE = "chest_movement_rate"
+    BREATHING_SOUNDS = "breathing_sounds"
+    WITHINGS_INDEX = "withings_index"
 
 
 @dataclass(slots=True)
@@ -554,6 +558,10 @@ class SleepSeries:
     heart_rate_variability: list[SleepSeriesTimeData] | None
     heart_rate_variability_2: list[SleepSeriesTimeData] | None
     movement_score: list[SleepSeriesTimeData] | None
+    heart_rate_variability_quality: list[SleepSeriesTimeData] | None
+    chest_movement_rate: list[SleepSeriesTimeData] | None
+    breathing_sounds: list[SleepSeriesTimeData] | None
+    withings_index: list[SleepSeriesTimeData] | None
 
     @classmethod
     def from_api(cls, sleep_data: dict[str, Any]) -> Self:
@@ -579,7 +587,40 @@ class SleepSeries:
                 sleep_data.get("rmssd"),
             ),
             movement_score=get_sleep_series_time_data_list(sleep_data.get("mvt_score")),
+            heart_rate_variability_quality=get_sleep_series_time_data_list(
+                sleep_data.get("hrv_quality"),
+            ),
+            chest_movement_rate=get_sleep_series_time_data_list(
+                sleep_data.get("chest_movement_rate"),
+            ),
+            breathing_sounds=get_sleep_series_time_data_list(
+                sleep_data.get("breathing_sounds"),
+            ),
+            withings_index=get_sleep_series_time_data_list(
+                sleep_data.get("withings_index"),
+            ),
         )
+
+
+class CoreBodyTemperatureStatus(StrEnum):
+    """Enum representing the core body temperature status."""
+
+    UNKNOWN = "unknown"
+    USUAL = "usual"
+    ELEVATED = "elevated"
+
+
+def get_core_body_temperature_status(
+    status: str | None,
+) -> CoreBodyTemperatureStatus | None:
+    """Convert the core body temperature status, if present."""
+    if status is None:
+        return None
+    return to_enum(
+        CoreBodyTemperatureStatus,
+        status,
+        CoreBodyTemperatureStatus.UNKNOWN,
+    )
 
 
 class SleepSummaryDataFields(StrEnum):
@@ -597,6 +638,15 @@ class SleepSummaryDataFields(StrEnum):
     # Sleep apnea and breathing disturbances
     APNEA_HYPOPNEA_INDEX = "apnea_hypopnea_index"
     BREATHING_DISTURBANCES_INTENSITY = "breathing_disturbances_intensity"
+    BREATHING_QUALITY_ASSESSMENT = "breathing_quality_assessment"
+    BREATHING_SOUNDS = "breathing_sounds"
+    BREATHING_SOUNDS_COUNT = "breathing_sounds_episode_count"
+    AVERAGE_CHEST_MOVEMENT_RATE = "chest_movement_rate_average"
+    MIN_CHEST_MOVEMENT_RATE = "chest_movement_rate_min"
+    MAX_CHEST_MOVEMENT_RATE = "chest_movement_rate_max"
+    AVERAGE_CHEST_MOVEMENT_RATE_WELLNESS = "chest_movement_rate_wellness_average"
+    MIN_CHEST_MOVEMENT_RATE_WELLNESS = "chest_movement_rate_wellness_min"
+    MAX_CHEST_MOVEMENT_RATE_WELLNESS = "chest_movement_rate_wellness_max"
 
     # Other sleep datapoints and vitals
     EXTERNAL_TOTAL_SLEEP_TIME = "asleepduration"
@@ -619,6 +669,12 @@ class SleepSummaryDataFields(StrEnum):
     WAKE_UP_COUNT = "wakeupcount"
     TOTAL_TIME_AWAKE = "wakeupduration"
     WITHINGS_INDEX = "withings_index"
+    AVERAGE_CORE_BODY_TEMPERATURE = "core_body_temperature_avg"
+    MIN_CORE_BODY_TEMPERATURE = "core_body_temperature_min"
+    MAX_CORE_BODY_TEMPERATURE = "core_body_temperature_max"
+    CORE_BODY_TEMPERATURE_STATUS = "core_body_temperature_status"
+    AVERAGE_HEART_RATE_VARIABILITY_START = "rmssd_start_avg"
+    AVERAGE_HEART_RATE_VARIABILITY_END = "rmssd_end_avg"
 
 
 @dataclass(slots=True)
@@ -657,6 +713,21 @@ class SleepSummary:
     total_time_awake: int | None
     time_awake_during_sleep: int | None
     withings_index: int | None
+    breathing_quality_assessment: int | None
+    breathing_sounds: int | None
+    breathing_sounds_count: int | None
+    average_chest_movement_rate: int | None
+    min_chest_movement_rate: int | None
+    max_chest_movement_rate: int | None
+    average_chest_movement_rate_wellness: int | None
+    min_chest_movement_rate_wellness: int | None
+    max_chest_movement_rate_wellness: int | None
+    average_core_body_temperature: float | None
+    min_core_body_temperature: float | None
+    max_core_body_temperature: float | None
+    core_body_temperature_status: CoreBodyTemperatureStatus | None
+    average_heart_rate_variability_start: float | None
+    average_heart_rate_variability_end: float | None
 
     @classmethod
     def from_api(cls, sleep_data: dict[str, Any]) -> Self:
@@ -702,6 +773,43 @@ class SleepSummary:
             total_time_awake=sleep_data["data"].get("wakeupduration"),
             time_awake_during_sleep=sleep_data["data"].get("waso"),
             withings_index=sleep_data["data"].get("withings_index"),
+            breathing_quality_assessment=sleep_data["data"].get(
+                "breathing_quality_assessment"
+            ),
+            breathing_sounds=sleep_data["data"].get("breathing_sounds"),
+            breathing_sounds_count=sleep_data["data"].get(
+                "breathing_sounds_episode_count"
+            ),
+            average_chest_movement_rate=sleep_data["data"].get(
+                "chest_movement_rate_average"
+            ),
+            min_chest_movement_rate=sleep_data["data"].get("chest_movement_rate_min"),
+            max_chest_movement_rate=sleep_data["data"].get("chest_movement_rate_max"),
+            average_chest_movement_rate_wellness=sleep_data["data"].get(
+                "chest_movement_rate_wellness_average"
+            ),
+            min_chest_movement_rate_wellness=sleep_data["data"].get(
+                "chest_movement_rate_wellness_min"
+            ),
+            max_chest_movement_rate_wellness=sleep_data["data"].get(
+                "chest_movement_rate_wellness_max"
+            ),
+            average_core_body_temperature=sleep_data["data"].get(
+                "core_body_temperature_avg"
+            ),
+            min_core_body_temperature=sleep_data["data"].get(
+                "core_body_temperature_min"
+            ),
+            max_core_body_temperature=sleep_data["data"].get(
+                "core_body_temperature_max"
+            ),
+            core_body_temperature_status=get_core_body_temperature_status(
+                sleep_data["data"].get("core_body_temperature_status"),
+            ),
+            average_heart_rate_variability_start=sleep_data["data"].get(
+                "rmssd_start_avg"
+            ),
+            average_heart_rate_variability_end=sleep_data["data"].get("rmssd_end_avg"),
         )
 
 
@@ -978,6 +1086,7 @@ class WorkoutDataFields(StrEnum):
 
     CALORIES = "calories"
     INTENSITY = "intensity"
+    MANUAL_INTENSITY = "manual_intensity"
     MANUAL_DISTANCE = "manual_distance"
     MANUAL_CALORIES = "manual_calories"
     AVERAGE_HEART_RATE = "hr_average"
@@ -996,6 +1105,10 @@ class WorkoutDataFields(StrEnum):
     POOL_LAPS = "pool_laps"
     STROKES = "strokes"
     POOL_LENGTH = "pool_length"
+    AVERAGE_CORE_BODY_TEMPERATURE = "core_body_temperature_avg"
+    MIN_CORE_BODY_TEMPERATURE = "core_body_temperature_min"
+    MAX_CORE_BODY_TEMPERATURE = "core_body_temperature_max"
+    CORE_BODY_TEMPERATURE_STATUS = "core_body_temperature_status"
 
 
 @dataclass(slots=True)
@@ -1023,6 +1136,11 @@ class Workout:
     pause_duration: int | None
     spo2_average: int | None
     steps: int | None
+    manual_intensity: int | None
+    average_core_body_temperature: float | None
+    min_core_body_temperature: float | None
+    max_core_body_temperature: float | None
+    core_body_temperature_status: CoreBodyTemperatureStatus | None
 
     @classmethod
     # pylint: disable-next=too-many-branches,too-many-locals
@@ -1077,6 +1195,9 @@ class Workout:
         steps = None
         if "steps" in workout_inner_data and workout_inner_data["steps"] != 0:
             steps = workout_inner_data["steps"]
+        manual_intensity = None
+        if workout_inner_data.get("manual_intensity"):
+            manual_intensity = workout_inner_data["manual_intensity"]
 
         return cls(
             workout_id=workout_data["id"],
@@ -1113,4 +1234,17 @@ class Workout:
             pause_duration=pause_duration,
             spo2_average=spo2_average,
             steps=steps,
+            manual_intensity=manual_intensity,
+            average_core_body_temperature=workout_inner_data.get(
+                "core_body_temperature_avg",
+            ),
+            min_core_body_temperature=workout_inner_data.get(
+                "core_body_temperature_min",
+            ),
+            max_core_body_temperature=workout_inner_data.get(
+                "core_body_temperature_max",
+            ),
+            core_body_temperature_status=get_core_body_temperature_status(
+                workout_inner_data.get("core_body_temperature_status"),
+            ),
         )

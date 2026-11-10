@@ -36,7 +36,22 @@
                     "snoring": 1080,
                     "snoringepisodecount": 18,
                     "sleep_score": 37,
-                    "apnea_hypopnea_index": 9
+                    "apnea_hypopnea_index": 9,
+                    "breathing_quality_assessment": 1,
+                    "breathing_sounds": 600,
+                    "breathing_sounds_episode_count": 3,
+                    "chest_movement_rate_average": 14,
+                    "chest_movement_rate_min": 11,
+                    "chest_movement_rate_max": 19,
+                    "chest_movement_rate_wellness_average": 15,
+                    "chest_movement_rate_wellness_min": 12,
+                    "chest_movement_rate_wellness_max": 18,
+                    "core_body_temperature_avg": 36.8,
+                    "core_body_temperature_min": 36.4,
+                    "core_body_temperature_max": 37.1,
+                    "core_body_temperature_status": "usual",
+                    "rmssd_start_avg": 42.5,
+                    "rmssd_end_avg": 48.0
                 },
                 "created": 1620237476,
                 "modified": 1620237476

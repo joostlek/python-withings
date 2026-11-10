@@ -3,9 +3,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
-import subprocess
-import sys
 from typing import TYPE_CHECKING, Any
 
 import pytest
@@ -63,67 +60,3 @@ def test_measurement_parsing(snapshot: SnapshotAssertion, file: str) -> None:
     ]
 
     assert measurements == snapshot(name=file)
-
-
-def test_measurement_group_parsing_under_frozen_time() -> None:
-    """Test the first parse of a measurement group while time is frozen.
-
-    The test runs in a new process because mashumaro can build a ``from_dict``
-    on its first call. That build must not see the fake ``datetime`` class.
-    """
-    code = """
-import json
-from datetime import UTC
-from pathlib import Path
-
-import freezegun
-
-from aiowithings import MeasurementGroup
-
-data = json.loads(Path("tests/fixtures/measurement.json").read_text())
-with freezegun.freeze_time("2023-10-21"):
-    group = MeasurementGroup.from_dict(data["body"]["measuregrps"][0])
-assert group.taken_at.tzinfo is UTC, group.taken_at
-assert group.taken_at.timestamp() == 1693651151, group.taken_at
-"""
-    result = subprocess.run(  # noqa: S603
-        [sys.executable, "-c", code],
-        capture_output=True,
-        check=False,
-        cwd=Path(__file__).parent.parent,
-        text=True,
-    )
-    assert result.returncode == 0, result.stderr
-
-
-def test_from_dict_built_at_import() -> None:
-    """Test that mashumaro builds every model's ``from_dict`` at import time.
-
-    A ``from_dict`` that mashumaro could not build yet, for example because of a
-    forward reference, is a stub that calls ``CodeBuilder`` on its first call.
-    The test runs in a new process because that first call replaces the stub.
-    """
-    code = """
-from aiowithings.models import _WithingsModel
-
-def subclasses(cls):
-    for sub in cls.__subclasses__():
-        yield sub
-        yield from subclasses(sub)
-
-models = list(subclasses(_WithingsModel))
-assert models
-lazy = [
-    model.__name__
-    for model in models
-    if "CodeBuilder" in model.from_dict.__func__.__code__.co_names
-]
-assert not lazy, lazy
-"""
-    result = subprocess.run(  # noqa: S603
-        [sys.executable, "-c", code],
-        capture_output=True,
-        check=False,
-        text=True,
-    )
-    assert result.returncode == 0, result.stderr

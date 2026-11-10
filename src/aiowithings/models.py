@@ -227,34 +227,6 @@ class MeasurementGroupCategory(IntEnum):
     USER_OBJECTIVES = 2
 
 
-@dataclass(slots=True)
-class MeasurementGroup(_WithingsModel):
-    """Model for a measurement group."""
-
-    group_id: int = field(metadata=field_options(alias="grpid"))
-    attribution: MeasurementAttribution = field(
-        metadata=_enum_options(
-            MeasurementAttribution, MeasurementAttribution.UNKNOWN, "attrib"
-        )
-    )
-    taken_at: datetime = field(metadata=field_options(alias="date"))
-    stored_at: datetime = field(metadata=field_options(alias="created"))
-    updated_at: datetime = field(metadata=field_options(alias="modified"))
-    category: MeasurementGroupCategory = field(
-        metadata=_enum_options(
-            MeasurementGroupCategory, MeasurementGroupCategory.UNKNOWN
-        )
-    )
-    device_id: str = field(metadata=field_options(alias="deviceid"))
-    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
-    measurements: list[Measurement] = field(metadata=field_options(alias="measures"))
-
-    @classmethod
-    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
-        """Map attributions 8 and 17 to the enum values they belong to."""
-        return d | {"attrib": {8: 0, 17: 15}.get(d["attrib"], d["attrib"])}
-
-
 class MeasurementType(IntEnum):
     """Measurement types."""
 
@@ -347,6 +319,34 @@ class Measurement(_WithingsModel):
     def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
         """Apply the unit exponent to the value."""
         return d | {"value": get_measurement_from_dict(d)}
+
+
+@dataclass(slots=True)
+class MeasurementGroup(_WithingsModel):
+    """Model for a measurement group."""
+
+    group_id: int = field(metadata=field_options(alias="grpid"))
+    attribution: MeasurementAttribution = field(
+        metadata=_enum_options(
+            MeasurementAttribution, MeasurementAttribution.UNKNOWN, "attrib"
+        )
+    )
+    taken_at: datetime = field(metadata=field_options(alias="date"))
+    stored_at: datetime = field(metadata=field_options(alias="created"))
+    updated_at: datetime = field(metadata=field_options(alias="modified"))
+    category: MeasurementGroupCategory = field(
+        metadata=_enum_options(
+            MeasurementGroupCategory, MeasurementGroupCategory.UNKNOWN
+        )
+    )
+    device_id: str = field(metadata=field_options(alias="deviceid"))
+    hashed_device_id: str = field(metadata=field_options(alias="hash_deviceid"))
+    measurements: list[Measurement] = field(metadata=field_options(alias="measures"))
+
+    @classmethod
+    def __pre_deserialize__(cls, d: dict[str, Any]) -> dict[str, Any]:
+        """Map attributions 8 and 17 to the enum values they belong to."""
+        return d | {"attrib": {8: 0, 17: 15}.get(d["attrib"], d["attrib"])}
 
 
 class NotificationCategory(IntEnum):

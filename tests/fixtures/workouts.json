@@ -29,7 +29,12 @@
                     "distance": 680,
                     "elevation": 10,
                     "algo_pause_duration": null,
-                    "spo2_average": 15
+                    "spo2_average": 15,
+                    "manual_intensity": 60,
+                    "core_body_temperature_avg": 37.4,
+                    "core_body_temperature_min": 36.9,
+                    "core_body_temperature_max": 38.0,
+                    "core_body_temperature_status": "elevated"
                 },
                 "modified": 1693481873
             },

@@ -38,6 +38,7 @@ class DeviceModel(IntEnum):
     BODY_SCALE = 14
     BODY_COMP_2 = 15
     BODY_SMART = 16
+    BODY_PRO_2 = 17
     BODY_COMP = 18
     BODY_SCAN_2 = 19
     BODY_FIT = 20

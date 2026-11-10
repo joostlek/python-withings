@@ -182,7 +182,7 @@
     'breathing_quality_assessment': 1,
     'breathing_sounds': 600,
     'breathing_sounds_count': 3,
-    'core_body_temperature_status': 'usual',
+    'core_body_temperature_status': <CoreBodyTemperatureStatus.USUAL: 'usual'>,
     'date': datetime.date(2021, 4, 18),
     'deep_sleep_duration': 5820,
     'end_date': datetime.datetime(2021, 4, 18, 2, 32, 53, tzinfo=datetime.timezone.utc),

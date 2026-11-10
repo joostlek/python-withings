@@ -593,6 +593,27 @@ class SleepSeries:
         )
 
 
+class CoreBodyTemperatureStatus(StrEnum):
+    """Enum representing the core body temperature status."""
+
+    UNKNOWN = "unknown"
+    USUAL = "usual"
+    ELEVATED = "elevated"
+
+
+def get_core_body_temperature_status(
+    status: str | None,
+) -> CoreBodyTemperatureStatus | None:
+    """Convert the core body temperature status, if present."""
+    if status is None:
+        return None
+    return to_enum(
+        CoreBodyTemperatureStatus,
+        status,
+        CoreBodyTemperatureStatus.UNKNOWN,
+    )
+
+
 class SleepSummaryDataFields(StrEnum):
     """Enum representing the sleep summary data fields."""
 
@@ -695,7 +716,7 @@ class SleepSummary:
     average_core_body_temperature: float | None
     min_core_body_temperature: float | None
     max_core_body_temperature: float | None
-    core_body_temperature_status: str | None
+    core_body_temperature_status: CoreBodyTemperatureStatus | None
     average_heart_rate_variability_start: float | None
     average_heart_rate_variability_end: float | None
 
@@ -773,8 +794,8 @@ class SleepSummary:
             max_core_body_temperature=sleep_data["data"].get(
                 "core_body_temperature_max"
             ),
-            core_body_temperature_status=sleep_data["data"].get(
-                "core_body_temperature_status"
+            core_body_temperature_status=get_core_body_temperature_status(
+                sleep_data["data"].get("core_body_temperature_status"),
             ),
             average_heart_rate_variability_start=sleep_data["data"].get(
                 "rmssd_start_avg"
@@ -1000,7 +1021,7 @@ class Workout:
     average_core_body_temperature: float | None
     min_core_body_temperature: float | None
     max_core_body_temperature: float | None
-    core_body_temperature_status: str | None
+    core_body_temperature_status: CoreBodyTemperatureStatus | None
 
     @classmethod
     # pylint: disable-next=too-many-branches,too-many-locals
@@ -1104,7 +1125,7 @@ class Workout:
             max_core_body_temperature=workout_inner_data.get(
                 "core_body_temperature_max",
             ),
-            core_body_temperature_status=workout_inner_data.get(
-                "core_body_temperature_status",
+            core_body_temperature_status=get_core_body_temperature_status(
+                workout_inner_data.get("core_body_temperature_status"),
             ),
         )
